@@ -112,15 +112,38 @@ def _txt(el, nome):
     return ""
 
 
-def avisos_inmet(cod_ibge: str, cache: dict | None = None, filtro_area: str = "Paran") -> list[dict]:
-    """Avisos ativos do INMET que incluem o município (pelo código IBGE no CAP).
+def _poligonos(cap, max_pontos: int = 400) -> list[list[list[float]]]:
+    """Áreas do aviso no CAP ("lat,lon lat,lon ..."), simplificadas para caber na página."""
+    saida = []
+    for el in cap.iter():
+        if _NS.sub("", el.tag) != "polygon" or not (el.text or "").strip():
+            continue
+        pts = []
+        for par in el.text.split():
+            try:
+                la, lo = par.split(",")
+                pts.append([round(float(la), 3), round(float(lo), 3)])
+            except ValueError:
+                continue
+        if len(pts) > max_pontos:
+            passo = math.ceil(len(pts) / max_pontos)
+            pts = pts[::passo]
+        if len(pts) >= 3:
+            saida.append(pts)
+    return saida
 
-    Para poupar o servidor do INMET, só abre o CAP de avisos cuja área cita o Paraná,
-    e guarda em `cache` ({id: aviso ou None}) o resultado de avisos já verificados.
+
+def avisos_inmet(cod_ibge: str, cache: dict | None = None, filtro_area: str = "Paran",
+                 estado: str = "Paraná") -> tuple[list[dict], list[dict]]:
+    """Avisos ativos do INMET.
+
+    Retorna (avisos que incluem o município pelo código IBGE, avisos do estado com as áreas desenhadas).
+    Para poupar o servidor do INMET, só abre o CAP de avisos cuja área cita o Paraná e guarda em
+    `cache` ({id: None ou {"aviso", "inclui", "poligonos"}}) o que já foi verificado.
     """
     cache = {} if cache is None else cache
     raiz = ET.fromstring(_get(RSS_INMET))
-    avisos, vistos = [], set()
+    do_municipio, do_estado, vistos = [], [], set()
     for item in raiz.iter("item"):
         link = (item.findtext("link") or "").strip()
         titulo = (item.findtext("title") or "").strip()
@@ -129,40 +152,49 @@ def avisos_inmet(cod_ibge: str, cache: dict | None = None, filtro_area: str = "P
             continue
         aid = link.rstrip("/").split("/")[-1]
         vistos.add(aid)
-        if aid in cache:
-            if cache[aid]:
-                avisos.append(cache[aid])
+        if aid not in cache:
+            if filtro_area and filtro_area not in desc:
+                cache[aid] = None
+                continue
+            try:
+                cap = ET.fromstring(_get(link, tentativas=2, timeout=30))
+            except Exception:  # noqa: BLE001
+                continue
+            municipios, estados = "", ""
+            for par in cap.iter():
+                if _NS.sub("", par.tag) == "parameter":
+                    nome = _txt(par, "valueName")
+                    if nome == "Municipios":
+                        municipios = _txt(par, "value")
+                    elif nome == "Estados":
+                        estados = _txt(par, "value")
+            if estado and estado not in estados:
+                cache[aid] = None
+                continue
+            cache[aid] = {
+                "aviso": {
+                    "id": aid,
+                    "titulo": titulo,
+                    "evento": _txt(cap, "event"),
+                    "severidade": _txt(cap, "severity"),
+                    "inicio": _txt(cap, "onset"),
+                    "fim": _txt(cap, "expires"),
+                    "descricao": _txt(cap, "description")[:400],
+                    "link": f"https://avisos.inmet.gov.br/{aid}",
+                },
+                "inclui": f"({cod_ibge})" in municipios,
+                "poligonos": _poligonos(cap),
+            }
+        entrada = cache[aid]
+        if not entrada:
             continue
-        if filtro_area and filtro_area not in desc:
-            cache[aid] = None
-            continue
-        try:
-            cap = ET.fromstring(_get(link, tentativas=2, timeout=30))
-        except Exception:  # noqa: BLE001
-            continue
-        municipios = ""
-        for par in cap.iter():
-            if _NS.sub("", par.tag) == "parameter" and _txt(par, "valueName") == "Municipios":
-                municipios = _txt(par, "value")
-        if f"({cod_ibge})" not in municipios:
-            cache[aid] = None
-            continue
-        aviso = {
-            "id": link.rstrip("/").split("/")[-1],
-            "titulo": titulo,
-            "evento": _txt(cap, "event"),
-            "severidade": _txt(cap, "severity"),
-            "inicio": _txt(cap, "onset"),
-            "fim": _txt(cap, "expires"),
-            "descricao": _txt(cap, "description")[:400],
-            "link": f"https://avisos.inmet.gov.br/{aid}",
-        }
-        cache[aid] = aviso
-        avisos.append(aviso)
+        if entrada["inclui"]:
+            do_municipio.append(entrada["aviso"])
+        do_estado.append({**entrada["aviso"], "poligonos": entrada["poligonos"]})
     for aid in list(cache):  # esquece avisos que saíram do feed
         if aid not in vistos:
             del cache[aid]
-    return avisos
+    return do_municipio, do_estado
 
 
 def aviso_na_janela(avisos: list[dict], ini: datetime, fim: datetime) -> dict | None:

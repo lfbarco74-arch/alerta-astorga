@@ -46,13 +46,15 @@ def fake_ens(ponto, modelo, fuso, dias=3):
     return HORAS, [serie(esticar(NOV02))] * 35 + [calmo(N)] * 16
 
 
-def fake_inmet(cod, cache=None, filtro_area="Paran"):
+def fake_inmet(cod, cache=None, filtro_area="Paran", estado="Paraná"):
     ini = agora - timedelta(hours=3)
-    return [{"id": "56999", "titulo": "Aviso de Tempestade. Severidade Grau: Perigo Potencial",
+    av = [{"id": "56999", "titulo": "Aviso de Tempestade. Severidade Grau: Perigo Potencial",
              "evento": "Tempestade", "severidade": "Moderate", "inicio": ini.isoformat(),
              "fim": (ini + timedelta(hours=20)).isoformat(),
              "descricao": "Chuva entre 20 e 30 mm/h ou até 50 mm/dia, ventos intensos (40-60 km/h), e queda de granizo.",
              "link": "https://avisos.inmet.gov.br/56999"}]
+    poli = [[[-22.8, -52.3], [-22.8, -51.0], [-23.8, -51.0], [-23.8, -52.3]]]
+    return av, [{**av[0], "poligonos": poli}]
 
 
 fontes.modelos_deterministicos = fake_det

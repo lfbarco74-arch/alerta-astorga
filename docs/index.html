@@ -65,6 +65,17 @@
   .seg button+button{border-left:1px solid var(--line)}
   .seg button.on{background:var(--ink);color:var(--bg);font-weight:600}
   @media (max-width:900px){.topo{grid-template-columns:1fr}}
+  .maptabs{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+  #windy{position:relative}
+  #windy iframe{width:100%;height:min(560px,62vh);min-height:340px;border:0;border-radius:10px;display:block}
+  .wchips{margin-bottom:8px;flex-wrap:wrap}
+  .ponto{border-width:2px}
+  .ponto .nivel{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;line-height:1.1;color:var(--c)}
+  .ponto .quando{margin-top:2px}
+  .ponto-topo{display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .ponto-nome{font-weight:700;font-size:1.05rem;margin:2px 0 4px}
+  button.link{background:none;border:0;color:var(--muted);font:inherit;font-size:.85rem;cursor:pointer;text-decoration:underline;padding:0}
+  .leaflet-container{cursor:crosshair}
   .alerta-dados{background:var(--n2bg);border:1px solid var(--n2);padding:10px 12px;border-radius:10px;margin-bottom:14px;display:none}
   details summary{cursor:pointer;font-weight:600}
   a{color:inherit}
@@ -82,7 +93,24 @@
 
   <div class="topo">
     <section class="card mapa-card">
+    <div class="maptabs">
+      <div class="seg" role="tablist" aria-label="Tipo de mapa">
+        <button type="button" data-t="risco" class="on">Mapa de risco</button>
+        <button type="button" data-t="windy">Windy</button>
+      </div>
+      <span class="small muted" id="dica">Toque em qualquer ponto do Paraná para ver a previsão daquele local.</span>
+    </div>
     <div id="mapa"></div>
+    <div id="windy" hidden>
+      <div class="seg wchips" role="group" aria-label="Camada do Windy">
+        <button type="button" data-o="wind" class="on">Vento</button>
+        <button type="button" data-o="gust">Rajadas</button>
+        <button type="button" data-o="rain">Chuva</button>
+        <button type="button" data-o="cape">Instabilidade (CAPE)</button>
+        <button type="button" data-o="radar">Radar</button>
+      </div>
+      <iframe id="windy-frame" title="Mapa Windy" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
     <div class="legenda small">
       <span><span class="sw" style="background:var(--n0)"></span>Normal</span>
       <span><span class="sw" style="background:var(--n1)"></span>Atenção</span>
@@ -96,7 +124,19 @@
     </section>
 
     <aside class="lado">
+      <section class="card ponto lvl l0" id="ponto" hidden>
+        <div class="ponto-topo"><span class="small muted">Previsão para o ponto escolhido</span>
+          <button type="button" class="link" id="ponto-fechar">Voltar para Astorga ✕</button></div>
+        <div class="ponto-nome" id="ponto-nome">—</div>
+        <div class="nivel" id="ponto-nivel">Analisando…</div>
+        <div class="quando" id="ponto-quando"></div>
+        <div class="chips" id="ponto-perigos"></div>
+        <div class="small muted" id="ponto-motivos"></div>
+        <div class="jans" id="ponto-janelas" style="margin-top:10px"></div>
+        <div class="small muted" id="ponto-nota" style="margin-top:8px"></div>
+      </section>
       <section class="card hero lvl" id="hero">
+        <div class="small muted">Astorga · alerta</div>
         <div class="nivel" id="hero-nivel">—</div>
         <div class="quando" id="hero-quando"></div>
         <div class="chips" id="hero-perigos"></div>
@@ -163,6 +203,7 @@
 </main>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="indice.js"></script>
 <script>
 const NOMES = ["Normal","Atenção","Alerta","Severo"];
 const IMPACTO = {
@@ -215,8 +256,8 @@ function render(s){
       <span class="small">${w.nivel > 0 && w.perigos.length ? esc(w.perigos.join(", ")) : "&nbsp;"}</span>
     </div>`).join("");
 
-  SERIE = s.serie_horaria || [];
-  grafico();
+  STATUS = s;
+  if (!PONTO){ SERIE = s.serie_horaria || []; ROTULO_SERIE = "Astorga"; grafico(); }
   mapa(s);
 
   $("locais").querySelector("tbody").innerHTML = (s.localidades||[]).map(l => `
@@ -252,7 +293,7 @@ function render(s){
   $("ingredientes").innerHTML = ing + `<p class="muted">Índice = √(2·CAPE) × cisalhamento (WMAXSHEAR). Acima de 500 = atenção; 800 = alerta; 1200 = severo, desde que haja tempestade simulada em Astorga ou na região a montante.</p>`;
 }
 
-let SERIE = [], HORAS_GRAF = 24;
+let SERIE = [], HORAS_GRAF = 24, ROTULO_SERIE = "Astorga", STATUS = null, PONTO = null;
 document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
   HORAS_GRAF = +b.dataset.h;
   document.querySelectorAll(".seg button").forEach(x => x.classList.toggle("on", x === b));
@@ -261,7 +302,7 @@ document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click"
 
 function grafico(){
   const serie = SERIE.slice(0, HORAS_GRAF);
-  $("graf-titulo").textContent = `Potencial de tempestade — próximas ${HORAS_GRAF} horas`;
+  $("graf-titulo").textContent = `Potencial de tempestade em ${ROTULO_SERIE} — próximas ${HORAS_GRAF} horas`;
   if (!serie.length){ $("grafico").innerHTML = '<p class="muted small">Sem dados de modelo.</p>'; return; }
   const W = 1100, H = 230, pad = {l:62, r:8, t:18, b:30};
   const max = Math.max(1400, ...serie.map(p => p.wmaxshear || 0));
@@ -289,7 +330,7 @@ function grafico(){
 }
 
 const COR = ["#2f8f5b","#d9a400","#e06a12","#c62828"];
-let M = null, camadas = null;
+let M = null, camadas = null, camadaPonto = null;
 
 function destino(lat, lon, rumo, km){
   const r = rumo * Math.PI / 180;
@@ -322,6 +363,8 @@ async function iniciarMapa(){
     extras["Limite de Astorga"] = L.geoJSON(g, {style:{color: escuro ? "#f1ede6" : "#1d1b18", weight:2, fill:false, dashArray:"5 4"}}).addTo(M);
   }catch(e){}
   if (Object.keys(extras).length) L.control.layers(null, extras, {collapsed:true}).addTo(M);
+  camadaPonto = L.layerGroup().addTo(M);
+  M.on("click", e => analisarPonto(e.latlng.lat, e.latlng.lng));
   return true;
 }
 
@@ -353,6 +396,195 @@ async function mapa(s){
       .bindPopup(`<b>${esc(l.nome)}</b><br>${NOMES[l.nivel_modelos]}${l.nivel_modelos > 0 ? "<br>" + esc(IMPACTO[l.perfil]) : ""}`);
   });
 }
+
+/* ---------- previsão para qualquer ponto do Paraná (roda no navegador) ---------- */
+const PR = {latMin:-26.75, latMax:-22.45, lonMin:-54.65, lonMax:-47.95};
+const ASTORGA = [-23.2325, -51.6656];
+const VARS = ["cape","precipitation","weather_code","wind_gusts_10m","freezing_level_height","wind_speed_10m",
+  "wind_direction_10m","wind_speed_500hPa","wind_direction_500hPa","wind_direction_700hPa"];
+const LIM_PADRAO = {wmaxshear_atencao:500, wmaxshear_alerta:800, wmaxshear_severo:1200, wmaxshear_sem_gatilho:1000,
+  cape_minimo:250, gatilho_precip_mm_h:5, gatilho_weather_code:95, cisalhamento_organizado_ms:12.5, cape_granizo:1500,
+  isoterma_zero_granizo_grande_m:4000, chuva_intensa_mm_h:15, prob_ensemble_eleva:0.5};
+const JANELAS = [[0,6,"Próximas 6 horas"],[6,24,"De 6 a 24 horas"],[24,48,"Amanhã (24-48 h)"]];
+
+function distKm(a, b){
+  const r = Math.PI/180, dlat = (b[0]-a[0])*r, dlon = (b[1]-a[1])*r;
+  const h = Math.sin(dlat/2)**2 + Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dlon/2)**2;
+  return 12742 * Math.asin(Math.sqrt(h));
+}
+function serieDe(h, suf){
+  const g = v => h[v + suf] || [];
+  return {cape:g("cape"), v10:g("wind_speed_10m"), d10:g("wind_direction_10m"), v500:g("wind_speed_500hPa"),
+    d500:g("wind_direction_500hPa"), precip:g("precipitation"), wcode:g("weather_code"), rajada:g("wind_gusts_10m"),
+    isoterma0:g("freezing_level_height"), d700:g("wind_direction_700hPa")};
+}
+const temDados = s => s.cape.some(x => x !== null) && s.v500.some(x => x !== null);
+const fatiar = (s, k) => Object.fromEntries(Object.entries(s).map(([c, v]) => [c, v.slice(k)]));
+
+let pedidoAtual = 0;
+async function analisarPonto(lat, lon){
+  if (lat < PR.latMin || lat > PR.latMax || lon < PR.lonMin || lon > PR.lonMax){
+    L.popup().setLatLng([lat, lon]).setContent("A previsão por ponto está disponível para o Paraná.").openOn(M);
+    return;
+  }
+  const meu = ++pedidoAtual;
+  PONTO = {lat, lon};
+  const card = $("ponto"); card.hidden = false; card.className = "card ponto lvl l0";
+  $("ponto-nome").textContent = `${lat.toFixed(3)}, ${lon.toFixed(3)}`;
+  $("ponto-nivel").textContent = "Analisando…";
+  ["ponto-quando","ponto-perigos","ponto-motivos","ponto-janelas","ponto-nota"].forEach(id => $(id).innerHTML = "");
+  camadaPonto.clearLayers();
+  L.circleMarker([lat, lon], {radius:9, color:"#fff", weight:3, fillColor:"#3b82f6", fillOpacity:1}).addTo(camadaPonto);
+  if (window.matchMedia("(max-width:900px)").matches) card.scrollIntoView({behavior:"smooth", block:"start"});
+
+  // nome do lugar (não bloqueia a análise)
+  fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}&zoom=10&accept-language=pt-BR`)
+    .then(r => r.json()).then(j => {
+      if (meu !== pedidoAtual) return;
+      const a = j.address || {};
+      const nome = a.city || a.town || a.village || a.municipality || a.county;
+      if (nome){ $("ponto-nome").textContent = nome; PONTO.nome = nome; if (ROTULO_SERIE !== "Astorga"){ ROTULO_SERIE = nome; grafico(); } }
+    }).catch(() => {});
+
+  const lim = (STATUS && STATUS.limiares) || LIM_PADRAO;
+  const modelos = (STATUS && STATUS.modelos) || ["ecmwf_ifs025","gfs_seamless","icon_seamless","gem_seamless"];
+  const ac = (STATUS && STATUS.anel_regional) || {raio_km:60, pontos:8, abertura_graus:60};
+  const anelPts = Indice.anel(lat, lon, ac.raio_km, ac.pontos);
+  const pts = [{id:"ponto", lat, lon}, ...anelPts];
+  try{
+    const q = new URLSearchParams({latitude: pts.map(p => p.lat).join(","), longitude: pts.map(p => p.lon).join(","),
+      hourly: VARS.join(","), models: modelos.join(","), forecast_days: 3, timezone: "America/Sao_Paulo"});
+    const qe = new URLSearchParams({latitude: lat, longitude: lon, models: (STATUS && STATUS.ensemble_modelo) || "ecmwf_ifs025",
+      hourly: "cape,wind_speed_10m,wind_direction_10m,wind_speed_500hPa,wind_direction_500hPa", forecast_days: 3, timezone: "America/Sao_Paulo"});
+    const [det, ens] = await Promise.all([
+      fetch("https://api.open-meteo.com/v1/forecast?" + q).then(r => r.json()),
+      fetch("https://ensemble-api.open-meteo.com/v1/ensemble?" + qe).then(r => r.json()).catch(() => null)]);
+    if (meu !== pedidoAtual) return;
+    const lista = Array.isArray(det) ? det : [det];
+    if (!lista[0] || !lista[0].hourly) throw new Error((det && det.reason) || "sem dados");
+    const horas = lista[0].hourly.time;
+    const agoraLocal = new Date(Date.now() + lista[0].utc_offset_seconds*1000).toISOString().slice(0,13) + ":00";
+    const i0 = Math.max(0, horas.indexOf(agoraLocal));
+    const porPonto = {};
+    pts.forEach((p, k) => {
+      porPonto[p.id] = {};
+      modelos.forEach(m => { const s = serieDe(lista[k].hourly, modelos.length > 1 ? "_" + m : ""); if (temDados(s)) porPonto[p.id][m] = s; });
+    });
+    const local = {ponto: porPonto.ponto};
+    if (!Object.keys(local.ponto).length) throw new Error("nenhum modelo com dados para este ponto");
+
+    // ensemble alinhado à hora atual
+    let membros = null;
+    if (ens && ens.hourly){
+      const h = ens.hourly, k0 = h.time.indexOf(horas[i0]);
+      if (k0 >= 0){
+        const sufs = [""].concat([...new Set(Object.keys(h).filter(k => k.includes("_member")).map(k => "_member" + k.split("_member")[1]))]);
+        membros = sufs.map(s => ({cape:(h["cape"+s]||[]).slice(k0), v10:(h["wind_speed_10m"+s]||[]).slice(k0), d10:(h["wind_direction_10m"+s]||[]).slice(k0),
+          v500:(h["wind_speed_500hPa"+s]||[]).slice(k0), d500:(h["wind_direction_500hPa"+s]||[]).slice(k0), precip:[], wcode:[]}))
+          .filter(m => m.cape.some(x => x !== null) && m.v500.some(x => x !== null));
+      }
+    }
+    // avisos do INMET que cobrem o ponto
+    const avisos = ((STATUS && STATUS.avisos_estado) || []).filter(a => (a.poligonos||[]).some(pl => Indice.dentro(lat, lon, pl)));
+    const peso = {Moderate:1, Severe:2, Extreme:3};
+    const dirJanela = (a, b) => Indice.direcaoMedia(Object.values(local.ponto).flatMap(s => s.d700.slice(a, b)));
+
+    const janelas = JANELAS.map(([a, b, rot]) => {
+      const ini = i0 + a, fim = Math.min(i0 + b, horas.length);
+      const dir = dirJanela(ini, fim);
+      const regional = {}; Indice.pontosAMontante(anelPts, dir, ac.abertura_graus).forEach(id => regional[id] = porPonto[id]);
+      const prob = membros && membros.length ? Indice.probEnsembleJanela(membros, a, b, lim) : null;
+      const tIni = new Date(horas[ini] + ":00-03:00"), tFim = new Date(new Date(horas[fim-1] + ":00-03:00").getTime() + 3600e3);
+      const av = avisos.filter(x => new Date(x.inicio) < tFim && new Date(x.fim) > tIni).sort((x, y) => (peso[y.severidade]||0) - (peso[x.severidade]||0))[0];
+      const r = Indice.avaliarJanela(local, regional, ini, fim, lim, prob, av ? {severidade: av.severidade} : null);
+      const picos = Object.values(r.por_modelo).map(v => v.hora_pico).filter(v => v !== null).sort((x, y) => x - y);
+      r.rotulo = rot; r.hora_pico_local = picos.length ? horas[picos[Math.floor(picos.length/2)]].slice(11,16) : null;
+      r.direcao = dir; return r;
+    });
+    const dir24 = dirJanela(i0, i0 + 24);
+    const reg24 = Indice.pontosAMontante(anelPts, dir24, ac.abertura_graus);
+
+    // série horária para o gráfico (mediana entre modelos)
+    const serie = [];
+    for (let k = i0; k < Math.min(i0 + 48, horas.length); k++){
+      const ws = Object.values(local.ponto).map(s => {
+        const w = Indice.wmaxshear(s.cape[k], Indice.cisalhamento(s.v500[k], s.d500[k], s.v10[k], s.d10[k]));
+        return (w !== null && (s.cape[k] || 0) >= lim.cape_minimo) ? w : 0;
+      }).sort((x, y) => x - y);
+      const med = ws.length % 2 ? ws[(ws.length-1)/2] : (ws[ws.length/2-1] + ws[ws.length/2]) / 2;
+      const gat = Object.values(local.ponto).some(s => Indice.gatilhoNaJanela(s, k, k+1, lim)) ||
+                  reg24.some(id => Object.values(porPonto[id]).some(s => Indice.gatilhoNaJanela(s, k, k+1, lim)));
+      serie.push({hora: horas[k], wmaxshear: Math.round(med), gatilho: gat});
+    }
+
+    // pinta o resultado
+    const j24 = janelas.slice(0, 2), max = Math.max(...j24.map(j => j.nivel));
+    const pior = j24.find(j => j.nivel === max);
+    card.className = "card ponto lvl " + cls(pior.nivel);
+    $("ponto-nivel").textContent = pior.nome;
+    $("ponto-quando").textContent = pior.nivel > 0
+      ? `${pior.rotulo}${pior.hora_pico_local ? " · pico perto das " + pior.hora_pico_local : ""}`
+      : "Sem sinal de tempestade severa nas próximas 24 horas.";
+    $("ponto-perigos").innerHTML = pior.perigos.map(p => `<span class="chip">${esc(p)}</span>`).join("");
+    $("ponto-motivos").textContent = pior.motivos.join(" · ") + (dir24 !== null && pior.nivel > 0 ? ` · tempestades tenderiam a chegar pelo ${Indice.rosa(dir24)}` : "");
+    $("ponto-janelas").innerHTML = janelas.map(w => `
+      <div class="jan ${cls(w.nivel)}"><span class="small muted">${esc(w.rotulo)}</span>
+        <b><span class="dot"></span>${esc(w.nome)}</b>
+        <span class="small">${w.nivel > 0 && w.perigos.length ? esc(w.perigos.join(", ")) : "&nbsp;"}</span></div>`).join("");
+    const d = distKm(ASTORGA, [lat, lon]);
+    $("ponto-nota").innerHTML = (d > 150
+      ? "<b>Confiança menor:</b> os limites foram calibrados com eventos do norte do Paraná. "
+      : "") + "Previsão calculada na hora, com os mesmos critérios do painel. Não gera alertas." +
+      (avisos.length ? ` · ${avisos.length} aviso(s) do INMET cobrem este ponto.` : "");
+
+    // mapa: anel e seta do ponto
+    anelPts.forEach(p => {
+      const mont = reg24.includes(p.id), tem = Object.values(porPonto[p.id]).some(s => Indice.gatilhoNaJanela(s, i0, i0 + 24, lim));
+      L.circleMarker([p.lat, p.lon], {radius:4, color: tem ? "#c62828" : (mont ? "#e06a12" : "#8a8a8a"), weight:2, fillOpacity: tem ? .6 : .05,
+        fillColor: tem ? "#c62828" : "#8a8a8a"}).addTo(camadaPonto);
+    });
+    if (dir24 !== null){
+      const ini = destino(lat, lon, dir24, 70), fim = destino(lat, lon, dir24, 7), cor = COR[Math.max(1, pior.nivel)];
+      L.polyline([ini, fim], {color: cor, weight: 4, opacity: .85, dashArray: "8 6"}).addTo(camadaPonto);
+    }
+    SERIE = serie; ROTULO_SERIE = PONTO.nome || "ponto escolhido"; grafico();
+  }catch(e){
+    if (meu !== pedidoAtual) return;
+    $("ponto-nivel").textContent = "Não foi possível analisar";
+    $("ponto-nota").textContent = "Falha ao consultar os modelos (" + e.message + "). Tente de novo em instantes.";
+  }
+}
+
+$("ponto-fechar").addEventListener("click", () => {
+  pedidoAtual++; PONTO = null; $("ponto").hidden = true;
+  if (camadaPonto) camadaPonto.clearLayers();
+  if (STATUS){ SERIE = STATUS.serie_horaria || []; ROTULO_SERIE = "Astorga"; grafico(); }
+});
+
+/* ---------- aba Windy (incorporação oficial, marca do Windy visível) ---------- */
+let overlayWindy = "wind";
+function srcWindy(){
+  const c = PONTO || {lat: ASTORGA[0], lon: ASTORGA[1]};
+  return "https://embed.windy.com/embed2.html?" + new URLSearchParams({lat: c.lat.toFixed(3), lon: c.lon.toFixed(3),
+    detailLat: c.lat.toFixed(3), detailLon: c.lon.toFixed(3), zoom: 7, level: "surface", overlay: overlayWindy, product: "ecmwf",
+    menu: "", message: "true", marker: "true", calendar: "now", pressure: "", type: "map", location: "coordinates",
+    detail: "", metricWind: "km/h", metricTemp: "°C", radarRange: "-1"});
+}
+document.querySelectorAll(".maptabs .seg button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll(".maptabs .seg button").forEach(x => x.classList.toggle("on", x === b));
+  const windy = b.dataset.t === "windy";
+  $("mapa").hidden = windy; $("windy").hidden = !windy;
+  document.querySelectorAll(".legenda").forEach(x => x.hidden = windy);
+  $("dica").textContent = windy ? "Mapa do Windy (fonte: windy.com). A análise de risco fica na aba Mapa de risco."
+                                : "Toque em qualquer ponto do Paraná para ver a previsão daquele local.";
+  if (windy){ const f = $("windy-frame"), s = srcWindy(); if (f.src !== s) f.src = s; }
+  else if (M) setTimeout(() => M.invalidateSize(), 50);
+}));
+document.querySelectorAll(".wchips button").forEach(b => b.addEventListener("click", () => {
+  overlayWindy = b.dataset.o;
+  document.querySelectorAll(".wchips button").forEach(x => x.classList.toggle("on", x === b));
+  $("windy-frame").src = srcWindy();
+}));
 
 carregar();
 setInterval(carregar, 5 * 60 * 1000);

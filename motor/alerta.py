@@ -129,11 +129,13 @@ def rodar(enviar_telegram: bool = True) -> dict:
         erros.append(f"modelos: {e}")
 
     # 2) avisos INMET
-    avisos = []
+    avisos, avisos_estado = [], []
     try:
-        cache_inmet = estado.setdefault("cache_inmet", {})
-        avisos = fontes.avisos_inmet(CFG["ibge_municipio"], cache_inmet)
+        estado.pop("cache_inmet", None)  # formato antigo
+        cache_inmet = estado.setdefault("cache_inmet_v2", {})
+        avisos, avisos_estado = fontes.avisos_inmet(CFG["ibge_municipio"], cache_inmet)
         avisos = sorted((a for a in avisos if _vigente(a, agora)), key=lambda a: a["inicio"])
+        avisos_estado = [a for a in avisos_estado if _vigente(a, agora)]
     except Exception as e:  # noqa: BLE001
         erros.append(f"INMET: {e}")
 
@@ -205,6 +207,11 @@ def rodar(enviar_telegram: bool = True) -> dict:
         "direcao_chegada": indice.rosa(direcao_24h) if direcao_24h is not None else None,
         "direcao_graus": round(direcao_24h) if direcao_24h is not None else None,
         "avisos_inmet": avisos,
+        "avisos_estado": avisos_estado,
+        "limiares": LIM,
+        "modelos": CFG["modelos"],
+        "ensemble_modelo": CFG["ensemble_modelo"],
+        "anel_regional": {k: ac[k] for k in ("raio_km", "pontos", "abertura_graus")},
         "erros": erros,
         "fontes": ["Open-Meteo (CC-BY 4.0): ECMWF IFS, GFS, ICON, GEM e ensemble ECMWF",
                    "INMET — avisos meteorológicos (RSS/CAP)"],
