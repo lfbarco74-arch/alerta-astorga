@@ -1,0 +1,4 @@
+tests/_*
+__pycache__/
+*.pyc
+.netlify

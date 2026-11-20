@@ -1,0 +1,12 @@
+# Página estática: o Netlify só publica a pasta docs/. Não há build.
+[build]
+  publish = "docs"
+  command = ""
+
+# Os dados chegam por outro caminho (branch "dados" no GitHub), então a página
+# só precisa ser republicada quando ela mesma muda.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

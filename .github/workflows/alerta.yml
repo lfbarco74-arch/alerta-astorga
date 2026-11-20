@@ -1,0 +1,69 @@
+name: Rodada de alerta
+
+# O código fica no branch main (o Netlify publica a página a partir dele).
+# Os dados de cada rodada vão para o branch "dados", que o Netlify não acompanha:
+# assim a página se atualiza sem gastar nenhum deploy.
+
+on:
+  schedule:
+    - cron: "7,37 * * * *"   # a cada 30 min (minutos 7 e 37 fogem do pico de :00 do GitHub)
+  workflow_dispatch:          # botão "Run workflow" para rodar na hora
+  push:
+    branches: [main]
+    paths: ["motor/**", "config.json", ".github/workflows/**"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: alerta-astorga
+  cancel-in-progress: false
+
+jobs:
+  rodada:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Testes do índice
+        run: python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Recuperar o estado da rodada anterior (branch dados)
+        run: |
+          if git ls-remote --exit-code --heads origin dados >/dev/null; then
+            git fetch --depth 1 origin dados
+            git worktree add _pub FETCH_HEAD
+            git -C _pub checkout -B dados
+            for f in estado.json ensemble_cache.json historico.csv; do
+              [ -f "_pub/$f" ] && cp "_pub/$f" "data/$f" || true
+            done
+          else
+            git worktree add --detach _pub
+            git -C _pub checkout --orphan dados
+            git -C _pub rm -rfq . || true
+          fi
+
+      - name: Rodada
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python -m motor.alerta
+
+      - name: Publicar dados no branch dados
+        run: |
+          cp docs/data/status.json _pub/status.json
+          for f in estado.json ensemble_cache.json historico.csv; do
+            [ -f "data/$f" ] && cp "data/$f" "_pub/$f" || true
+          done
+          cd _pub
+          git config user.name "alerta-bot"
+          git config user.email "alerta-bot@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -qm "dados: rodada $(date -u +%Y-%m-%dT%H:%MZ)"
+          git push origin dados

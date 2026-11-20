@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tempo severo — Astorga/PR</title>
+<meta name="description" content="Painel de risco de tempestades, vendaval e granizo para Astorga (PR). Projeto pessoal, não oficial.">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<style>
+  :root{
+    --bg:#f4f2ee; --card:#fffdf9; --ink:#1d1b18; --muted:#6b665e; --line:#e3ded5;
+    --n0:#2f8f5b; --n1:#d9a400; --n2:#e06a12; --n3:#c62828;
+    --n0bg:#e7f3ec; --n1bg:#fbf3d6; --n2bg:#fde9da; --n3bg:#fbe0e0;
+    --radius:14px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#141311; --card:#1d1c19; --ink:#f1ede6; --muted:#a39d93; --line:#2f2d29;
+      --n0bg:#16291f; --n1bg:#2e2710; --n2bg:#331f10; --n3bg:#341515; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  main{max-width:880px;margin:0 auto;padding:20px 16px 48px}
+  header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  h1{font-size:1.25rem;margin:0;letter-spacing:-.01em}
+  h2{font-size:1rem;margin:0 0 10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+  .muted{color:var(--muted)} .small{font-size:.85rem}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px}
+  .hero{border-width:2px;padding:20px}
+  .hero .nivel{font-size:2.2rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  .hero .quando{font-size:1.05rem;margin-top:4px}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+  .chip{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.85rem;background:var(--bg)}
+  .l0{--c:var(--n0);--cb:var(--n0bg)} .l1{--c:var(--n1);--cb:var(--n1bg)}
+  .l2{--c:var(--n2);--cb:var(--n2bg)} .l3{--c:var(--n3);--cb:var(--n3bg)}
+  .lvl{border-color:var(--c);background:var(--cb)} .lvl .nivel{color:var(--c)}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--c);margin-right:6px;vertical-align:middle}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  @media (max-width:640px){.grid3,.grid2{grid-template-columns:1fr}}
+  .jan{border:1px solid var(--line);border-left:6px solid var(--c);border-radius:10px;padding:10px 12px;background:var(--card)}
+  .jan b{display:block}
+  .arrow{display:inline-block;transition:transform .3s;font-size:1.4rem;line-height:1}
+  table{width:100%;border-collapse:collapse;font-size:.92rem}
+  th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--muted);font-weight:600}
+  #grafico svg{width:100%;height:auto;display:block}
+  #mapa{height:420px;border-radius:10px;border:1px solid var(--line);overflow:hidden;position:relative}
+  .legenda{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;color:var(--muted)}
+  .sw{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+  .sw.anel{background:transparent;border:2px solid #8a8a8a}
+  .sw.anel.mont{border-color:#e06a12}
+  .leaflet-container{font:inherit}
+  #mapa .msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;color:var(--muted)}
+  .aviso{border-left:5px solid var(--c);padding:8px 12px;margin:8px 0;background:var(--cb);border-radius:8px}
+  .alerta-dados{background:var(--n2bg);border:1px solid var(--n2);padding:10px 12px;border-radius:10px;margin-bottom:14px;display:none}
+  details summary{cursor:pointer;font-weight:600}
+  a{color:inherit}
+  footer{font-size:.8rem;color:var(--muted);margin-top:24px;line-height:1.6}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Tempo severo — Astorga/PR</h1>
+    <span class="muted small" id="atualizado">carregando…</span>
+  </header>
+
+  <div class="alerta-dados" id="velho"></div>
+
+  <section class="card hero lvl" id="hero">
+    <div class="nivel" id="hero-nivel">—</div>
+    <div class="quando" id="hero-quando"></div>
+    <div class="chips" id="hero-perigos"></div>
+    <div class="small muted" id="hero-motivos"></div>
+    <div class="small" id="hero-direcao" style="margin-top:8px"></div>
+  </section>
+
+  <section class="card">
+    <h2>Linha do tempo</h2>
+    <div class="grid3" id="janelas"></div>
+  </section>
+
+  <section class="card">
+    <h2>Próximas 48 horas</h2>
+    <div id="grafico"></div>
+    <p class="small muted" style="margin:6px 0 0">Barras: potencial de tempestade severa (energia × cisalhamento do vento). ⚡ = algum modelo simula tempestade em Astorga ou na região de onde ela viria.</p>
+  </section>
+
+  <section class="card">
+    <h2>Cidade e zona rural (próximas 24 h)</h2>
+    <table id="locais"><thead><tr><th>Local</th><th>Sinal dos modelos</th><th>O que pode acontecer</th></tr></thead><tbody></tbody></table>
+    <p class="small muted" style="margin:8px 0 0">Os modelos enxergam o município em blocos de 9 a 28 km. Por isso cidade e distritos costumam ter o mesmo sinal; o que muda é o tipo de impacto.</p>
+  </section>
+
+  <section class="card">
+    <h2>Avisos oficiais do INMET</h2>
+    <div id="inmet" class="small"></div>
+  </section>
+
+  <section class="card">
+    <h2>Mapa</h2>
+    <div id="mapa"></div>
+    <div class="legenda small">
+      <span><span class="sw" style="background:var(--n0)"></span>Normal</span>
+      <span><span class="sw" style="background:var(--n1)"></span>Atenção</span>
+      <span><span class="sw" style="background:var(--n2)"></span>Alerta</span>
+      <span><span class="sw" style="background:var(--n3)"></span>Severo</span>
+      <span><span class="sw anel"></span>ponto regional (60 km)</span>
+      <span><span class="sw anel mont"></span>de onde as tempestades viriam</span>
+      <span>⚡ tempestade simulada nas próximas 24 h</span>
+    </div>
+    <p class="small muted" style="margin:6px 0 0">A seta mostra o fluxo de vento a ~3 km de altura, que conduz as tempestades até Astorga. Radar: última imagem disponível (10 a 20 min de atraso), <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>. Contorno do município: IBGE.</p>
+  </section>
+
+  <section class="card">
+    <details>
+      <summary>Para os curiosos: os ingredientes</summary>
+      <div id="ingredientes" class="small" style="margin-top:10px"></div>
+    </details>
+  </section>
+
+  <section class="card small">
+    <details>
+      <summary>Como funciona e quais são os limites</summary>
+      <p>A cada 30 minutos, o sistema consulta quatro modelos de previsão (ECMWF, GFS, ICON e GEM), os 51 cenários do ensemble do ECMWF e os avisos do INMET. Ele mede dois ingredientes em Astorga: a <b>energia disponível</b> para tempestades (CAPE) e a <b>diferença de vento entre o solo e 5 km de altura</b> (cisalhamento), que organiza tempestades capazes de vendaval e granizo. Depois verifica se algum modelo simula tempestade em Astorga ou na região de onde o vento as traria.</p>
+      <p><b>Níveis:</b> <span class="l0"><span class="dot"></span>Normal</span> · <span class="l1"><span class="dot"></span>Atenção</span> (ambiente instável) · <span class="l2"><span class="dot"></span>Alerta</span> (tempestades fortes possíveis) · <span class="l3"><span class="dot"></span>Severo</span> (ambiente para vendaval, granizo e tempestades violentas). Um aviso do INMET para Astorga nunca é rebaixado pelo sistema.</p>
+      <p><b>Limites honestos:</b> isto é previsão de <i>condições</i>, não rastreamento de cada tempestade. Os modelos não enxergam um downburst de 2 km. O sistema diz "hoje à noite há ambiente para vendaval", não "a tempestade chega às 3h12". Para isso, acompanhe o radar acima e os alertas oficiais.</p>
+      <p>Calibrado nos eventos de 02/11/2026 e 07/11/2026. Os limiares serão revistos a cada evento.</p>
+    </details>
+  </section>
+
+  <section class="card small lvl l2">
+    <b>Este é um projeto pessoal, sem caráter oficial.</b> Para alertas oficiais da Defesa Civil, envie um SMS com o CEP da sua casa para <b>40199</b>. Em risco imediato, ligue <b>199</b> (Defesa Civil) ou <b>193</b> (Bombeiros).
+  </section>
+
+  <footer>
+    Dados de previsão: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> (licença CC-BY 4.0), a partir de ECMWF, NOAA GFS, DWD ICON e ECCC GEM.
+    Avisos: <a href="https://avisos.inmet.gov.br/" target="_blank" rel="noopener">INMET</a>. Radar: RainViewer.
+    Uso pessoal e não comercial.
+  </footer>
+</main>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+const NOMES = ["Normal","Atenção","Alerta","Severo"];
+const IMPACTO = {
+  urbano: "Queda de árvores e galhos, destelhamento, falta de energia, alagamentos rápidos.",
+  rural: "Granizo em lavouras e estufas, vento em barracões e aviários, raios em áreas abertas."
+};
+const SETA_GRAUS = d => (d + 180) % 360; // seta aponta para onde a tempestade vai
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const cls = n => "l" + Math.max(0, Math.min(3, n|0));
+
+function fmtHora(iso){ const d = new Date(iso); return d.toLocaleString("pt-BR",{weekday:"short",day:"2-digit",hour:"2-digit",minute:"2-digit"}); }
+
+const DADOS = "https://raw.githubusercontent.com/lfbarco74-arch/alerta-astorga/dados/status.json";
+async function carregar(){
+  let s = null;
+  for (const url of [DADOS + "?t=" + Date.now(), "data/status.json?t=" + Date.now()]){
+    try{ const r = await fetch(url, {cache:"no-store"}); if (r.ok){ s = await r.json(); break; } }catch(e){}
+  }
+  if (!s){ $("atualizado").textContent = "não foi possível carregar os dados"; return; }
+  if (s.exemplo){ $("velho").style.display = "block"; $("velho").innerHTML = "<b>Dados de exemplo</b> (simulação do evento de 02/11/2026). O painel real aparece assim que o motor fizer a primeira rodada."; }
+  render(s);
+}
+
+function render(s){
+  const gerado = new Date(s.gerado_em);
+  const minutos = Math.round((Date.now() - gerado) / 60000);
+  $("atualizado").textContent = "Atualizado " + fmtHora(s.gerado_em) + (minutos >= 0 ? ` (há ${minutos} min)` : "");
+  if (minutos > 90 && !s.exemplo){ $("velho").style.display = "block"; $("velho").textContent = `Atenção: os dados estão desatualizados (última rodada há ${Math.round(minutos/60)} h). Confira o radar e os avisos oficiais.`; }
+  if (s.erros && s.erros.length && !s.exemplo){ $("velho").style.display = "block"; $("velho").textContent = "Algumas fontes falharam na última rodada: " + s.erros.join("; "); }
+
+  const r = s.resumo, j = r.janela_pior || {};
+  const hero = $("hero"); hero.className = "card hero lvl " + cls(r.nivel_24h);
+  $("hero-nivel").textContent = r.nome_24h;
+  $("hero-quando").textContent = r.nivel_24h > 0
+    ? `${j.rotulo}${j.hora_pico_local ? " · pico perto das " + j.hora_pico_local : ""}`
+    : "Sem sinal de tempestade severa nas próximas 24 horas.";
+  $("hero-perigos").innerHTML = (j.perigos||[]).map(p => `<span class="chip">${esc(p)}</span>`).join("");
+  $("hero-motivos").textContent = (j.motivos||[]).join(" · ");
+  if (s.direcao_graus != null && r.nivel_24h > 0){
+    $("hero-direcao").innerHTML = `<span class="arrow" style="transform:rotate(${SETA_GRAUS(s.direcao_graus)}deg)">↑</span> Se as tempestades se formarem, tendem a chegar pelo <b>${esc(s.direcao_chegada)}</b>.`;
+  } else { $("hero-direcao").textContent = ""; }
+
+  $("janelas").innerHTML = (s.janelas||[]).map(w => `
+    <div class="jan ${cls(w.nivel)}">
+      <span class="small muted">${esc(w.rotulo)}</span>
+      <b><span class="dot"></span>${esc(w.nome)}</b>
+      <span class="small">${w.nivel > 0 && w.perigos.length ? esc(w.perigos.join(", ")) : "&nbsp;"}</span>
+    </div>`).join("");
+
+  grafico(s.serie_horaria || []);
+  mapa(s);
+
+  $("locais").querySelector("tbody").innerHTML = (s.localidades||[]).map(l => `
+    <tr class="${cls(l.nivel_modelos)}">
+      <td><b>${esc(l.nome)}</b><br><span class="small muted">${l.perfil === "urbano" ? "zona urbana" : "distrito / zona rural"}</span></td>
+      <td><span class="dot"></span>${NOMES[l.nivel_modelos]}</td>
+      <td class="small">${l.nivel_modelos > 0 ? esc(IMPACTO[l.perfil]) : "—"}</td>
+    </tr>`).join("");
+
+  const av = s.avisos_inmet || [];
+  const corAv = {Moderate:"l1", Severe:"l2", Extreme:"l3"};
+  $("inmet").innerHTML = av.length ? av.map(a => `
+    <div class="aviso ${corAv[a.severidade]||"l1"}">
+      <b>${esc(a.titulo)}</b><br>
+      ${fmtHora(a.inicio)} até ${fmtHora(a.fim)}<br>
+      ${esc(a.descricao)}<br>
+      <a href="${esc(a.link)}" target="_blank" rel="noopener">Ver aviso oficial</a>
+    </div>`).join("") : "Nenhum aviso do INMET ativo para Astorga.";
+
+  const ing = (s.janelas||[]).map(w => {
+    const i = w.ingredientes || {}, pe = w.prob_ensemble;
+    const mods = Object.entries(w.por_modelo||{}).map(([m,v]) => `${m.replace("_seamless","").replace("ecmwf_ifs025","ECMWF").toUpperCase()}: ${NOMES[v.nivel]}`).join(" · ");
+    return `<p><b>${esc(w.rotulo)}</b><br>
+      CAPE ${i.cape ?? "—"} J/kg · cisalhamento ${i.cisalhamento_ms ?? "—"} m/s · índice ${i.wmaxshear ?? "—"}
+      ${pe ? ` · ensemble: ${Math.round(pe.p_alerta*100)}% dos ${pe.membros} cenários em ambiente de alerta` : ""}<br>
+      <span class="muted">${esc(mods)}</span></p>`;
+  }).join("");
+  $("ingredientes").innerHTML = ing + `<p class="muted">Índice = √(2·CAPE) × cisalhamento (WMAXSHEAR). Acima de 500 = atenção; 800 = alerta; 1200 = severo, desde que haja tempestade simulada em Astorga ou na região a montante.</p>`;
+}
+
+function grafico(serie){
+  if (!serie.length){ $("grafico").innerHTML = '<p class="muted small">Sem dados de modelo.</p>'; return; }
+  const W = 860, H = 200, pad = {l:62, r:8, t:14, b:26};
+  const max = Math.max(1400, ...serie.map(p => p.wmaxshear || 0));
+  const bw = (W - pad.l - pad.r) / serie.length;
+  const y = v => pad.t + (H - pad.t - pad.b) * (1 - v / max);
+  const cor = v => v >= 1200 ? "var(--n3)" : v >= 800 ? "var(--n2)" : v >= 500 ? "var(--n1)" : "var(--n0)";
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Potencial de tempestade severa nas próximas 48 horas">`;
+  [[500,"atenção"],[800,"alerta"],[1200,"severo"]].forEach(([v,t]) => {
+    svg += `<line x1="${pad.l}" x2="${W-pad.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-dasharray="4 4"/>
+            <text x="${pad.l-4}" y="${y(v)+4}" font-size="10" text-anchor="end" fill="var(--muted)">${t}</text>`;
+  });
+  serie.forEach((p,i) => {
+    const v = p.wmaxshear || 0, x = pad.l + i*bw;
+    svg += `<rect x="${x+1}" y="${y(v)}" width="${Math.max(1,bw-2)}" height="${H-pad.b-y(v)}" rx="2" fill="${cor(v)}" opacity="${p.gatilho ? 1 : .45}"><title>${fmtHora(p.hora)}: ${v}${p.gatilho ? " · tempestade simulada" : ""}</title></rect>`;
+    if (p.gatilho) svg += `<text x="${x+bw/2}" y="${y(v)-3}" font-size="9" text-anchor="middle">⚡</text>`;
+    const h = p.hora.slice(11,13);
+    if (h === "00" || h === "12") svg += `<text x="${x}" y="${H-8}" font-size="10" fill="var(--muted)">${h === "00" ? new Date(p.hora).toLocaleDateString("pt-BR",{weekday:"short"}) : "12h"}</text>`;
+  });
+  svg += "</svg>";
+  $("grafico").innerHTML = svg;
+}
+
+const COR = ["#2f8f5b","#d9a400","#e06a12","#c62828"];
+let M = null, camadas = null;
+
+function destino(lat, lon, rumo, km){
+  const r = rumo * Math.PI / 180;
+  return [lat + km/111 * Math.cos(r), lon + km/(111*Math.cos(lat*Math.PI/180)) * Math.sin(r)];
+}
+
+async function iniciarMapa(){
+  if (!window.L){ $("mapa").innerHTML = '<div class="msg"><span>Mapa indisponível neste navegador.</span></div>'; return false; }
+  M = L.map("mapa", {zoomControl:true, scrollWheelZoom:false}).setView([-23.23,-51.67], 8);
+  const escuro = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
+  L.tileLayer(`https://{s}.basemaps.cartocdn.com/${escuro ? "dark_all" : "light_all"}/{z}/{x}/{y}{r}.png`, {
+    maxZoom: 13, attribution: "&copy; OpenStreetMap &copy; CARTO"}).addTo(M);
+  camadas = L.layerGroup().addTo(M);
+  const extras = {};
+  // radar (opcional)
+  try{
+    const j = await fetch("https://api.rainviewer.com/public/weather-maps.json").then(r => r.json());
+    const fr = (j.radar && j.radar.past) || [];
+    if (fr.length){
+      extras["Radar (RainViewer)"] = L.tileLayer(`${j.host}${fr[fr.length-1].path}/256/{z}/{x}/{y}/2/1_1.png`,
+        {opacity:.65, maxNativeZoom:7, maxZoom:13, attribution:'Radar: <a href="https://www.rainviewer.com/">RainViewer</a>'}).addTo(M);
+    }
+  }catch(e){}
+  // contorno do município (IBGE)
+  try{
+    const g = await fetch("https://servicodados.ibge.gov.br/api/v3/malhas/municipios/4102109?formato=application/vnd.geo+json&qualidade=intermediaria").then(r => r.json());
+    extras["Limite de Astorga"] = L.geoJSON(g, {style:{color: escuro ? "#f1ede6" : "#1d1b18", weight:2, fill:false, dashArray:"5 4"}}).addTo(M);
+  }catch(e){}
+  if (Object.keys(extras).length) L.control.layers(null, extras, {collapsed:true}).addTo(M);
+  return true;
+}
+
+async function mapa(s){
+  if (!M && !(await iniciarMapa())) return;
+  camadas.clearLayers();
+  const sede = (s.localidades||[])[0] || {lat:-23.2325, lon:-51.6656};
+  // corredor de chegada
+  if (s.direcao_graus != null){
+    const ini = destino(sede.lat, sede.lon, s.direcao_graus, 75), fim = destino(sede.lat, sede.lon, s.direcao_graus, 8);
+    const cor = COR[Math.max(1, s.resumo.nivel_24h)];
+    L.polyline([ini, fim], {color: cor, weight: 5, opacity:.85}).addTo(camadas)
+      .bindTooltip(`Tempestades tenderiam a chegar pelo ${s.direcao_chegada}`, {sticky:true});
+    const ponta = [destino(fim[0], fim[1], s.direcao_graus + 25, 9), fim, destino(fim[0], fim[1], s.direcao_graus - 25, 9)];
+    L.polygon(ponta, {color: cor, fillColor: cor, fillOpacity: .9, weight: 1}).addTo(camadas);
+  }
+  // anel regional
+  (s.anel||[]).forEach(p => {
+    const c = p.tempestade_simulada ? "#c62828" : (p.a_montante ? "#e06a12" : "#8a8a8a");
+    L.circleMarker([p.lat, p.lon], {radius: p.a_montante ? 7 : 5, color: c, weight: 2,
+      fillColor: p.tempestade_simulada ? "#c62828" : c, fillOpacity: p.tempestade_simulada ? .7 : .1}).addTo(camadas)
+      .bindTooltip(`${Math.round(p.rumo)}° · 60 km${p.a_montante ? " · a montante do vento" : ""}${p.tempestade_simulada ? " · ⚡ tempestade simulada nas próximas 24 h" : ""}`);
+    if (p.tempestade_simulada) L.marker([p.lat, p.lon], {icon: L.divIcon({className:"", html:"⚡", iconSize:[16,16], iconAnchor:[-6,18]})}).addTo(camadas);
+  });
+  // localidades
+  (s.localidades||[]).forEach(l => {
+    L.circleMarker([l.lat, l.lon], {radius: l.perfil === "urbano" ? 10 : 7, color:"#fff", weight:2,
+      fillColor: COR[l.nivel_modelos], fillOpacity: .95}).addTo(camadas)
+      .bindPopup(`<b>${esc(l.nome)}</b><br>${NOMES[l.nivel_modelos]}${l.nivel_modelos > 0 ? "<br>" + esc(IMPACTO[l.perfil]) : ""}`);
+  });
+}
+
+carregar();
+setInterval(carregar, 5 * 60 * 1000);
+</script>
+</body>
+</html>
