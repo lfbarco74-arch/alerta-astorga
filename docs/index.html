@@ -797,7 +797,8 @@ $("form-relato").addEventListener("submit", async e => {
   $("enviar-relato").disabled = true; msg.textContent = "Enviando…";
   try{
     const r = await fetch("/api/relato", {method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({lat: pos.lat, lon: pos.lon, eventos, intensidade: +(marcado(f, "intensidade") || 2),
+      // arredonda no próprio aparelho (~1 km): a coordenada exata nunca sai do celular
+      body: JSON.stringify({lat: Math.round(pos.lat * 100) / 100, lon: Math.round(pos.lon * 100) / 100, eventos, intensidade: +(marcado(f, "intensidade") || 2),
         minutos_atras: +campo(f, "minutos_atras").value, origem: onde === "gps" ? "gps" : "mapa", site: campo(f, "site").value})});
     const j = await r.json().catch(() => ({}));
     if (r.status === 429){ msg.textContent = "Muitos envios seguidos. Aguarde um minuto."; $("enviar-relato").disabled = false; return; }
