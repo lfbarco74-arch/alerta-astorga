@@ -24,7 +24,7 @@ concurrency:
 jobs:
   rodada:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -47,6 +47,7 @@ jobs:
             for d in arquivo relatos; do
               [ -d "_pub/$d" ] && mkdir -p "data/$d" && cp -r "_pub/$d/." "data/$d/" || true
             done
+            [ -f "_pub/status.json" ] && cp "_pub/status.json" "data/status_anterior.json" || true
           else
             git worktree add --detach _pub
             git -C _pub checkout --orphan dados

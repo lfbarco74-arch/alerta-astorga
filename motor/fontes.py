@@ -5,6 +5,7 @@ import json
 import math
 import re
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -20,16 +21,24 @@ VARS_DET = ["cape", "precipitation", "weather_code", "wind_gusts_10m", "freezing
 VARS_ENS = ["cape", "wind_speed_10m", "wind_direction_10m", "wind_speed_500hPa", "wind_direction_500hPa"]
 
 
-def _get(url: str, tentativas: int = 3, timeout: int = 40) -> bytes:
+ESPERAS = (5, 20, 60)  # segundos entre tentativas; 429 (limite) e 5xx costumam passar com espera
+
+
+def _get(url: str, tentativas: int = 4, timeout: int = 40) -> bytes:
     erro = None
     for t in range(tentativas):
         try:
             req = urllib.request.Request(url, headers=UA)
             with urllib.request.urlopen(req, timeout=timeout) as r:
                 return r.read()
+        except urllib.error.HTTPError as e:
+            erro = e
+            if e.code not in (429, 500, 502, 503, 504):
+                break
         except Exception as e:  # noqa: BLE001
             erro = e
-            time.sleep(3 * (t + 1))
+        if t < tentativas - 1:
+            time.sleep(ESPERAS[min(t, len(ESPERAS) - 1)])
     raise RuntimeError(f"falha ao acessar {url[:90]}...: {erro}")
 
 
@@ -54,30 +63,42 @@ def _serie(h: dict, sufixo: str) -> SerieModelo:
 
 
 def modelos_deterministicos(pontos: list[dict], modelos: list[str], fuso: str, dias: int = 3):
-    """Retorna (horas, {ponto_id: {modelo: SerieModelo}}). Uma só chamada para todos os pontos."""
-    q = {
-        "latitude": ",".join(str(p["lat"]) for p in pontos),
-        "longitude": ",".join(str(p["lon"]) for p in pontos),
-        "hourly": ",".join(VARS_DET),
-        "models": ",".join(modelos),
-        "forecast_days": dias,
-        "timezone": fuso,
-    }
-    dados = json.loads(_get("https://api.open-meteo.com/v1/forecast?" + urllib.parse.urlencode(q)))
-    if isinstance(dados, dict):
-        if dados.get("error"):
-            raise RuntimeError(dados.get("reason"))
-        dados = [dados]
-    horas, saida = None, {}
-    for p, d in zip(pontos, dados):
-        h = d["hourly"]
-        horas = h["time"]
-        saida[p["id"]] = {}
-        for m in modelos:
-            s = _serie(h, "_" + m if len(modelos) > 1 else "")
+    """Retorna (horas, {ponto_id: {modelo: SerieModelo}}, falhas).
+    Uma consulta por modelo (mais leve e tolerante): se um modelo falhar, os outros continuam valendo."""
+    horas, saida, falhas = None, {p["id"]: {} for p in pontos}, []
+    for k, m in enumerate(modelos):
+        if k:
+            time.sleep(2)
+        q = {
+            "latitude": ",".join(str(p["lat"]) for p in pontos),
+            "longitude": ",".join(str(p["lon"]) for p in pontos),
+            "hourly": ",".join(VARS_DET),
+            "models": m,
+            "forecast_days": dias,
+            "timezone": fuso,
+        }
+        try:
+            dados = json.loads(_get("https://api.open-meteo.com/v1/forecast?" + urllib.parse.urlencode(q)))
+        except Exception as e:  # noqa: BLE001
+            falhas.append(f"{m}: {e}")
+            continue
+        if isinstance(dados, dict):
+            if dados.get("error"):
+                falhas.append(f"{m}: {dados.get('reason')}")
+                continue
+            dados = [dados]
+        for p, d in zip(pontos, dados):
+            h = d["hourly"]
+            if horas is None:
+                horas = h["time"]
+            elif h["time"] != horas:
+                continue
+            s = _serie(h, "")
             if any(x is not None for x in s.cape) and any(x is not None for x in s.v500):
                 saida[p["id"]][m] = s
-    return horas, saida
+    if horas is None:
+        raise RuntimeError("; ".join(falhas) or "nenhum modelo respondeu")
+    return horas, saida, falhas
 
 
 def ensemble(ponto: dict, modelo: str, fuso: str, dias: int = 3):

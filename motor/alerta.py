@@ -116,6 +116,29 @@ DIR_RELATOS = RAIZ / "data" / "relatos"
 URL_RELATOS = CFG["pagina_url"].rstrip("/") + "/api/relatos?horas=6"
 
 
+ARQ_ANTERIOR = RAIZ / "data" / "status_anterior.json"
+
+
+def manter_anterior(status: dict, agora: datetime, max_horas: float = 12) -> dict:
+    """Se os modelos não responderam nesta rodada, mantém os níveis da última rodada boa (até 12 h),
+    com os avisos do INMET e os erros desta rodada. Nunca troca dados bons por 'Sem dados'."""
+    ant = _ler(ARQ_ANTERIOR, {})
+    base = ant.get("modelos_de") or ant.get("gerado_em")
+    if not ant.get("janelas") or not base:
+        return status
+    try:
+        idade = (agora - datetime.fromisoformat(base)).total_seconds() / 3600
+    except ValueError:
+        return status
+    if idade > max_horas:
+        return status
+    novo = dict(ant)
+    novo.update(gerado_em=status["gerado_em"], modelos_de=base, erros=status["erros"],
+                avisos_inmet=status["avisos_inmet"], avisos_estado=status.get("avisos_estado", []))
+    print(f"[status] modelos indisponíveis: mantendo os níveis da rodada de {base}")
+    return novo
+
+
 def arquivar(status: dict, agora: datetime) -> None:
     """Uma linha por rodada em data/arquivo/AAAA-MM-DD.jsonl: o que o sistema previu, com os ingredientes.
     É a base para medir acertos e recalibrar os limiares mais adiante."""
@@ -174,7 +197,8 @@ def rodar(enviar_telegram: bool = True) -> dict:
     # 1) modelos determinísticos
     horas, det = [], {}
     try:
-        horas, det = fontes.modelos_deterministicos(locs + anel_pts, CFG["modelos"], CFG["fuso"])
+        horas, det, falhas = fontes.modelos_deterministicos(locs + anel_pts, CFG["modelos"], CFG["fuso"])
+        erros += [f"modelo {f}" for f in falhas]
     except Exception as e:  # noqa: BLE001
         erros.append(f"modelos: {e}")
 
@@ -267,9 +291,12 @@ def rodar(enviar_telegram: bool = True) -> dict:
         "fontes": ["Open-Meteo (CC-BY 4.0): ECMWF IFS, GFS, ICON, GEM e ensemble ECMWF",
                    "INMET — avisos meteorológicos (RSS/CAP)"],
     }
+    if not horas:
+        status = manter_anterior(status, agora)
     _gravar(ARQ_STATUS, status)
     try:
-        arquivar(status, agora)
+        if horas:
+            arquivar(status, agora)
     except Exception as e:  # noqa: BLE001
         print(f"[arquivo] falhou: {e}")
     try:

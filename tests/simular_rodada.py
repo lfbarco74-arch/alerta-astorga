@@ -39,7 +39,7 @@ def fake_det(pontos, modelos, fuso, dias=3):
             s.rajada = [30] * N
             s.isoterma0 = [4200] * N
             out[p["id"]][m] = s
-    return HORAS, out
+    return HORAS, out, []
 
 
 def fake_ens(ponto, modelo, fuso, dias=3):

@@ -341,7 +341,13 @@ function render(s){
   const minutos = Math.round((Date.now() - gerado) / 60000);
   $("atualizado").textContent = "Atualizado " + fmtHora(s.gerado_em) + (minutos >= 0 ? ` (há ${minutos} min)` : "");
   if (minutos > 90 && !s.exemplo){ $("velho").style.display = "block"; $("velho").textContent = `Atenção: os dados estão desatualizados (última rodada há ${Math.round(minutos/60)} h). Confira o radar e os avisos oficiais.`; }
-  if (s.erros && s.erros.length && !s.exemplo){ $("velho").style.display = "block"; $("velho").textContent = "Algumas fontes falharam na última rodada: " + s.erros.join("; "); }
+  if (s.modelos_de && !s.exemplo){
+    $("velho").style.display = "block";
+    $("velho").textContent = `Os modelos de previsão não responderam na última rodada (limite do serviço gratuito). Os níveis abaixo são da rodada de ${fmtHora(s.modelos_de)}; os avisos do INMET estão atualizados.`;
+  } else if (s.erros && s.erros.length && !s.exemplo){
+    $("velho").style.display = "block";
+    $("velho").textContent = "Parte das fontes falhou na última rodada; o painel usou as que responderam.";
+  } else { $("velho").style.display = "none"; }
 
   const j = piorVigente(s.janelas || []) || s.resumo.janela_pior || {};
   const nivel = j.nivel ?? s.resumo.nivel_24h, nome = j.nome || s.resumo.nome_24h;
