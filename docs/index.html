@@ -368,8 +368,14 @@ async function iniciarMapa(){
   return true;
 }
 
+let linkAberto = false;
 async function mapa(s){
   if (!M && !(await iniciarMapa())) return;
+  if (!linkAberto){
+    linkAberto = true;
+    const m = location.hash.match(/^#p=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)$/);
+    if (m) setTimeout(() => { const la = +m[1], lo = +m[2]; analisarPonto(la, lo); M.setView([la, lo], 8); }, 0);
+  }
   camadas.clearLayers();
   const sede = (s.localidades||[])[0] || {lat:-23.2325, lon:-51.6656};
   // corredor de chegada
@@ -386,8 +392,9 @@ async function mapa(s){
     const c = p.tempestade_simulada ? "#c62828" : (p.a_montante ? "#e06a12" : "#8a8a8a");
     L.circleMarker([p.lat, p.lon], {radius: p.a_montante ? 7 : 5, color: c, weight: 2,
       fillColor: p.tempestade_simulada ? "#c62828" : c, fillOpacity: p.tempestade_simulada ? .7 : .1}).addTo(camadas)
-      .bindTooltip(`${Math.round(p.rumo)}° · 60 km${p.a_montante ? " · a montante do vento" : ""}${p.tempestade_simulada ? " · ⚡ tempestade simulada nas próximas 24 h" : ""}`);
-    if (p.tempestade_simulada) L.marker([p.lat, p.lon], {icon: L.divIcon({className:"", html:"⚡", iconSize:[16,16], iconAnchor:[-6,18]})}).addTo(camadas);
+      .bindTooltip(`${Math.round(p.rumo)}° · 60 km${p.a_montante ? " · a montante do vento" : ""}${p.tempestade_simulada ? " · ⚡ tempestade simulada nas próximas 24 h" : ""}`)
+      .on("click", () => analisarPonto(p.lat, p.lon));
+    if (p.tempestade_simulada) L.marker([p.lat, p.lon], {interactive:false, keyboard:false, icon: L.divIcon({className:"", html:"⚡", iconSize:[16,16], iconAnchor:[-6,18]})}).addTo(camadas);
   });
   // localidades
   (s.localidades||[]).forEach(l => {
@@ -429,6 +436,7 @@ async function analisarPonto(lat, lon){
   }
   const meu = ++pedidoAtual;
   PONTO = {lat, lon};
+  try{ history.replaceState(null, "", `#p=${lat.toFixed(3)},${lon.toFixed(3)}`); }catch(e){}
   const card = $("ponto"); card.hidden = false; card.className = "card ponto lvl l0";
   $("ponto-nome").textContent = `${lat.toFixed(3)}, ${lon.toFixed(3)}`;
   $("ponto-nivel").textContent = "Analisando…";
@@ -557,6 +565,7 @@ async function analisarPonto(lat, lon){
 
 $("ponto-fechar").addEventListener("click", () => {
   pedidoAtual++; PONTO = null; $("ponto").hidden = true;
+  try{ history.replaceState(null, "", location.pathname + location.search); }catch(e){}
   if (camadaPonto) camadaPonto.clearLayers();
   if (STATUS){ SERIE = STATUS.serie_horaria || []; ROTULO_SERIE = "Astorga"; grafico(); }
 });
