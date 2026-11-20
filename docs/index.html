@@ -202,15 +202,20 @@ function render(s){
       <td class="small">${l.nivel_modelos > 0 ? esc(IMPACTO[l.perfil]) : "—"}</td>
     </tr>`).join("");
 
-  const av = s.avisos_inmet || [];
-  const corAv = {Moderate:"l1", Severe:"l2", Extreme:"l3"};
-  $("inmet").innerHTML = av.length ? av.map(a => `
+  const corAv = {Moderate:"l1", Severe:"l2", Extreme:"l3"}, peso = {Moderate:1, Severe:2, Extreme:3};
+  const agoraMs = Date.now();
+  const av = (s.avisos_inmet || []).filter(a => new Date(a.fim) >= agoraMs)
+    .sort((a,b) => (peso[b.severidade]||0) - (peso[a.severidade]||0) || new Date(a.inicio) - new Date(b.inicio));
+  const cartao = a => `
     <div class="aviso ${corAv[a.severidade]||"l1"}">
       <b>${esc(a.titulo)}</b><br>
       ${fmtHora(a.inicio)} até ${fmtHora(a.fim)}<br>
       ${esc(a.descricao)}<br>
       <a href="${esc(a.link)}" target="_blank" rel="noopener">Ver aviso oficial</a>
-    </div>`).join("") : "Nenhum aviso do INMET ativo para Astorga.";
+    </div>`;
+  $("inmet").innerHTML = !av.length ? "Nenhum aviso do INMET ativo para Astorga."
+    : av.slice(0,2).map(cartao).join("") + (av.length > 2
+      ? `<details style="margin-top:6px"><summary>Mais ${av.length - 2} aviso(s) vigente(s) que incluem Astorga</summary>${av.slice(2).map(cartao).join("")}</details>` : "");
 
   const ing = (s.janelas||[]).map(w => {
     const i = w.ingredientes || {}, pe = w.prob_ensemble;
@@ -258,8 +263,11 @@ async function iniciarMapa(){
   if (!window.L){ $("mapa").innerHTML = '<div class="msg"><span>Mapa indisponível neste navegador.</span></div>'; return false; }
   M = L.map("mapa", {zoomControl:true, scrollWheelZoom:false}).setView([-23.23,-51.67], 8);
   const escuro = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
-  L.tileLayer(`https://{s}.basemaps.cartocdn.com/${escuro ? "dark_all" : "light_all"}/{z}/{x}/{y}{r}.png`, {
-    maxZoom: 13, attribution: "&copy; OpenStreetMap &copy; CARTO"}).addTo(M);
+  const base = escuro ? "Dark_Gray_Base" : "Light_Gray_Base";
+  L.tileLayer(`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${base}/MapServer/tile/{z}/{y}/{x}`, {
+    maxZoom: 13, attribution: "Mapa-base &copy; Esri, HERE, Garmin, OpenStreetMap"}).addTo(M);
+  L.tileLayer(`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${escuro ? "Dark_Gray_Reference" : "Light_Gray_Reference"}/MapServer/tile/{z}/{y}/{x}`, {
+    maxZoom: 13, pane: "overlayPane", zIndex: 650}).addTo(M);
   camadas = L.layerGroup().addTo(M);
   const extras = {};
   // radar (opcional)

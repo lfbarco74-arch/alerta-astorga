@@ -186,7 +186,8 @@ def rodar(enviar_telegram: bool = True) -> dict:
                                 "perigos": r["perigos"]})
 
     j24 = [j for j in janelas if j["rotulo"] != CFG["janelas_horas"][-1][2]] or janelas
-    pior = max(j24, key=lambda j: (j["nivel"], j["ingredientes"]["wmaxshear"] or 0)) if j24 else None
+    # destaque: o maior nível; empatando, a janela mais próxima
+    pior = next((j for j in j24 if j["nivel"] == max(x["nivel"] for x in j24)), None) if j24 else None
     status = {
         "versao": "0.1",
         "gerado_em": agora.isoformat(timespec="minutes"),
