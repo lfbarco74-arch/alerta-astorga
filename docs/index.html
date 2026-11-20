@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tempo severo — Astorga/PR</title>
-<meta name="description" content="Painel de risco de tempestades, vendaval e granizo para Astorga (PR). Projeto pessoal, não oficial.">
+<title>Tempo severo — Paraná · alerta piloto em Astorga</title>
+<meta name="description" content="Previsão de risco de tempestades, vendaval e granizo para qualquer cidade do Paraná, com alerta piloto em Astorga. Projeto pessoal, não oficial.">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <style>
   :root{
@@ -76,6 +76,14 @@
   .ponto-nome{font-weight:700;font-size:1.05rem;margin:2px 0 4px}
   button.link{background:none;border:0;color:var(--muted);font:inherit;font-size:.85rem;cursor:pointer;text-decoration:underline;padding:0}
   .leaflet-container{cursor:crosshair}
+  .busca{position:relative;flex:1 1 220px;max-width:340px}
+  .busca input{width:100%;font:inherit;font-size:.92rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+  .busca ul{position:absolute;left:0;right:0;top:calc(100% + 4px);margin:0;padding:4px 0;list-style:none;background:var(--card);border:1px solid var(--line);border-radius:10px;z-index:1500;box-shadow:0 6px 18px rgba(0,0,0,.15);max-height:300px;overflow:auto}
+  .busca li{padding:7px 12px;cursor:pointer;font-size:.92rem}
+  .busca li.ativo,.busca li:hover{background:var(--line)}
+  .busca li.vazio{color:var(--muted);cursor:default}
+  .rot-mapa{background:none;border:0;box-shadow:none;font-size:.78rem;font-weight:700;color:var(--ink);text-shadow:0 0 3px var(--card),0 0 3px var(--card),0 0 3px var(--card)}
+  .leaflet-tooltip.rot-mapa:before{display:none}
   [hidden]{display:none !important}
   .btn{background:var(--ink);color:var(--bg);border:0;border-radius:999px;padding:8px 16px;font:inherit;font-weight:600;cursor:pointer}
   .btn:disabled{opacity:.5;cursor:default}
@@ -107,8 +115,8 @@
 <body>
 <main>
   <header>
-    <h1>Tempo severo — Astorga/PR</h1>
-    <div class="hdr"><span class="pill lvl l0" id="pill">—</span><span class="muted small" id="atualizado">carregando…</span></div>
+    <h1>Tempo severo — Paraná</h1>
+    <div class="hdr"><span class="small muted">Astorga (piloto):</span> <span class="pill lvl l0" id="pill">—</span><span class="muted small" id="atualizado">carregando…</span></div>
   </header>
 
   <div class="alerta-dados" id="velho"></div>
@@ -120,8 +128,13 @@
         <button type="button" data-t="risco" class="on">Mapa de risco</button>
         <button type="button" data-t="windy">Windy</button>
       </div>
-      <span class="small muted" id="dica">Toque em qualquer ponto do Paraná para ver a previsão daquele local.</span>
+      <div class="busca" id="busca-caixa">
+        <input type="search" id="busca" placeholder="Buscar cidade do Paraná…" autocomplete="off" spellcheck="false"
+          role="combobox" aria-expanded="false" aria-controls="busca-lista" aria-label="Buscar cidade do Paraná">
+        <ul id="busca-lista" role="listbox" hidden></ul>
+      </div>
     </div>
+    <p class="small muted" id="dica" style="margin:0 0 8px">Busque uma cidade ou toque em qualquer ponto do Paraná para ver a previsão daquele local.</p>
     <div id="mapa"></div>
     <div id="windy" hidden>
       <div class="seg wchips" role="group" aria-label="Camada do Windy">
@@ -138,18 +151,16 @@
       <span><span class="sw" style="background:var(--n1)"></span>Atenção</span>
       <span><span class="sw" style="background:var(--n2)"></span>Alerta</span>
       <span><span class="sw" style="background:var(--n3)"></span>Severo</span>
-      <span><span class="sw anel"></span>ponto regional (60 km)</span>
-      <span><span class="sw anel mont"></span>de onde as tempestades viriam</span>
+      <span>➜ de onde as tempestades tendem a chegar</span>
       <span>💬 relatos de quem está no local (6 h)</span>
-      <span>⚡ tempestade simulada nas próximas 24 h</span>
     </div>
-    <p class="small muted" style="margin:6px 0 0">A seta mostra o fluxo de vento a ~3 km de altura, que conduz as tempestades até Astorga. Radar: última imagem disponível (10 a 20 min de atraso), <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>. Contorno do município: IBGE.</p>
+    <p class="small muted" style="margin:6px 0 0">A seta segue o vento a ~3 km de altura, que conduz as tempestades até o local. Aproxime o mapa de Astorga para ver os pontos que o alerta monitora (cidade, distritos e o anel regional de 60 km). Radar: última imagem disponível (10 a 20 min de atraso), <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>. Contorno do município: IBGE. Lista de cidades da busca: códigos e coordenadas do IBGE (<a href="https://github.com/kelvins/municipios-brasileiros" target="_blank" rel="noopener">municipios-brasileiros</a>, licença MIT).</p>
     </section>
 
     <aside class="lado">
       <section class="card ponto lvl l0" id="ponto" hidden>
         <div class="ponto-topo"><span class="small muted">Previsão para o ponto escolhido</span>
-          <button type="button" class="link" id="ponto-fechar">Voltar para Astorga ✕</button></div>
+          <button type="button" class="link" id="ponto-fechar">Fechar e voltar para Astorga ✕</button></div>
         <div class="ponto-nome" id="ponto-nome">—</div>
         <div class="nivel" id="ponto-nivel">Analisando…</div>
         <div class="quando" id="ponto-quando"></div>
@@ -159,7 +170,7 @@
         <div class="small muted" id="ponto-nota" style="margin-top:8px"></div>
       </section>
       <section class="card hero lvl" id="hero">
-        <div class="small muted">Astorga · alerta</div>
+        <div class="small muted">Alerta · Astorga (cidade piloto) · <button type="button" class="link" id="hero-mapa">ver no mapa</button></div>
         <div class="nivel" id="hero-nivel">—</div>
         <div class="quando" id="hero-quando"></div>
         <div class="chips" id="hero-perigos"></div>
@@ -444,7 +455,28 @@ function grafico(){
 }
 
 const COR = ["#2f8f5b","#d9a400","#e06a12","#c62828"];
-let M = null, camadas = null, camadaPonto = null;
+let M = null, camadas = null, camadaDetalhe = null, camadaPonto = null;
+const ZOOM_DETALHE = 10;
+const BBOX_PR = [[-26.72,-54.62],[-22.5,-48.02]];
+
+/* seta de chegada + rótulo em texto (usada em Astorga e no ponto escolhido) */
+function seta(grupo, lat, lon, graus, nivel, tracejada){
+  const cor = nivel > 0 ? COR[nivel] : "#8a8a8a";
+  const ini = destino(lat, lon, graus, 70), fim = destino(lat, lon, graus, 9);
+  L.polyline([ini, fim], {color: cor, weight: 4, opacity: .85, dashArray: tracejada ? "8 6" : null, interactive:false}).addTo(grupo);
+  const ponta = [destino(fim[0], fim[1], graus + 25, 8), fim, destino(fim[0], fim[1], graus - 25, 8)];
+  L.polygon(ponta, {color: cor, fillColor: cor, fillOpacity: .9, weight: 1, interactive:false}).addTo(grupo);
+  L.tooltip({permanent:true, direction:"center", className:"rot-mapa", interactive:false})
+    .setLatLng(destino(lat, lon, graus, 82)).setContent(`chegada pelo ${Indice.rosa(graus)}`).addTo(grupo);
+}
+
+/* memória da última cidade/ponto, só neste navegador */
+const CHAVE_ULTIMO = "alerta-astorga:ultimo-local";
+function lembrar(p){ try{ p ? localStorage.setItem(CHAVE_ULTIMO, JSON.stringify(p)) : localStorage.removeItem(CHAVE_ULTIMO); }catch(e){} }
+function ultimo(){
+  try{ const p = JSON.parse(localStorage.getItem(CHAVE_ULTIMO) || "null");
+    return p && isFinite(p.lat) && isFinite(p.lon) ? p : null; }catch(e){ return null; }
+}
 
 function destino(lat, lon, rumo, km){
   const r = rumo * Math.PI / 180;
@@ -453,7 +485,7 @@ function destino(lat, lon, rumo, km){
 
 async function iniciarMapa(){
   if (!window.L){ $("mapa").innerHTML = '<div class="msg"><span>Mapa indisponível neste navegador.</span></div>'; return false; }
-  M = L.map("mapa", {zoomControl:true, scrollWheelZoom:false}).setView([-23.23,-51.67], 8);
+  M = L.map("mapa", {zoomControl:true, scrollWheelZoom:false}).fitBounds(BBOX_PR);
   const escuro = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches;
   const base = escuro ? "Dark_Gray_Base" : "Light_Gray_Base";
   L.tileLayer(`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${base}/MapServer/tile/{z}/{y}/{x}`, {
@@ -461,6 +493,9 @@ async function iniciarMapa(){
   L.tileLayer(`https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_${escuro ? "Dark_Gray_Reference" : "Light_Gray_Reference"}/MapServer/tile/{z}/{y}/{x}`, {
     maxZoom: 13, pane: "overlayPane", zIndex: 650}).addTo(M);
   camadas = L.layerGroup().addTo(M);
+  camadaDetalhe = L.layerGroup();
+  const ajustarDetalhe = () => { M.getZoom() >= ZOOM_DETALHE ? camadaDetalhe.addTo(M) : camadaDetalhe.remove(); };
+  M.on("zoomend", ajustarDetalhe); ajustarDetalhe();
   const extras = {};
   // radar (opcional)
   try{
@@ -489,33 +524,30 @@ async function mapa(s){
   if (!M && !(await iniciarMapa())) return;
   if (!linkAberto){
     linkAberto = true;
+    // prioridade: link compartilhado (#p=) > última cidade deste navegador > visão do Paraná
     const m = location.hash.match(/^#p=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)$/);
-    if (m) setTimeout(() => { const la = +m[1], lo = +m[2]; analisarPonto(la, lo); M.setView([la, lo], 8); }, 0);
+    const u = ultimo();
+    if (m) setTimeout(() => { const la = +m[1], lo = +m[2]; analisarPonto(la, lo, u && Math.abs(u.lat - la) < 1e-3 && Math.abs(u.lon - lo) < 1e-3 ? u.nome : undefined); M.setView([la, lo], 9); }, 0);
+    else if (u) setTimeout(() => { analisarPonto(u.lat, u.lon, u.nome); M.setView([u.lat, u.lon], 9); }, 0);
   }
-  camadas.clearLayers();
-  const sede = (s.localidades||[])[0] || {lat:-23.2325, lon:-51.6656};
-  // corredor de chegada
-  if (s.direcao_graus != null){
-    const ini = destino(sede.lat, sede.lon, s.direcao_graus, 75), fim = destino(sede.lat, sede.lon, s.direcao_graus, 8);
-    const cor = COR[Math.max(1, s.resumo.nivel_24h)];
-    L.polyline([ini, fim], {color: cor, weight: 5, opacity:.85}).addTo(camadas)
-      .bindTooltip(`Tempestades tenderiam a chegar pelo ${s.direcao_chegada}`, {sticky:true});
-    const ponta = [destino(fim[0], fim[1], s.direcao_graus + 25, 9), fim, destino(fim[0], fim[1], s.direcao_graus - 25, 9)];
-    L.polygon(ponta, {color: cor, fillColor: cor, fillOpacity: .9, weight: 1}).addTo(camadas);
-  }
-  // anel regional
+  camadas.clearLayers(); camadaDetalhe.clearLayers();
+  const sede = (s.localidades||[])[0] || {lat:ASTORGA[0], lon:ASTORGA[1]};
+  const nivel = s.resumo.nivel_24h || 0;
+  // visão geral: Astorga como um pino colorido pelo nível + seta de chegada
+  if (s.direcao_graus != null) seta(camadas, sede.lat, sede.lon, s.direcao_graus, nivel, false);
+  L.circleMarker([sede.lat, sede.lon], {radius: 9, color:"#fff", weight:3, fillColor: COR[nivel], fillOpacity: 1}).addTo(camadas)
+    .bindTooltip(`Astorga (alerta piloto): ${esc(s.resumo.nome_24h || NOMES[nivel])} · toque para detalhes`)
+    .on("click", ev => { L.DomEvent.stopPropagation(ev); M.setView([sede.lat, sede.lon], ZOOM_DETALHE); });
+  // detalhe (aproximado): anel regional e localidades monitoradas
   (s.anel||[]).forEach(p => {
     const c = p.tempestade_simulada ? "#c62828" : (p.a_montante ? "#e06a12" : "#8a8a8a");
     L.circleMarker([p.lat, p.lon], {radius: p.a_montante ? 7 : 5, color: c, weight: 2,
-      fillColor: p.tempestade_simulada ? "#c62828" : c, fillOpacity: p.tempestade_simulada ? .7 : .1}).addTo(camadas)
-      .bindTooltip(`${Math.round(p.rumo)}° · 60 km${p.a_montante ? " · a montante do vento" : ""}${p.tempestade_simulada ? " · ⚡ tempestade simulada nas próximas 24 h" : ""}`)
-      .on("click", () => analisarPonto(p.lat, p.lon));
-    if (p.tempestade_simulada) L.marker([p.lat, p.lon], {interactive:false, keyboard:false, icon: L.divIcon({className:"", html:"⚡", iconSize:[16,16], iconAnchor:[-6,18]})}).addTo(camadas);
+      fillColor: p.tempestade_simulada ? "#c62828" : c, fillOpacity: p.tempestade_simulada ? .7 : .1}).addTo(camadaDetalhe)
+      .bindTooltip(`Ponto regional do alerta · ${Math.round(p.rumo)}° · 60 km${p.a_montante ? " · a montante do vento" : ""}${p.tempestade_simulada ? " · ⚡ tempestade simulada nas próximas 24 h" : ""}`);
+    if (p.tempestade_simulada) L.marker([p.lat, p.lon], {interactive:false, keyboard:false, icon: L.divIcon({className:"", html:"⚡", iconSize:[16,16], iconAnchor:[-6,18]})}).addTo(camadaDetalhe);
   });
-  // localidades
-  (s.localidades||[]).forEach(l => {
-    L.circleMarker([l.lat, l.lon], {radius: l.perfil === "urbano" ? 10 : 7, color:"#fff", weight:2,
-      fillColor: COR[l.nivel_modelos], fillOpacity: .95}).addTo(camadas)
+  (s.localidades||[]).slice(1).forEach(l => {
+    L.circleMarker([l.lat, l.lon], {radius: 7, color:"#fff", weight:2, fillColor: COR[l.nivel_modelos], fillOpacity: .95}).addTo(camadaDetalhe)
       .bindPopup(`<b>${esc(l.nome)}</b><br>${NOMES[l.nivel_modelos]}${l.nivel_modelos > 0 ? "<br>" + esc(IMPACTO[l.perfil]) : ""}`);
   });
 }
@@ -545,14 +577,15 @@ const temDados = s => s.cape.some(x => x !== null) && s.v500.some(x => x !== nul
 const fatiar = (s, k) => Object.fromEntries(Object.entries(s).map(([c, v]) => [c, v.slice(k)]));
 
 let pedidoAtual = 0;
-async function analisarPonto(lat, lon){
+async function analisarPonto(lat, lon, nomeConhecido, automatico){
   if (lat < PR.latMin || lat > PR.latMax || lon < PR.lonMin || lon > PR.lonMax){
     L.popup().setLatLng([lat, lon]).setContent("A previsão por ponto está disponível para o Paraná.").openOn(M);
     return;
   }
   const meu = ++pedidoAtual;
   const mesmo = PONTO && PONTO.lat === lat && PONTO.lon === lon;
-  PONTO = {lat, lon, nome: mesmo ? PONTO.nome : undefined};
+  PONTO = {lat, lon, nome: nomeConhecido || (mesmo ? PONTO.nome : undefined)};
+  if (!automatico) lembrar({lat, lon, nome: PONTO.nome});
   try{ history.replaceState(null, "", `#p=${lat.toFixed(3)},${lon.toFixed(3)}`); }catch(e){}
   const card = $("ponto"); card.hidden = false; card.className = "card ponto lvl l0";
   $("ponto-nome").textContent = PONTO.nome || `${lat.toFixed(3)}, ${lon.toFixed(3)}`;
@@ -562,13 +595,13 @@ async function analisarPonto(lat, lon){
   L.circleMarker([lat, lon], {radius:9, color:"#fff", weight:3, fillColor:"#3b82f6", fillOpacity:1}).addTo(camadaPonto);
   if (window.matchMedia("(max-width:900px)").matches) card.scrollIntoView({behavior:"smooth", block:"start"});
 
-  // nome do lugar (não bloqueia a análise)
-  fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}&zoom=10&accept-language=pt-BR`)
+  // nome do lugar (não bloqueia a análise; dispensado quando veio da busca)
+  if (!PONTO.nome) fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lon}&zoom=10&accept-language=pt-BR`)
     .then(r => r.json()).then(j => {
       if (meu !== pedidoAtual) return;
       const a = j.address || {};
       const nome = a.city || a.town || a.village || a.municipality || a.county;
-      if (nome){ $("ponto-nome").textContent = nome; PONTO.nome = nome; if (ROTULO_SERIE !== "Astorga"){ ROTULO_SERIE = nome; grafico(); } }
+      if (nome){ $("ponto-nome").textContent = nome; PONTO.nome = nome; if (!automatico) lembrar({lat, lon, nome}); if (ROTULO_SERIE !== "Astorga"){ ROTULO_SERIE = nome; grafico(); } }
     }).catch(() => {});
 
   const lim = (STATUS && STATUS.limiares) || LIM_PADRAO;
@@ -664,16 +697,8 @@ async function analisarPonto(lat, lon){
       : "") + `Calculada às ${hh(new Date())} com os mesmos critérios do painel (refaz sozinha a cada 30 min). Não gera alertas.` +
       (avisos.length ? ` · ${avisos.length} aviso(s) do INMET cobrem este ponto.` : "");
 
-    // mapa: anel e seta do ponto
-    anelPts.forEach(p => {
-      const mont = reg24.includes(p.id), tem = Object.values(porPonto[p.id]).some(s => Indice.gatilhoNaJanela(s, i0, i0 + 24, lim));
-      L.circleMarker([p.lat, p.lon], {radius:4, color: tem ? "#c62828" : (mont ? "#e06a12" : "#8a8a8a"), weight:2, fillOpacity: tem ? .6 : .05,
-        fillColor: tem ? "#c62828" : "#8a8a8a"}).addTo(camadaPonto);
-    });
-    if (dir24 !== null){
-      const ini = destino(lat, lon, dir24, 70), fim = destino(lat, lon, dir24, 7), cor = COR[Math.max(1, pior.nivel)];
-      L.polyline([ini, fim], {color: cor, weight: 4, opacity: .85, dashArray: "8 6"}).addTo(camadaPonto);
-    }
+    // mapa: só o pino e a seta de chegada (o anel consultado fica nos bastidores)
+    if (dir24 !== null) seta(camadaPonto, lat, lon, dir24, pior.nivel, true);
     SERIE = serie; ROTULO_SERIE = PONTO.nome || "ponto escolhido"; grafico();
   }catch(e){
     if (meu !== pedidoAtual) return;
@@ -685,14 +710,78 @@ async function analisarPonto(lat, lon){
   }
 }
 
-setInterval(() => { if (PONTO && !$("ponto").hidden) analisarPonto(PONTO.lat, PONTO.lon); }, 30 * 60 * 1000);
+setInterval(() => { if (PONTO && !$("ponto").hidden) analisarPonto(PONTO.lat, PONTO.lon, PONTO.nome, true); }, 30 * 60 * 1000);
 
 $("ponto-fechar").addEventListener("click", () => {
-  pedidoAtual++; PONTO = null; $("ponto").hidden = true;
+  pedidoAtual++; PONTO = null; $("ponto").hidden = true; lembrar(null); $("busca").value = "";
   try{ history.replaceState(null, "", location.pathname + location.search); }catch(e){}
   if (camadaPonto) camadaPonto.clearLayers();
   if (STATUS){ SERIE = STATUS.serie_horaria || []; ROTULO_SERIE = "Astorga"; grafico(); }
 });
+
+$("hero-mapa").addEventListener("click", () => {
+  if (!M) return;
+  document.querySelector('.maptabs .seg button[data-t="risco"]').click();
+  const sede = (STATUS && STATUS.localidades && STATUS.localidades[0]) || {lat:ASTORGA[0], lon:ASTORGA[1]};
+  M.setView([sede.lat, sede.lon], ZOOM_DETALHE);
+  $("mapa").scrollIntoView({behavior:"smooth", block:"center"});
+});
+
+/* ---------- busca de cidades (lista local dos 399 municípios do PR, sem serviço externo) ---------- */
+let MUNICIPIOS = null, buscaAtivo = -1, buscaRes = [];
+const normal = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+async function carregarMunicipios(){
+  if (MUNICIPIOS) return MUNICIPIOS;
+  try{
+    const j = await fetch("data/municipios-pr.json").then(r => r.json());
+    MUNICIPIOS = j.municipios.map(([cod, nome, lat, lon]) => ({cod, nome, lat, lon, chave: normal(nome)}));
+  }catch(e){ MUNICIPIOS = []; }
+  return MUNICIPIOS;
+}
+function filtrarMunicipios(q){
+  const n = normal(q); if (!n) return [];
+  const comeca = [], contem = [];
+  for (const m of MUNICIPIOS){
+    if (m.chave.startsWith(n) || m.chave.split(" ").some(p => p.startsWith(n))) comeca.push(m);
+    else if (m.chave.includes(n)) contem.push(m);
+  }
+  return comeca.concat(contem).slice(0, 8);
+}
+function desenharLista(){
+  const ul = $("busca-lista"), inp = $("busca");
+  if (!inp.value.trim()){ ul.hidden = true; inp.setAttribute("aria-expanded", "false"); return; }
+  ul.innerHTML = buscaRes.length
+    ? buscaRes.map((m, i) => `<li role="option" id="bm-${i}" data-i="${i}" class="${i === buscaAtivo ? "ativo" : ""}" aria-selected="${i === buscaAtivo}">${esc(m.nome)}</li>`).join("")
+    : '<li class="vazio">Nenhuma cidade do Paraná com esse nome</li>';
+  ul.hidden = false; inp.setAttribute("aria-expanded", "true");
+  inp.setAttribute("aria-activedescendant", buscaAtivo >= 0 ? "bm-" + buscaAtivo : "");
+}
+function escolherMunicipio(m){
+  if (!m) return;
+  $("busca").value = m.nome; buscaRes = []; buscaAtivo = -1; desenharLista(); $("busca-lista").hidden = true;
+  $("busca").blur();
+  const windy = !$("windy").hidden;
+  analisarPonto(m.lat, m.lon, m.nome);
+  if (M) M.setView([m.lat, m.lon], 9);
+  if (windy){ const f = $("windy-frame"), src = srcWindy(); if (f.src !== src) f.src = src; }
+}
+$("busca").addEventListener("focus", carregarMunicipios);
+$("busca").addEventListener("input", async e => {
+  await carregarMunicipios();
+  buscaRes = filtrarMunicipios(e.target.value); buscaAtivo = buscaRes.length ? 0 : -1; desenharLista();
+});
+$("busca").addEventListener("keydown", e => {
+  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+    if (!buscaRes.length) return; e.preventDefault();
+    buscaAtivo = (buscaAtivo + (e.key === "ArrowDown" ? 1 : -1) + buscaRes.length) % buscaRes.length; desenharLista();
+  } else if (e.key === "Enter"){ e.preventDefault(); escolherMunicipio(buscaRes[Math.max(0, buscaAtivo)]); }
+  else if (e.key === "Escape"){ $("busca-lista").hidden = true; }
+});
+$("busca-lista").addEventListener("mousedown", e => {
+  const li = e.target.closest("li[data-i]"); if (!li) return;
+  e.preventDefault(); escolherMunicipio(buscaRes[+li.dataset.i]);
+});
+document.addEventListener("click", e => { if (!$("busca-caixa").contains(e.target)) $("busca-lista").hidden = true; });
 
 /* ---------- aba Windy (incorporação oficial, marca do Windy visível) ---------- */
 let overlayWindy = "wind";
@@ -709,7 +798,7 @@ document.querySelectorAll(".maptabs .seg button").forEach(b => b.addEventListene
   $("mapa").hidden = windy; $("windy").hidden = !windy;
   document.querySelectorAll(".legenda").forEach(x => x.hidden = windy);
   $("dica").textContent = windy ? "Mapa do Windy (fonte: windy.com). A análise de risco fica na aba Mapa de risco."
-                                : "Toque em qualquer ponto do Paraná para ver a previsão daquele local.";
+                                : "Busque uma cidade ou toque em qualquer ponto do Paraná para ver a previsão daquele local.";
   if (windy){ const f = $("windy-frame"), s = srcWindy(); if (f.src !== s) f.src = s; }
   else if (M) setTimeout(() => M.invalidateSize(), 50);
 }));
