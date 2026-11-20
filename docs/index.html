@@ -558,8 +558,11 @@ async function analisarPonto(lat, lon){
     SERIE = serie; ROTULO_SERIE = PONTO.nome || "ponto escolhido"; grafico();
   }catch(e){
     if (meu !== pedidoAtual) return;
+    card.className = "card ponto";
     $("ponto-nivel").textContent = "Não foi possível analisar";
-    $("ponto-nota").textContent = "Falha ao consultar os modelos (" + e.message + "). Tente de novo em instantes.";
+    $("ponto-nota").textContent = /limit/i.test(e.message)
+      ? "O limite gratuito de consultas do serviço de previsão foi atingido nesta conexão (acontece em redes compartilhadas, como Wi-Fi público ou de empresa). Tente por outra rede, como os dados do celular, ou mais tarde."
+      : "Falha ao consultar os modelos (" + e.message + "). Tente de novo em instantes.";
   }
 }
 
