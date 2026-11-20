@@ -14,6 +14,13 @@ Projeto pessoal, não oficial, sem fins comerciais.
 - **Dados**: cada rodada grava `status.json`, `estado.json`, `ensemble_cache.json` e `historico.csv` no branch **`dados`**. A página lê `status.json` direto desse branch. Como o Netlify só acompanha o `main`, as rodadas não geram deploys.
 - **Telegram**: desligado (`"ativo": false` em `config.json`). Para ligar: crie bot e canal, cadastre `TELEGRAM_TOKEN` e `TELEGRAM_CHAT_ID` em *Settings → Secrets and variables → Actions* e mude para `true`.
 
+## Previsão por ponto (clique no mapa)
+- Qualquer ponto do Paraná: a página consulta o Open-Meteo direto do navegador de quem clica e aplica o mesmo índice do motor (`docs/indice.js`, idêntico a `motor/indice.py`, com teste de paridade em `tests/test_paridade_js.py`).
+- É **previsão, não alerta**: não gera mensagens. Fora de ~150 km de Astorga aparece o aviso de confiança menor (limiares calibrados no norte do PR).
+- Avisos do INMET por ponto: o motor publica em `status.json` (`avisos_estado`) as áreas dos avisos vigentes no Paraná; a página testa se o ponto está dentro.
+- Link compartilhável: `https://alerta-tempo-astorga.netlify.app/#p=LAT,LON`.
+- Aba **Windy**: incorporação oficial do windy.com (marca visível, uso não comercial).
+
 ## Testar localmente
 ```bash
 python -m unittest discover -s tests -p "test_*.py"   # testes com os eventos de 02/11 e 07/11
