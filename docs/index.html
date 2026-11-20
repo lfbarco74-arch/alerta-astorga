@@ -76,6 +76,7 @@
   .ponto-nome{font-weight:700;font-size:1.05rem;margin:2px 0 4px}
   button.link{background:none;border:0;color:var(--muted);font:inherit;font-size:.85rem;cursor:pointer;text-decoration:underline;padding:0}
   .leaflet-container{cursor:crosshair}
+  [hidden]{display:none !important}
   .alerta-dados{background:var(--n2bg);border:1px solid var(--n2);padding:10px 12px;border-radius:10px;margin-bottom:14px;display:none}
   details summary{cursor:pointer;font-weight:600}
   a{color:inherit}
@@ -294,9 +295,9 @@ function render(s){
 }
 
 let SERIE = [], HORAS_GRAF = 24, ROTULO_SERIE = "Astorga", STATUS = null, PONTO = null;
-document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
+document.querySelectorAll(".cab .seg button").forEach(b => b.addEventListener("click", () => {
   HORAS_GRAF = +b.dataset.h;
-  document.querySelectorAll(".seg button").forEach(x => x.classList.toggle("on", x === b));
+  document.querySelectorAll(".cab .seg button").forEach(x => x.classList.toggle("on", x === b));
   grafico();
 }));
 
