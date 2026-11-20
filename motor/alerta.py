@@ -37,6 +37,14 @@ def _gravar(p: Path, obj):
     p.write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def _vigente(aviso: dict, agora: datetime) -> bool:
+    """O feed do INMET mantém avisos vencidos por dias; só interessam os que ainda não acabaram."""
+    try:
+        return datetime.fromisoformat(aviso["fim"]) >= agora
+    except (KeyError, ValueError):
+        return False
+
+
 def pontos_a_montante(anel_pts, direcao_vento, abertura):
     if direcao_vento is None:
         return [p["id"] for p in anel_pts]  # sem direção: usa o anel todo
@@ -125,6 +133,7 @@ def rodar(enviar_telegram: bool = True) -> dict:
     try:
         cache_inmet = estado.setdefault("cache_inmet", {})
         avisos = fontes.avisos_inmet(CFG["ibge_municipio"], cache_inmet)
+        avisos = sorted((a for a in avisos if _vigente(a, agora)), key=lambda a: a["inicio"])
     except Exception as e:  # noqa: BLE001
         erros.append(f"INMET: {e}")
 
