@@ -1,0 +1,2 @@
+data_hora_local,local,fonte,vento_direcao,rajada_estimada_kmh,chuva,temperatura,energia,descricao,nivel_painel_antes,antecedencia_h
+2026-11-20T19:00-03:00,Astorga (sede),relato direto (Leandro),variável (SO/NE/O/L e demais),>50 (estimada),chuvisco inicial,queda brusca,piscou e voltou,"Tempo virou de repente; rajadas fortes com direção variando, típico de frente de rajada de linha de instabilidade.",Alerta desde 15h20 (pico previsto ~18h; chegada pelo oeste); INMET laranja ativo,~3.5

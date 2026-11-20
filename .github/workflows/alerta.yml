@@ -11,7 +11,7 @@ on:
   workflow_dispatch:          # botão "Run workflow" para rodar na hora
   push:
     branches: [main]
-    paths: ["motor/**", "config.json", ".github/workflows/**"]
+    paths: ["motor/**", "config.json", ".github/workflows/**", "observacoes/**"]
 
 permissions:
   contents: write
