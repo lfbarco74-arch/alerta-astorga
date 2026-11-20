@@ -46,7 +46,10 @@ A direção é **calculada a cada rodada**: no dia 02/11 o vento em 700 hPa vinh
 2. **Ensemble (ECMWF, 51 cenários)**: se ≥ 50% dos cenários têm ambiente de alerta, sobe um nível (de 1 para 2; de 2 para 3 com 50% em ambiente severo). Em vez de um número, uma distribuição: a mesma lógica de olhar o risco de um investimento pela dispersão dos cenários, e não só pelo valor esperado.
 3. **Piso oficial**: aviso do INMET que lista Astorga (código IBGE 4102109 no CAP) define um nível mínimo: amarelo → 1, laranja → 2, vermelho → 3. O sistema nunca rebaixa um aviso oficial.
 
-### 3.5 Perigos indicados
+### 3.5 Perigos indicados (com grau)
+Cada perigo vem como **provável** (ingrediente com folga) ou **possível** (no limite). Rajadas: provável com WMAXSHEAR ≥ 1200 ou cisalhamento ≥ 18 m/s. Granizo: provável com CAPE ≥ 2500 e cisalhamento ≥ 18 m/s. Chuva intensa: provável se algum modelo simula ≥ 15 mm/h. Raios: provável se 2 ou mais modelos simulam tempestade no próprio ponto.
+
+Regras de entrada:
 - **Rajadas/vendaval**: WMAXSHEAR ≥ 800 e cisalhamento ≥ 12,5 m/s, com gatilho.
 - **Granizo**: CAPE ≥ 1500 e cisalhamento ≥ 12,5 m/s, com gatilho; "maior porte" se a isoterma de 0 °C estiver abaixo de 4000 m.
 - **Chuva intensa**: algum modelo com ≥ 15 mm/h, ou nível ≥ 2 com gatilho.
@@ -61,6 +64,9 @@ A direção é **calculada a cada rodada**: no dia 02/11 o vento em 700 hPa vinh
 | 07/11 06h → 23h | 4160 J/kg | ~13–16 m/s | ~1170 | trovoada às 13h e 17h | **Alerta**, granizo |
 
 **Ponto de atenção (honestidade sobre falsos alarmes):** de 20/10 a 19/11/2026, um período excepcionalmente ativo no norte do Paraná, o ambiente passou de 1000 em cerca de 12 dos 31 dias, e com gatilho em cerca de 7. Parte desses dias teve tempestades reais (24/10, 05/11, com aviso de perigo do INMET), mas não todos em Astorga. Por isso o Telegram só fala quando o nível **muda**, e a calibração será revista.
+
+## 4.1 Primeiro caso registrado (20/11/2026, 19h, relato de campo)
+Painel em **Alerta** desde as 15h20 (pico previsto 18–19h, chegada pelo oeste); aviso laranja do INMET ativo. Às 19h, frente de rajada em Astorga: vento forte com direção variável, queda brusca de temperatura, energia piscou. Pouca chuva, sem granizo, sem danos; núcleo passou ao lado. **Acerto parcial**: ambiente, horário e rajada corretos; chuva intensa e granizo listados não ocorreram no ponto. Consequência: os perigos passaram a ter grau ("provável" ou "possível").
 
 ## 5. Como vamos medir se funciona
 Cada rodada grava uma linha em `data/historico.csv`. Depois de cada evento (ou de cada mês), comparar com o que aconteceu:

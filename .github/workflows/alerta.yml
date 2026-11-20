@@ -44,6 +44,9 @@ jobs:
             for f in estado.json ensemble_cache.json historico.csv; do
               [ -f "_pub/$f" ] && cp "_pub/$f" "data/$f" || true
             done
+            for d in arquivo relatos; do
+              [ -d "_pub/$d" ] && mkdir -p "data/$d" && cp -r "_pub/$d/." "data/$d/" || true
+            done
           else
             git worktree add --detach _pub
             git -C _pub checkout --orphan dados
@@ -61,6 +64,9 @@ jobs:
           cp docs/data/status.json _pub/status.json
           for f in estado.json ensemble_cache.json historico.csv; do
             [ -f "data/$f" ] && cp "data/$f" "_pub/$f" || true
+          done
+          for d in arquivo relatos; do
+            [ -d "data/$d" ] && mkdir -p "_pub/$d" && cp -r "data/$d/." "_pub/$d/" || true
           done
           cd _pub
           git config user.name "alerta-bot"

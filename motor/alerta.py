@@ -9,6 +9,7 @@ import csv
 import json
 import sys
 import traceback
+import urllib.request
 from datetime import datetime, timedelta
 from pathlib import Path
 from statistics import median
@@ -110,6 +111,55 @@ def serie_horaria(local, horas, i0, n, regional_ids, det):
     return saida
 
 
+DIR_ARQUIVO = RAIZ / "data" / "arquivo"
+DIR_RELATOS = RAIZ / "data" / "relatos"
+URL_RELATOS = CFG["pagina_url"].rstrip("/") + "/api/relatos?horas=6"
+
+
+def arquivar(status: dict, agora: datetime) -> None:
+    """Uma linha por rodada em data/arquivo/AAAA-MM-DD.jsonl: o que o sistema previu, com os ingredientes.
+    É a base para medir acertos e recalibrar os limiares mais adiante."""
+    reg = {
+        "gerado_em": status["gerado_em"],
+        "direcao": status.get("direcao_graus"),
+        "janelas": [{
+            "rotulo": j["rotulo"], "inicio": j["inicio"], "fim": j["fim"], "nivel": j["nivel"],
+            "nivel_modelos": j["nivel_modelos"], "pico": j.get("hora_pico_iso"), "ingredientes": j["ingredientes"],
+            "perigos": j.get("perigos_nivel", {}), "prob_ensemble": j.get("prob_ensemble"),
+            "inmet": (j.get("inmet") or {}).get("severidade"),
+            "modelos": {m: [v["nivel"], v["wmaxshear"], int(v["gatilho_local"]), int(v["gatilho_regional"])]
+                        for m, v in j["por_modelo"].items()},
+        } for j in status["janelas"]],
+        "serie": [[p["hora"], p["wmaxshear"], int(p["gatilho"])] for p in status["serie_horaria"]],
+        "avisos_inmet": [[a["id"], a["severidade"]] for a in status["avisos_inmet"]],
+        "erros": status["erros"],
+    }
+    DIR_ARQUIVO.mkdir(parents=True, exist_ok=True)
+    with (DIR_ARQUIVO / f"{agora:%Y-%m-%d}.jsonl").open("a", encoding="utf-8") as f:
+        f.write(json.dumps(reg, ensure_ascii=False, separators=(",", ":")) + "\n")
+
+
+def coletar_relatos(agora: datetime) -> int:
+    """Copia os relatos de campo das últimas horas (enviados pela página) para data/relatos/AAAA-MM.jsonl."""
+    req = urllib.request.Request(URL_RELATOS, headers={"User-Agent": "alerta-tempo-astorga/0.1"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        relatos = json.loads(r.read()).get("relatos", [])
+    DIR_RELATOS.mkdir(parents=True, exist_ok=True)
+    arq = DIR_RELATOS / f"{agora:%Y-%m}.jsonl"
+    vistos = set()
+    if arq.exists():
+        for linha in arq.read_text(encoding="utf-8").splitlines():
+            try:
+                vistos.add(json.loads(linha)["id"])
+            except (ValueError, KeyError):
+                pass
+    novos = [x for x in relatos if x.get("id") and x["id"] not in vistos]
+    with arq.open("a", encoding="utf-8") as f:
+        for x in sorted(novos, key=lambda x: x["id"]):
+            f.write(json.dumps(x, ensure_ascii=False, separators=(",", ":")) + "\n")
+    return len(novos)
+
+
 def rodar(enviar_telegram: bool = True) -> dict:
     fuso = ZoneInfo(CFG["fuso"])
     agora = datetime.now(fuso)
@@ -167,6 +217,7 @@ def rodar(enviar_telegram: bool = True) -> dict:
             horas_pico = [v["hora_pico"] for v in r["por_modelo"].values() if v["hora_pico"] is not None]
             r.update(rotulo=rotulo, inicio=horas[ini], fim=horas[fim - 1],
                      hora_pico_local=horas[int(median(horas_pico))][11:16] if horas_pico else None,
+                     hora_pico_iso=horas[int(median(horas_pico))] if horas_pico else None,
                      direcao_chegada=indice.rosa(dirj), pontos_regionais=reg_ids)
             janelas.append(r)
 
@@ -217,6 +268,15 @@ def rodar(enviar_telegram: bool = True) -> dict:
                    "INMET — avisos meteorológicos (RSS/CAP)"],
     }
     _gravar(ARQ_STATUS, status)
+    try:
+        arquivar(status, agora)
+    except Exception as e:  # noqa: BLE001
+        print(f"[arquivo] falhou: {e}")
+    try:
+        n = coletar_relatos(agora)
+        print(f"[relatos] {n} novo(s)")
+    except Exception as e:  # noqa: BLE001
+        print(f"[relatos] falhou: {e}")
 
     novo = not ARQ_HIST.exists()
     with ARQ_HIST.open("a", newline="", encoding="utf-8") as f:

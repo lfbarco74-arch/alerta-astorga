@@ -75,7 +75,7 @@ process.stdout.write(JSON.stringify({{out, ens}}));
 
         for i, (py, j) in enumerate(zip(esperado, js["out"])):
             with self.subTest(caso=i):
-                for chave in ("nivel", "nome", "nivel_modelos", "perigos", "motivos"):
+                for chave in ("nivel", "nome", "nivel_modelos", "perigos", "perigos_nivel", "motivos"):
                     self.assertEqual(py[chave], j[chave], f"caso {i}: {chave}")
                 for k, v in py["ingredientes"].items():
                     if isinstance(v, float):

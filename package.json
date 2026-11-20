@@ -1,0 +1,12 @@
+{
+  "name": "alerta-tempo-astorga",
+  "private": true,
+  "type": "module",
+  "description": "Funções do Netlify para os relatos de campo (o motor de previsão é Python, em motor/).",
+  "dependencies": {
+    "@netlify/blobs": "^11.1.9"
+  },
+  "devDependencies": {
+    "@netlify/functions": "^6.1.1"
+  }
+}

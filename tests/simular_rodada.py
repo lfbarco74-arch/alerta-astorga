@@ -57,6 +57,8 @@ def fake_inmet(cod, cache=None, filtro_area="Paran", estado="Paraná"):
     return av, [{**av[0], "poligonos": poli}]
 
 
+alerta.coletar_relatos = lambda agora: 0
+alerta.DIR_ARQUIVO = RAIZ / "tests" / "_arquivo"
 fontes.modelos_deterministicos = fake_det
 fontes.ensemble = fake_ens
 fontes.avisos_inmet = fake_inmet

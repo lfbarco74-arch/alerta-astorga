@@ -21,6 +21,16 @@ Projeto pessoal, não oficial, sem fins comerciais.
 - Link compartilhável: `https://alerta-tempo-astorga.netlify.app/#p=LAT,LON`.
 - Aba **Windy**: incorporação oficial do windy.com (marca visível, uso não comercial).
 
+## Relatos de campo ("Como está o tempo aí?")
+- Botão na página abre um formulário: onde (GPS, ponto do mapa ou centro de Astorga), quando (agora até há 2 h), o que está acontecendo (caixas de seleção) e intensidade (fraca, moderada, forte).
+- Funções do Netlify: `POST /api/relato` grava um blob por relato (Netlify Blobs, loja `relatos`); `GET /api/relatos?horas=6` lista os recentes. Anônimo, localização arredondada (~1 km), limite de 4 envios por minuto por conexão, armadilha contra robôs.
+- No mapa, os relatos aparecem por 6 horas, esmaecendo com o tempo.
+- O motor copia os relatos para `data/relatos/AAAA-MM.jsonl` (branch `dados`) a cada rodada: é a verdade de campo para medir acertos.
+
+## Arquivo para calibração
+- Cada rodada grava uma linha em `data/arquivo/AAAA-MM-DD.jsonl` (branch `dados`): níveis por janela, ingredientes, nível e índice de cada modelo, probabilidade do ensemble, avisos do INMET e a série horária.
+- Relatos de campo ficam em `observacoes/relatos.csv` (manuais) e `data/relatos/` (enviados pela página).
+
 ## Testar localmente
 ```bash
 python -m unittest discover -s tests -p "test_*.py"   # testes com os eventos de 02/11 e 07/11

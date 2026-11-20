@@ -113,16 +113,27 @@
     const isos = vs.map(v => v.isoterma0_min).filter(x => x);
     const isoMin = isos.length ? Math.min(...isos) : null;
     const gatQ = vs.some(v => v.gatilho_local || v.gatilho_regional);
-    const perigos = [];
-    if (nivel >= 1 && gatQ) perigos.push("raios");
-    if ((wsMed || 0) >= lim.wmaxshear_alerta && (shMed || 0) >= lim.cisalhamento_organizado_ms && gatQ) perigos.push("rajadas fortes / vendaval");
-    if ((capeMed || 0) >= lim.cape_granizo && (shMed || 0) >= lim.cisalhamento_organizado_ms && gatQ)
-      perigos.push(isoMin !== null && isoMin < lim.isoterma_zero_granizo_grande_m ? "granizo (inclusive de maior porte)" : "granizo");
-    if (pmax >= lim.chuva_intensa_mm_h || (nivel >= 2 && gatQ)) perigos.push("chuva intensa em pouco tempo");
+    const perigos = [], perigosNivel = {};
+    const nGatLocal = vs.filter(v => v.gatilho_local).length;
+    const ws0 = wsMed || 0, sh0 = shMed || 0, cape0 = capeMed || 0;
+    const shForte = lim.cisalhamento_forte_ms ?? 18, capeProv = lim.cape_granizo_provavel ?? 2500;
+    if (nivel >= 1 && gatQ) { perigos.push("raios"); perigosNivel["raios"] = nGatLocal >= 2 ? "provável" : "possível"; }
+    if (ws0 >= lim.wmaxshear_alerta && sh0 >= lim.cisalhamento_organizado_ms && gatQ) {
+      perigos.push("rajadas fortes / vendaval");
+      perigosNivel["rajadas fortes / vendaval"] = (ws0 >= lim.wmaxshear_severo || sh0 >= shForte) ? "provável" : "possível";
+    }
+    if (cape0 >= lim.cape_granizo && sh0 >= lim.cisalhamento_organizado_ms && gatQ) {
+      const nome = isoMin !== null && isoMin < lim.isoterma_zero_granizo_grande_m ? "granizo (inclusive de maior porte)" : "granizo";
+      perigos.push(nome); perigosNivel[nome] = (cape0 >= capeProv && sh0 >= shForte) ? "provável" : "possível";
+    }
+    if (pmax >= lim.chuva_intensa_mm_h || (nivel >= 2 && gatQ)) {
+      perigos.push("chuva intensa em pouco tempo");
+      perigosNivel["chuva intensa em pouco tempo"] = pmax >= lim.chuva_intensa_mm_h ? "provável" : "possível";
+    }
     const porModelo = {};
     for (const [m, v] of Object.entries(pm)) porModelo[m] = { nivel: v.nivel, wmaxshear: Math.round(v.ws), gatilho_local: v.gatilho_local, gatilho_regional: v.gatilho_regional, hora_pico: v.hora, localidade_pico: v.localidade };
     return {
-      nivel, nome: NOMES[nivel], nivel_modelos: nivelModelos, motivos, perigos,
+      nivel, nome: NOMES[nivel], nivel_modelos: nivelModelos, motivos, perigos, perigos_nivel: perigosNivel,
       ingredientes: {
         wmaxshear: wsMed === null ? null : Math.round(wsMed), cape: capeMed === null ? null : Math.round(capeMed),
         cisalhamento_ms: shMed === null ? null : Math.round(shMed * 10) / 10, precip_max_mm_h: Math.round(pmax * 10) / 10,

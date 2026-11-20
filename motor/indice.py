@@ -208,18 +208,26 @@ def avaliar_janela(local: dict[str, dict[str, SerieModelo]],
     iso_min = min(iso_vals) if iso_vals else None
     gatilho_qualquer = any(v["gatilho_local"] or v["gatilho_regional"] for v in por_modelo.values())
 
-    perigos = []
+    # Perigos com grau de confiança: "provável" quando o ingrediente passa com folga, "possível" no limite.
+    perigos, perigos_nivel = [], {}
+    n_gat_local = sum(1 for v in por_modelo.values() if v["gatilho_local"])
+    ws0, sh0, cape0 = ws_med or 0, sh_med or 0, cape_med or 0
     if nivel >= 1 and gatilho_qualquer:
         perigos.append("raios")
-    if (ws_med or 0) >= lim["wmaxshear_alerta"] and (sh_med or 0) >= lim["cisalhamento_organizado_ms"] and gatilho_qualquer:
+        perigos_nivel["raios"] = "provável" if n_gat_local >= 2 else "possível"
+    if ws0 >= lim["wmaxshear_alerta"] and sh0 >= lim["cisalhamento_organizado_ms"] and gatilho_qualquer:
         perigos.append("rajadas fortes / vendaval")
-    if (cape_med or 0) >= lim["cape_granizo"] and (sh_med or 0) >= lim["cisalhamento_organizado_ms"] and gatilho_qualquer:
-        if iso_min is not None and iso_min < lim["isoterma_zero_granizo_grande_m"]:
-            perigos.append("granizo (inclusive de maior porte)")
-        else:
-            perigos.append("granizo")
+        perigos_nivel["rajadas fortes / vendaval"] = (
+            "provável" if ws0 >= lim["wmaxshear_severo"] or sh0 >= lim["cisalhamento_forte_ms"] else "possível")
+    if cape0 >= lim["cape_granizo"] and sh0 >= lim["cisalhamento_organizado_ms"] and gatilho_qualquer:
+        nome = ("granizo (inclusive de maior porte)"
+                if iso_min is not None and iso_min < lim["isoterma_zero_granizo_grande_m"] else "granizo")
+        perigos.append(nome)
+        perigos_nivel[nome] = ("provável" if cape0 >= lim["cape_granizo_provavel"] and sh0 >= lim["cisalhamento_forte_ms"]
+                               else "possível")
     if precip_max >= lim["chuva_intensa_mm_h"] or (nivel >= 2 and gatilho_qualquer):
         perigos.append("chuva intensa em pouco tempo")
+        perigos_nivel["chuva intensa em pouco tempo"] = "provável" if precip_max >= lim["chuva_intensa_mm_h"] else "possível"
 
     return {
         "nivel": nivel,
@@ -227,6 +235,7 @@ def avaliar_janela(local: dict[str, dict[str, SerieModelo]],
         "nivel_modelos": nivel_modelos,
         "motivos": motivos,
         "perigos": perigos,
+        "perigos_nivel": perigos_nivel,
         "ingredientes": {
             "wmaxshear": round(ws_med) if ws_med is not None else None,
             "cape": round(cape_med) if cape_med is not None else None,
