@@ -19,14 +19,14 @@
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-  main{max-width:880px;margin:0 auto;padding:20px 16px 48px}
+  main{max-width:1180px;margin:0 auto;padding:20px 16px 48px}
   header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
   h1{font-size:1.25rem;margin:0;letter-spacing:-.01em}
   h2{font-size:1rem;margin:0 0 10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
   .muted{color:var(--muted)} .small{font-size:.85rem}
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:14px}
   .hero{border-width:2px;padding:20px}
-  .hero .nivel{font-size:2.2rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  .hero .nivel{font-size:2rem;font-weight:800;letter-spacing:-.02em;line-height:1.1}
   .hero .quando{font-size:1.05rem;margin-top:4px}
   .chips{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
   .chip{border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:.85rem;background:var(--bg)}
@@ -44,7 +44,7 @@
   th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}
   th{color:var(--muted);font-weight:600}
   #grafico svg{width:100%;height:auto;display:block}
-  #mapa{height:420px;border-radius:10px;border:1px solid var(--line);overflow:hidden;position:relative}
+  #mapa{height:min(560px,62vh);min-height:340px;border-radius:10px;border:1px solid var(--line);overflow:hidden;position:relative}
   .legenda{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:8px;color:var(--muted)}
   .sw{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:5px;vertical-align:-1px}
   .sw.anel{background:transparent;border:2px solid #8a8a8a}
@@ -52,6 +52,19 @@
   .leaflet-container{font:inherit}
   #mapa .msg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;color:var(--muted)}
   .aviso{border-left:5px solid var(--c);padding:8px 12px;margin:8px 0;background:var(--cb);border-radius:8px}
+  .hdr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .pill{border:1.5px solid var(--c);background:var(--cb);color:var(--c);font-weight:700;border-radius:999px;padding:2px 12px;font-size:.9rem}
+  .topo{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,1fr);gap:14px;align-items:start;margin-bottom:14px}
+  .topo .card{margin-bottom:0} .lado{display:flex;flex-direction:column;gap:14px}
+  .mapa-card{padding:12px}
+  .jans{display:flex;flex-direction:column;gap:8px}
+  .cab{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .cab h2{margin:0}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden}
+  .seg button{background:transparent;color:var(--ink);border:0;padding:5px 14px;font:inherit;font-size:.88rem;cursor:pointer}
+  .seg button+button{border-left:1px solid var(--line)}
+  .seg button.on{background:var(--ink);color:var(--bg);font-weight:600}
+  @media (max-width:900px){.topo{grid-template-columns:1fr}}
   .alerta-dados{background:var(--n2bg);border:1px solid var(--n2);padding:10px 12px;border-radius:10px;margin-bottom:14px;display:none}
   details summary{cursor:pointer;font-weight:600}
   a{color:inherit}
@@ -62,43 +75,13 @@
 <main>
   <header>
     <h1>Tempo severo — Astorga/PR</h1>
-    <span class="muted small" id="atualizado">carregando…</span>
+    <div class="hdr"><span class="pill lvl l0" id="pill">—</span><span class="muted small" id="atualizado">carregando…</span></div>
   </header>
 
   <div class="alerta-dados" id="velho"></div>
 
-  <section class="card hero lvl" id="hero">
-    <div class="nivel" id="hero-nivel">—</div>
-    <div class="quando" id="hero-quando"></div>
-    <div class="chips" id="hero-perigos"></div>
-    <div class="small muted" id="hero-motivos"></div>
-    <div class="small" id="hero-direcao" style="margin-top:8px"></div>
-  </section>
-
-  <section class="card">
-    <h2>Linha do tempo</h2>
-    <div class="grid3" id="janelas"></div>
-  </section>
-
-  <section class="card">
-    <h2>Próximas 48 horas</h2>
-    <div id="grafico"></div>
-    <p class="small muted" style="margin:6px 0 0">Barras: potencial de tempestade severa (energia × cisalhamento do vento). ⚡ = algum modelo simula tempestade em Astorga ou na região de onde ela viria.</p>
-  </section>
-
-  <section class="card">
-    <h2>Cidade e zona rural (próximas 24 h)</h2>
-    <table id="locais"><thead><tr><th>Local</th><th>Sinal dos modelos</th><th>O que pode acontecer</th></tr></thead><tbody></tbody></table>
-    <p class="small muted" style="margin:8px 0 0">Os modelos enxergam o município em blocos de 9 a 28 km. Por isso cidade e distritos costumam ter o mesmo sinal; o que muda é o tipo de impacto.</p>
-  </section>
-
-  <section class="card">
-    <h2>Avisos oficiais do INMET</h2>
-    <div id="inmet" class="small"></div>
-  </section>
-
-  <section class="card">
-    <h2>Mapa</h2>
+  <div class="topo">
+    <section class="card mapa-card">
     <div id="mapa"></div>
     <div class="legenda small">
       <span><span class="sw" style="background:var(--n0)"></span>Normal</span>
@@ -110,6 +93,45 @@
       <span>⚡ tempestade simulada nas próximas 24 h</span>
     </div>
     <p class="small muted" style="margin:6px 0 0">A seta mostra o fluxo de vento a ~3 km de altura, que conduz as tempestades até Astorga. Radar: última imagem disponível (10 a 20 min de atraso), <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>. Contorno do município: IBGE.</p>
+    </section>
+
+    <aside class="lado">
+      <section class="card hero lvl" id="hero">
+        <div class="nivel" id="hero-nivel">—</div>
+        <div class="quando" id="hero-quando"></div>
+        <div class="chips" id="hero-perigos"></div>
+        <div class="small muted" id="hero-motivos"></div>
+        <div class="small" id="hero-direcao" style="margin-top:8px"></div>
+      </section>
+      <section class="card">
+        <h2>Linha do tempo</h2>
+        <div class="jans" id="janelas"></div>
+      </section>
+    </aside>
+  </div>
+
+  <section class="card">
+    <div class="cab">
+      <h2 id="graf-titulo">Potencial de tempestade — próximas 24 horas</h2>
+      <div class="seg" role="group" aria-label="Período do gráfico">
+        <button type="button" data-h="12">12 h</button>
+        <button type="button" data-h="24" class="on">24 h</button>
+        <button type="button" data-h="48">48 h</button>
+      </div>
+    </div>
+    <div id="grafico"></div>
+    <p class="small muted" style="margin:6px 0 0">Barras: potencial de tempestade severa (energia × cisalhamento do vento). Cor forte e ⚡ = algum modelo simula tempestade em Astorga ou na região de onde ela viria. Passe o dedo ou o mouse sobre as barras para ver a hora.</p>
+  </section>
+
+  <section class="card">
+    <h2>Cidade e zona rural (próximas 24 h)</h2>
+    <table id="locais"><thead><tr><th>Local</th><th>Sinal dos modelos</th><th>O que pode acontecer</th></tr></thead><tbody></tbody></table>
+    <p class="small muted" style="margin:8px 0 0">Os modelos enxergam o município em blocos de 9 a 28 km. Por isso cidade e distritos costumam ter o mesmo sinal; o que muda é o tipo de impacto.</p>
+  </section>
+
+  <section class="card">
+    <h2>Avisos oficiais do INMET</h2>
+    <div id="inmet" class="small"></div>
   </section>
 
   <section class="card">
@@ -175,6 +197,7 @@ function render(s){
 
   const r = s.resumo, j = r.janela_pior || {};
   const hero = $("hero"); hero.className = "card hero lvl " + cls(r.nivel_24h);
+  const pill = $("pill"); pill.className = "pill lvl " + cls(r.nivel_24h); pill.textContent = r.nome_24h;
   $("hero-nivel").textContent = r.nome_24h;
   $("hero-quando").textContent = r.nivel_24h > 0
     ? `${j.rotulo}${j.hora_pico_local ? " · pico perto das " + j.hora_pico_local : ""}`
@@ -192,7 +215,8 @@ function render(s){
       <span class="small">${w.nivel > 0 && w.perigos.length ? esc(w.perigos.join(", ")) : "&nbsp;"}</span>
     </div>`).join("");
 
-  grafico(s.serie_horaria || []);
+  SERIE = s.serie_horaria || [];
+  grafico();
   mapa(s);
 
   $("locais").querySelector("tbody").innerHTML = (s.localidades||[]).map(l => `
@@ -228,24 +252,37 @@ function render(s){
   $("ingredientes").innerHTML = ing + `<p class="muted">Índice = √(2·CAPE) × cisalhamento (WMAXSHEAR). Acima de 500 = atenção; 800 = alerta; 1200 = severo, desde que haja tempestade simulada em Astorga ou na região a montante.</p>`;
 }
 
-function grafico(serie){
+let SERIE = [], HORAS_GRAF = 24;
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
+  HORAS_GRAF = +b.dataset.h;
+  document.querySelectorAll(".seg button").forEach(x => x.classList.toggle("on", x === b));
+  grafico();
+}));
+
+function grafico(){
+  const serie = SERIE.slice(0, HORAS_GRAF);
+  $("graf-titulo").textContent = `Potencial de tempestade — próximas ${HORAS_GRAF} horas`;
   if (!serie.length){ $("grafico").innerHTML = '<p class="muted small">Sem dados de modelo.</p>'; return; }
-  const W = 860, H = 200, pad = {l:62, r:8, t:14, b:26};
+  const W = 1100, H = 230, pad = {l:62, r:8, t:18, b:30};
   const max = Math.max(1400, ...serie.map(p => p.wmaxshear || 0));
   const bw = (W - pad.l - pad.r) / serie.length;
   const y = v => pad.t + (H - pad.t - pad.b) * (1 - v / max);
   const cor = v => v >= 1200 ? "var(--n3)" : v >= 800 ? "var(--n2)" : v >= 500 ? "var(--n1)" : "var(--n0)";
-  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Potencial de tempestade severa nas próximas 48 horas">`;
+  const passo = HORAS_GRAF <= 12 ? 2 : HORAS_GRAF <= 24 ? 3 : 6;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Potencial de tempestade severa nas próximas ${HORAS_GRAF} horas">`;
   [[500,"atenção"],[800,"alerta"],[1200,"severo"]].forEach(([v,t]) => {
     svg += `<line x1="${pad.l}" x2="${W-pad.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-dasharray="4 4"/>
-            <text x="${pad.l-4}" y="${y(v)+4}" font-size="10" text-anchor="end" fill="var(--muted)">${t}</text>`;
+            <text x="${pad.l-6}" y="${y(v)+4}" font-size="12" text-anchor="end" fill="var(--muted)">${t}</text>`;
   });
   serie.forEach((p,i) => {
-    const v = p.wmaxshear || 0, x = pad.l + i*bw;
-    svg += `<rect x="${x+1}" y="${y(v)}" width="${Math.max(1,bw-2)}" height="${H-pad.b-y(v)}" rx="2" fill="${cor(v)}" opacity="${p.gatilho ? 1 : .45}"><title>${fmtHora(p.hora)}: ${v}${p.gatilho ? " · tempestade simulada" : ""}</title></rect>`;
-    if (p.gatilho) svg += `<text x="${x+bw/2}" y="${y(v)-3}" font-size="9" text-anchor="middle">⚡</text>`;
-    const h = p.hora.slice(11,13);
-    if (h === "00" || h === "12") svg += `<text x="${x}" y="${H-8}" font-size="10" fill="var(--muted)">${h === "00" ? new Date(p.hora).toLocaleDateString("pt-BR",{weekday:"short"}) : "12h"}</text>`;
+    const v = p.wmaxshear || 0, x = pad.l + i*bw, d = new Date(p.hora), h = d.getHours();
+    svg += `<rect x="${x+1}" y="${y(v)}" width="${Math.max(1,bw-2)}" height="${H-pad.b-y(v)}" rx="2" fill="${cor(v)}" opacity="${p.gatilho ? 1 : .4}"><title>${fmtHora(p.hora)}: ${v}${p.gatilho ? " · tempestade simulada" : ""}</title></rect>`;
+    if (p.gatilho && bw >= 9) svg += `<text x="${x+bw/2}" y="${y(v)-4}" font-size="${HORAS_GRAF <= 12 ? 14 : 11}" text-anchor="middle">⚡</text>`;
+    if (h % passo === 0){
+      const rot = h === 0 ? d.toLocaleDateString("pt-BR",{weekday:"short"}) : h + "h";
+      svg += `<line x1="${x}" x2="${x}" y1="${H-pad.b}" y2="${H-pad.b+4}" stroke="var(--muted)"/>
+              <text x="${x}" y="${H-10}" font-size="12" fill="var(--muted)" text-anchor="${i === 0 ? "start" : "middle"}" font-weight="${h === 0 ? 700 : 400}">${rot}</text>`;
+    }
   });
   svg += "</svg>";
   $("grafico").innerHTML = svg;

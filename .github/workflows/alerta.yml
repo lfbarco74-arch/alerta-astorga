@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: write
+  actions: write    # para a rotina que mantém as rodadas ativas
 
 concurrency:
   group: alerta-astorga
@@ -67,3 +68,14 @@ jobs:
           git diff --cached --quiet && exit 0
           git commit -qm "dados: rodada $(date -u +%Y-%m-%dT%H:%MZ)"
           git push origin dados
+
+      - name: Manter as rodadas ativas (evita a suspensão automática após 60 dias)
+        if: github.event_name == 'schedule'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Uma vez por dia (rodada das 00h07 em Brasília), reconfirma o agendamento pela API.
+          # Não cria commits: só sinaliza ao GitHub que o workflow segue em uso.
+          if [ "$(date -u +%H)" = "03" ] && [ "$(date -u +%M)" -lt 30 ]; then
+            gh api -X PUT "repos/${{ github.repository }}/actions/workflows/alerta.yml/enable" && echo "agendamento reconfirmado"
+          fi
