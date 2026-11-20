@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-20T15:27-03:00",
+ "gerado_em": "2026-11-20T15:35-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 2,
@@ -546,7 +546,7 @@
   {
    "hora": "2026-11-21T13:00",
    "wmaxshear": 391,
-   "gatilho": true
+   "gatilho": false
   },
   {
    "hora": "2026-11-21T14:00",
