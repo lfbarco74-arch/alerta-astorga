@@ -8,7 +8,12 @@ on:
   schedule:
     - cron: "7,37 * * * *"   # a cada 30 min (minutos 7 e 37 fogem do pico de :00 do GitHub)
     - cron: "23,53 * * * *"  # segunda grade, defasada 15 min: se o GitHub pular uma, a outra cobre
-  workflow_dispatch:          # botão "Run workflow" para rodar na hora
+  workflow_dispatch:          # botão "Run workflow" (manual) ou disparo do agendador do Netlify
+    inputs:
+      origem:
+        description: "quem disparou (manual ou agendador)"
+        required: false
+        default: "manual"
   push:
     branches: [main]
     paths: ["motor/**", "config.json", ".github/workflows/**", "observacoes/**", "tests/**"]
@@ -54,13 +59,38 @@ jobs:
             git -C _pub rm -rfq . || true
           fi
 
+      - name: Evitar rodada duplicada (agendador do Netlify + agendamento do GitHub)
+        id: guarda
+        env:
+          EVENTO: ${{ github.event_name }}
+          ORIGEM: ${{ github.event.inputs.origem }}
+        run: |
+          # Rodadas automáticas com menos de 20 min da anterior são puladas (poupa o limite do Open-Meteo).
+          # Disparo manual e mudança de código sempre rodam.
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json, os
+          from datetime import datetime, timezone
+          auto = os.environ["EVENTO"] == "schedule" or os.environ.get("ORIGEM") == "agendador"
+          idade = None
+          try:
+              g = json.load(open("data/status_anterior.json"))["gerado_em"]
+              idade = (datetime.now(timezone.utc) - datetime.fromisoformat(g)).total_seconds() / 60
+          except Exception:
+              pass
+          pular = auto and idade is not None and idade < 20
+          print(f"pular={'true' if pular else 'false'}")
+          print(f"::notice::rodada anterior há {idade if idade is None else round(idade)} min; automática={auto}; pular={pular}", file=__import__("sys").stderr)
+          PY
+
       - name: Rodada
+        if: steps.guarda.outputs.pular != 'true'
         env:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python -m motor.alerta
 
       - name: Publicar dados no branch dados
+        if: steps.guarda.outputs.pular != 'true'
         run: |
           cp docs/data/status.json _pub/status.json
           for f in estado.json ensemble_cache.json historico.csv; do
