@@ -18,6 +18,12 @@ UA = {"User-Agent": "alerta-tempo-astorga/0.1 (projeto pessoal, uso nao comercia
 VARS_DET = ["cape", "precipitation", "weather_code", "wind_gusts_10m", "freezing_level_height",
             "wind_speed_10m", "wind_direction_10m", "wind_speed_500hPa", "wind_direction_500hPa",
             "wind_direction_700hPa"]
+# perfil vertical + superfície, só no centro da cidade (direção da linha e queda brusca de temperatura)
+VARS_PERFIL = ["temperature_2m", "wind_direction_10m"] + \
+    [f"wind_{t}_{n}hPa" for n in (850, 700, 500, 300) for t in ("speed", "direction")]
+MAPA_PERFIL = {"temperature_2m": "t2m", "wind_direction_10m": "d10",
+               **{f"wind_speed_{n}hPa": f"v{n}" for n in (850, 700, 500, 300)},
+               **{f"wind_direction_{n}hPa": f"d{n}" for n in (850, 700, 500, 300)}}
 VARS_ENS = ["cape", "wind_speed_10m", "wind_direction_10m", "wind_speed_500hPa", "wind_direction_500hPa"]
 
 
@@ -99,6 +105,26 @@ def modelos_deterministicos(pontos: list[dict], modelos: list[str], fuso: str, d
     if horas is None:
         raise RuntimeError("; ".join(falhas) or "nenhum modelo respondeu")
     return horas, saida, falhas
+
+
+def perfil_vertical(ponto: dict, modelos: list[str], fuso: str, horas_ref: list[str], dias: int = 3) -> dict:
+    """{modelo: {"t2m": [...], "d10": [...], "v850": [...], "d850": [...], ...}} alinhado a horas_ref.
+    Uma consulta leve (1 ponto). Modelos sem dados ou com horas diferentes ficam de fora."""
+    q = {"latitude": ponto["lat"], "longitude": ponto["lon"], "hourly": ",".join(VARS_PERFIL),
+         "models": ",".join(modelos), "forecast_days": dias, "timezone": fuso}
+    d = json.loads(_get("https://api.open-meteo.com/v1/forecast?" + urllib.parse.urlencode(q)))
+    if d.get("error"):
+        raise RuntimeError(d.get("reason"))
+    h = d["hourly"]
+    if h["time"] != horas_ref:
+        raise RuntimeError("horas do perfil diferentes das dos modelos")
+    saida = {}
+    for m in modelos:
+        suf = "_" + m if len(modelos) > 1 else ""
+        p = {curto: h.get(longo + suf, []) for longo, curto in MAPA_PERFIL.items()}
+        if any(x is not None for x in p["v850"]) and any(x is not None for x in p["t2m"]):
+            saida[m] = p
+    return saida
 
 
 def ensemble(ponto: dict, modelo: str, fuso: str, dias: int = 3):

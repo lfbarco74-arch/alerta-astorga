@@ -264,3 +264,69 @@ def prob_ensemble_janela(membros: list[SerieModelo], ini: int, fim: int, lim: di
         "p_alerta": sum(p >= lim["wmaxshear_alerta"] for p in picos) / n,
         "p_severo": sum(p >= lim["wmaxshear_severo"] for p in picos) / n,
     }
+
+
+# ---------------------------------------------------------------------------
+# Direção de chegada da LINHA (vetor de Corfidi) e queda brusca de temperatura
+# ---------------------------------------------------------------------------
+# O vento em 700 hPa conduz cada célula; linhas de instabilidade avançam também pela
+# borda do ar frio que despejam, e chegam de outro lado. Corfidi (2003):
+#   Vcl = vento médio 850-300 hPa;  V850 = jato de baixos níveis
+#   deslocamento da linha (downshear) = 2*Vcl - V850
+# Backtest de 20/11/2026: chegada observada de sudoeste; 700 hPa dizia oeste/noroeste
+# (268-303°), Corfidi na hora do evento ~227° (sudoeste).
+NIVEIS_CORFIDI = (850, 700, 500, 300)
+
+
+def corfidi_de(perfil: dict, i: int) -> float | None:
+    """Direção (graus, de onde vem) do deslocamento da linha na hora i, ou None."""
+    soma_x = soma_y = 0.0
+    v850 = None
+    for n in NIVEIS_CORFIDI:
+        v, d = _val(perfil, f"v{n}", i), _val(perfil, f"d{n}", i)
+        if v is None or d is None:
+            return None
+        x, y = _vetor(v, d)  # vetor apontando para DE ONDE o vento vem
+        soma_x += x
+        soma_y += y
+        if n == 850:
+            v850 = (x, y)
+    cx, cy = soma_x / len(NIVEIS_CORFIDI), soma_y / len(NIVEIS_CORFIDI)
+    # "de onde" do deslocamento 2*Vcl - V850 (a troca de sinal entre "de onde" e "para onde" se cancela)
+    fx, fy = 2 * cx - v850[0], 2 * cy - v850[1]
+    if math.hypot(fx, fy) < 1e-9:
+        return None
+    return (math.degrees(math.atan2(fx, fy)) + 360) % 360
+
+
+def _val(perfil: dict, nome: str, i: int):
+    lst = perfil.get(nome) or []
+    return lst[i] if 0 <= i < len(lst) else None
+
+
+def direcao_linha(perfis: dict[str, dict], ini: int, fim: int) -> float | None:
+    """Média circular do vetor de Corfidi entre modelos e horas [ini, fim)."""
+    return direcao_media([corfidi_de(p, i) for p in perfis.values() for i in range(ini, fim)])
+
+
+def queda_brusca(perfis: dict[str, dict], ini: int, fim: int, limite_c: float = 2.5) -> dict | None:
+    """Queda de temperatura >= limite_c em 1 hora em pelo menos 2 modelos (tolerância de 1 h entre eles).
+    Assinatura de frente de rajada ou frente fria; o resfriamento normal do fim de tarde fica perto de 1 °C/h.
+    Backtest 01-21/11/2026: disparou em 01/11 16h, 07/11 14-15h, 14/11 16-17h e 20/11 18-19h.
+    Retorna {"indice", "queda_c", "vento_depois"} da primeira ocorrência, ou None."""
+    disparos = {}  # modelo -> [(hora, queda, vento)]
+    for m, p in perfis.items():
+        for i in range(max(ini, 1), fim):
+            t0, t1 = _val(p, "t2m", i - 1), _val(p, "t2m", i)
+            if t0 is not None and t1 is not None and t0 - t1 >= limite_c:
+                disparos.setdefault(m, []).append((i, t0 - t1, _val(p, "d10", i)))
+    for i in range(max(ini, 1), fim):
+        perto = [(m, ev) for m, evs in disparos.items() for ev in evs if abs(ev[0] - i) <= 1]
+        modelos = {m for m, _ in perto}
+        if len(modelos) >= 2:
+            quedas = sorted(ev[1] for _, ev in perto)
+            meio = len(quedas) // 2
+            mediana = quedas[meio] if len(quedas) % 2 else (quedas[meio - 1] + quedas[meio]) / 2
+            vento = direcao_media([ev[2] for _, ev in perto])
+            return {"indice": i, "queda_c": math.floor(mediana * 10 + 0.5) / 10, "vento_depois": vento}
+    return None

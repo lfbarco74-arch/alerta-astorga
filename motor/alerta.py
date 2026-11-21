@@ -8,6 +8,7 @@ from __future__ import annotations
 import csv
 import json
 import sys
+import time
 import traceback
 import urllib.request
 from datetime import datetime, timedelta
@@ -145,11 +146,14 @@ def arquivar(status: dict, agora: datetime) -> None:
     reg = {
         "gerado_em": status["gerado_em"],
         "direcao": status.get("direcao_graus"),
+        "direcao_celulas": status.get("direcao_celulas_graus"),
         "janelas": [{
             "rotulo": j["rotulo"], "inicio": j["inicio"], "fim": j["fim"], "nivel": j["nivel"],
             "nivel_modelos": j["nivel_modelos"], "pico": j.get("hora_pico_iso"), "ingredientes": j["ingredientes"],
             "perigos": j.get("perigos_nivel", {}), "prob_ensemble": j.get("prob_ensemble"),
             "inmet": (j.get("inmet") or {}).get("severidade"),
+            "linha": j.get("direcao_linha_graus"), "celulas": j.get("direcao_celulas_graus"),
+            "ar_frio": (j.get("ar_frio") or {}).get("hora_iso"),
             "modelos": {m: [v["nivel"], v["wmaxshear"], int(v["gatilho_local"]), int(v["gatilho_regional"])]
                         for m, v in j["por_modelo"].items()},
         } for j in status["janelas"]],
@@ -181,6 +185,13 @@ def coletar_relatos(agora: datetime) -> int:
         for x in sorted(novos, key=lambda x: x["id"]):
             f.write(json.dumps(x, ensure_ascii=False, separators=(",", ":")) + "\n")
     return len(novos)
+
+
+def _dir_destaque(pior: dict | None, direcao_24h):
+    g = (pior or {}).get("direcao_linha_graus")
+    if g is None:
+        g = round(direcao_24h) if direcao_24h is not None else None
+    return (indice.rosa(g) if g is not None else None), g
 
 
 def rodar(enviar_telegram: bool = True) -> dict:
@@ -224,6 +235,13 @@ def rodar(enviar_telegram: bool = True) -> dict:
         except Exception as e:  # noqa: BLE001
             erros.append(f"ensemble: {e}")
 
+        perfis = {}
+        try:
+            time.sleep(2)
+            perfis = fontes.perfil_vertical(sede, CFG["modelos"], CFG["fuso"], horas)
+        except Exception as e:  # noqa: BLE001
+            erros.append(f"perfil vertical: {e}")
+
         direcao_24h = direcao_janela(local[sede["id"]], i0, i0 + 24)
         for a, b, rotulo in CFG["janelas_horas"]:
             ini, fim = i0 + a, min(i0 + b, len(horas))
@@ -239,10 +257,21 @@ def rodar(enviar_telegram: bool = True) -> dict:
             r = indice.avaliar_janela(local, regional, ini, fim, LIM, prob,
                                       {"severidade": aviso["severidade"], "id": aviso["id"]} if aviso else None)
             horas_pico = [v["hora_pico"] for v in r["por_modelo"].values() if v["hora_pico"] is not None]
+            pico = int(median(horas_pico)) if horas_pico else None
+            # linha: vetor de Corfidi em torno do pico previsto (±2 h); sem pico, a janela inteira
+            a_l, b_l = (max(ini, pico - 2), min(fim, pico + 3)) if pico is not None else (ini, fim)
+            dir_linha = indice.direcao_linha(perfis, a_l, b_l) if perfis else None
+            queda = indice.queda_brusca(perfis, ini, fim, LIM.get("queda_brusca_c_1h", 2.5)) if perfis else None
             r.update(rotulo=rotulo, inicio=horas[ini], fim=horas[fim - 1],
-                     hora_pico_local=horas[int(median(horas_pico))][11:16] if horas_pico else None,
-                     hora_pico_iso=horas[int(median(horas_pico))] if horas_pico else None,
-                     direcao_chegada=indice.rosa(dirj), pontos_regionais=reg_ids)
+                     hora_pico_local=horas[pico][11:16] if pico is not None else None,
+                     hora_pico_iso=horas[pico] if pico is not None else None,
+                     direcao_celulas=indice.rosa(dirj), direcao_celulas_graus=round(dirj) if dirj is not None else None,
+                     direcao_linha_graus=round(dir_linha) if dir_linha is not None else None,
+                     direcao_chegada=indice.rosa(dir_linha if dir_linha is not None else dirj),
+                     ar_frio=({"hora_iso": horas[queda["indice"]], "hora_local": horas[queda["indice"]][11:16],
+                               "queda_c": queda["queda_c"], "vento_depois": indice.rosa(queda["vento_depois"])}
+                              if queda else None),
+                     pontos_regionais=reg_ids)
             janelas.append(r)
 
         serie = serie_horaria(local, horas, i0, 48,
@@ -279,8 +308,11 @@ def rodar(enviar_telegram: bool = True) -> dict:
         "localidades": [{**s, "lat": l["lat"], "lon": l["lon"]} for s, l in zip(locs_status, locs)],
         "anel": anel_status,
         "serie_horaria": serie,
-        "direcao_chegada": indice.rosa(direcao_24h) if direcao_24h is not None else None,
-        "direcao_graus": round(direcao_24h) if direcao_24h is not None else None,
+        # seta do mapa: direção da LINHA na janela em destaque; sem perfil, cai para o vento em 700 hPa
+        "direcao_chegada": _dir_destaque(pior, direcao_24h)[0],
+        "direcao_graus": _dir_destaque(pior, direcao_24h)[1],
+        "direcao_celulas": indice.rosa(direcao_24h) if direcao_24h is not None else None,
+        "direcao_celulas_graus": round(direcao_24h) if direcao_24h is not None else None,
         "avisos_inmet": avisos,
         "avisos_estado": avisos_estado,
         "limiares": LIM,

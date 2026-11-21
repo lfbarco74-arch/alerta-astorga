@@ -170,7 +170,49 @@
     return d;
   }
 
+  /* ---- direção da LINHA (vetor de Corfidi) e queda brusca de temperatura: iguais a motor/indice.py ---- */
+  const NIVEIS_CORFIDI = [850, 700, 500, 300];
+  const vp = (p, nome, i) => { const l = p[nome] || []; return i >= 0 && i < l.length ? l[i] : null; };
+  function corfidiDe(p, i) {
+    let sx = 0, sy = 0, v850 = null;
+    for (const n of NIVEIS_CORFIDI) {
+      const v = vp(p, "v" + n, i), d = vp(p, "d" + n, i);
+      if (nulo(v) || nulo(d)) return null;
+      const x = v * Math.sin(rad(d)), y = v * Math.cos(rad(d));
+      sx += x; sy += y; if (n === 850) v850 = [x, y];
+    }
+    const cx = sx / NIVEIS_CORFIDI.length, cy = sy / NIVEIS_CORFIDI.length;
+    const fx = 2 * cx - v850[0], fy = 2 * cy - v850[1];
+    if (Math.hypot(fx, fy) < 1e-9) return null;
+    return ((Math.atan2(fx, fy) * 180 / Math.PI) + 360) % 360;
+  }
+  function direcaoLinha(perfis, ini, fim) {
+    const ds = [];
+    for (const p of Object.values(perfis)) for (let i = ini; i < fim; i++) ds.push(corfidiDe(p, i));
+    return direcaoMedia(ds);
+  }
+  function quedaBrusca(perfis, ini, fim, limite = 2.5) {
+    const disparos = {};
+    for (const [m, p] of Object.entries(perfis)) {
+      for (let i = Math.max(ini, 1); i < fim; i++) {
+        const t0 = vp(p, "t2m", i - 1), t1 = vp(p, "t2m", i);
+        if (!nulo(t0) && !nulo(t1) && t0 - t1 >= limite) (disparos[m] = disparos[m] || []).push([i, t0 - t1, vp(p, "d10", i)]);
+      }
+    }
+    for (let i = Math.max(ini, 1); i < fim; i++) {
+      const perto = [];
+      for (const [m, evs] of Object.entries(disparos)) for (const ev of evs) if (Math.abs(ev[0] - i) <= 1) perto.push([m, ev]);
+      if (new Set(perto.map(x => x[0])).size >= 2) {
+        const q = perto.map(x => x[1][1]).sort((a, b) => a - b), k = Math.floor(q.length / 2);
+        const med = q.length % 2 ? q[k] : (q[k - 1] + q[k]) / 2;
+        return { indice: i, queda_c: Math.round(med * 10) / 10, vento_depois: direcaoMedia(perto.map(x => x[1][2])) };
+      }
+    }
+    return null;
+  }
+
   const API = { NOMES, cisalhamento, wmaxshear, direcaoMedia, rosa, anguloEntre, gatilhoNaJanela, ambienteNaJanela,
-    nivelDoModelo, consenso, avaliarJanela, probEnsembleJanela, anel, pontosAMontante, dentro };
+    nivelDoModelo, consenso, avaliarJanela, probEnsembleJanela, anel, pontosAMontante, dentro,
+    corfidiDe, direcaoLinha, quedaBrusca };
   if (typeof module !== "undefined" && module.exports) module.exports = API; else raiz.Indice = API;
 })(typeof window !== "undefined" ? window : globalThis);

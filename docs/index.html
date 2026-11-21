@@ -151,10 +151,10 @@
       <span><span class="sw" style="background:var(--n1)"></span>Atenção</span>
       <span><span class="sw" style="background:var(--n2)"></span>Alerta</span>
       <span><span class="sw" style="background:var(--n3)"></span>Severo</span>
-      <span>➜ de onde as tempestades tendem a chegar</span>
+      <span>➜ por onde a linha de tempestades tende a chegar</span>
       <span>💬 relatos de quem está no local (6 h)</span>
     </div>
-    <p class="small muted" style="margin:6px 0 0">A seta segue o vento a ~3 km de altura, que conduz as tempestades até o local. Aproxime o mapa de Astorga para ver os pontos que o alerta monitora (cidade, distritos e o anel regional de 60 km). Radar: última imagem disponível (10 a 20 min de atraso), <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>. Contorno do município: IBGE. Lista de cidades da busca: códigos e coordenadas do IBGE (<a href="https://github.com/kelvins/municipios-brasileiros" target="_blank" rel="noopener">municipios-brasileiros</a>, licença MIT).</p>
+    <p class="small muted" style="margin:6px 0 0">A seta mostra por onde a linha de tempestades tende a chegar (vetor de Corfidi: combina o vento de 1,5 a 9 km de altura e a borda de ar frio que a linha empurra à frente). As nuvens isoladas andam com o vento a ~3 km, que pode vir de outro lado. Aproxime o mapa de Astorga para ver os pontos que o alerta monitora (cidade, distritos e o anel regional de 60 km). Radar: última imagem disponível (10 a 20 min de atraso), <a href="https://www.rainviewer.com/" target="_blank" rel="noopener">RainViewer</a>. Contorno do município: IBGE. Lista de cidades da busca: códigos e coordenadas do IBGE (<a href="https://github.com/kelvins/municipios-brasileiros" target="_blank" rel="noopener">municipios-brasileiros</a>, licença MIT).</p>
     </section>
 
     <aside class="lado">
@@ -340,6 +340,20 @@ function chips(w){
   const niv = w.perigos_nivel || {};
   return (w.perigos || []).map(p => `<span class="chip ${niv[p] === "possível" ? "poss" : "prov"}">${esc(p)}${niv[p] ? `<small>${niv[p]}</small>` : ""}</span>`).join("");
 }
+/* direção: a linha (vetor de Corfidi) é por onde o temporal chega; as células andam com o vento a ~3 km */
+function textoDirecao(grausLinha, celulas, nivel){
+  if (grausLinha == null || nivel <= 0) return "";
+  const linha = Indice.rosa(grausLinha);
+  const extra = celulas && celulas !== linha ? ` As nuvens, individualmente, andam de ${esc(celulas)}.` : "";
+  return `<span class="arrow" style="transform:rotate(${SETA_GRAUS(grausLinha)}deg)">↑</span> Se as tempestades se formarem, a linha tende a chegar pelo <b>${esc(linha)}</b>.${extra}`;
+}
+const arFrioVigente = w => w && w.ar_frio && new Date(w.ar_frio.hora_iso + ":00-03:00").getTime() > Date.now() - 3600e3;
+function textoArFrio(janelas){
+  const w = janelas.find(arFrioVigente); if (!w) return "";
+  const a = w.ar_frio;
+  return `<div style="margin-top:6px">🌡️ <b>Queda brusca de temperatura</b> prevista perto das ${esc(a.hora_local.slice(0,2))}h (cerca de ${String(a.queda_c).replace(".", ",")} °C em 1 hora${a.vento_depois && a.vento_depois !== "—" ? `, vento virando para ${esc(a.vento_depois)}` : ""}): sinal de frente de rajada ou de frente fria.</div>`;
+}
+
 function piorVigente(janelas){
   const vig = janelas.filter(vigente), j24 = vig.length > 1 ? vig.slice(0, -1) : vig;
   if (!j24.length) return null;
@@ -370,15 +384,15 @@ function render(s){
     : "Sem sinal de tempestade severa nas próximas horas.";
   $("hero-perigos").innerHTML = chips(j);
   $("hero-motivos").textContent = (j.motivos||[]).join(" · ");
-  if (s.direcao_graus != null && nivel > 0){
-    $("hero-direcao").innerHTML = `<span class="arrow" style="transform:rotate(${SETA_GRAUS(s.direcao_graus)}deg)">↑</span> Se as tempestades se formarem, tendem a chegar pelo <b>${esc(s.direcao_chegada)}</b>.`;
-  } else { $("hero-direcao").textContent = ""; }
+  $("hero-direcao").innerHTML = textoDirecao(j.direcao_linha_graus ?? s.direcao_graus, j.direcao_celulas ?? s.direcao_celulas, nivel)
+    + textoArFrio((s.janelas || []).filter(vigente));
 
   $("janelas").innerHTML = (s.janelas||[]).filter(vigente).map(w => `
     <div class="jan ${cls(w.nivel)}">
       <span class="small muted">${esc(faixa(w))}</span>
       <b><span class="dot"></span>${esc(w.nome)}</b>
       <span class="small">${w.nivel > 0 && w.perigos.length ? w.perigos.map(p => esc(p) + ((w.perigos_nivel||{})[p] === "possível" ? " (possível)" : "")).join(", ") : "&nbsp;"}</span>
+      ${arFrioVigente(w) ? `<span class="small">🌡️ queda brusca de temperatura perto das ${esc(w.ar_frio.hora_local.slice(0,2))}h</span>` : ""}
     </div>`).join("") || '<p class="small muted">Aguardando a próxima rodada.</p>';
 
   STATUS = s;
@@ -467,7 +481,7 @@ function seta(grupo, lat, lon, graus, nivel, tracejada){
   const ponta = [destino(fim[0], fim[1], graus + 25, 8), fim, destino(fim[0], fim[1], graus - 25, 8)];
   L.polygon(ponta, {color: cor, fillColor: cor, fillOpacity: .9, weight: 1, interactive:false}).addTo(grupo);
   L.tooltip({permanent:true, direction:"center", className:"rot-mapa", interactive:false})
-    .setLatLng(destino(lat, lon, graus, 82)).setContent(`chegada pelo ${Indice.rosa(graus)}`).addTo(grupo);
+    .setLatLng(destino(lat, lon, graus, 82)).setContent(`linha chega pelo ${Indice.rosa(graus)}`).addTo(grupo);
 }
 
 /* memória da última cidade/ponto, só neste navegador */
@@ -560,6 +574,9 @@ const VARS = ["cape","precipitation","weather_code","wind_gusts_10m","freezing_l
 const LIM_PADRAO = {wmaxshear_atencao:500, wmaxshear_alerta:800, wmaxshear_severo:1200, wmaxshear_sem_gatilho:1000,
   cape_minimo:250, gatilho_precip_mm_h:5, gatilho_weather_code:95, cisalhamento_organizado_ms:12.5, cape_granizo:1500,
   isoterma_zero_granizo_grande_m:4000, chuva_intensa_mm_h:15, prob_ensemble_eleva:0.5};
+const VARS_PERFIL = ["temperature_2m","wind_direction_10m", ...[850,700,500,300].flatMap(n => [`wind_speed_${n}hPa`, `wind_direction_${n}hPa`])];
+const CURTO_PERFIL = {temperature_2m:"t2m", wind_direction_10m:"d10",
+  ...Object.fromEntries([850,700,500,300].flatMap(n => [[`wind_speed_${n}hPa`, "v"+n], [`wind_direction_${n}hPa`, "d"+n]]))};
 const JANELAS = [[0,6,"Próximas 6 horas"],[6,24,"De 6 a 24 horas"],[24,48,"Amanhã (24-48 h)"]];
 
 function distKm(a, b){
@@ -614,9 +631,12 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
       hourly: VARS.join(","), models: modelos.join(","), forecast_days: 3, timezone: "America/Sao_Paulo"});
     const qe = new URLSearchParams({latitude: lat, longitude: lon, models: (STATUS && STATUS.ensemble_modelo) || "ecmwf_ifs025",
       hourly: "cape,wind_speed_10m,wind_direction_10m,wind_speed_500hPa,wind_direction_500hPa", forecast_days: 3, timezone: "America/Sao_Paulo"});
-    const [det, ens] = await Promise.all([
+    const qp = new URLSearchParams({latitude: lat, longitude: lon, hourly: VARS_PERFIL.join(","), models: modelos.join(","),
+      forecast_days: 3, timezone: "America/Sao_Paulo"});
+    const [det, ens, prf] = await Promise.all([
       fetch("https://api.open-meteo.com/v1/forecast?" + q).then(r => r.json()),
-      fetch("https://ensemble-api.open-meteo.com/v1/ensemble?" + qe).then(r => r.json()).catch(() => null)]);
+      fetch("https://ensemble-api.open-meteo.com/v1/ensemble?" + qe).then(r => r.json()).catch(() => null),
+      fetch("https://api.open-meteo.com/v1/forecast?" + qp).then(r => r.json()).catch(() => null)]);
     if (meu !== pedidoAtual) return;
     const lista = Array.isArray(det) ? det : [det];
     if (!lista[0] || !lista[0].hourly) throw new Error((det && det.reason) || "sem dados");
@@ -629,6 +649,16 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
       modelos.forEach(m => { const s = serieDe(lista[k].hourly, modelos.length > 1 ? "_" + m : ""); if (temDados(s)) porPonto[p.id][m] = s; });
     });
     const local = {ponto: porPonto.ponto};
+    // perfil vertical do ponto (direção da linha e queda brusca); sem ele, a seta usa o vento em 700 hPa
+    const perfis = {};
+    if (prf && prf.hourly && prf.hourly.time && prf.hourly.time[0] === horas[0]){
+      modelos.forEach(m => {
+        const suf = modelos.length > 1 ? "_" + m : "", p = {};
+        for (const [longo, curto] of Object.entries(CURTO_PERFIL)) p[curto] = prf.hourly[longo + suf] || [];
+        if (p.v850.some(x => x !== null) && p.t2m.some(x => x !== null)) perfis[m] = p;
+      });
+    }
+    const temPerfil = Object.keys(perfis).length > 0;
     if (!Object.keys(local.ponto).length) throw new Error("nenhum modelo com dados para este ponto");
 
     // ensemble alinhado à hora atual
@@ -659,7 +689,16 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
       r.rotulo = rot; r.inicio = horas[ini]; r.fim = horas[fim-1];
       r.hora_pico_iso = picos.length ? horas[picos[Math.floor(picos.length/2)]] : null;
       r.hora_pico_local = r.hora_pico_iso ? r.hora_pico_iso.slice(11,16) : null;
-      r.direcao = dir; return r;
+      r.direcao = dir;
+      if (temPerfil){
+        const pk = picos.length ? picos[Math.floor(picos.length/2)] : null;
+        const [aL, bL] = pk !== null ? [Math.max(ini, pk - 2), Math.min(fim, pk + 3)] : [ini, fim];
+        r.direcao_linha_graus = Indice.direcaoLinha(perfis, aL, bL);
+        const qb = Indice.quedaBrusca(perfis, ini, fim, lim.queda_brusca_c_1h ?? 2.5);
+        r.ar_frio = qb ? {hora_iso: horas[qb.indice], hora_local: horas[qb.indice].slice(11,16), queda_c: qb.queda_c,
+                          vento_depois: Indice.rosa(qb.vento_depois)} : null;
+      }
+      return r;
     });
     const dir24 = dirJanela(i0, i0 + 24);
     const reg24 = Indice.pontosAMontante(anelPts, dir24, ac.abertura_graus);
@@ -686,11 +725,15 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
       ? `${faixa(pior)}${notaPico(pior)}`
       : "Sem sinal de tempestade severa nas próximas 24 horas.";
     $("ponto-perigos").innerHTML = chips(pior);
-    $("ponto-motivos").textContent = pior.motivos.join(" · ") + (dir24 !== null && pior.nivel > 0 ? ` · tempestades tenderiam a chegar pelo ${Indice.rosa(dir24)}` : "");
+    const dirSeta = pior.direcao_linha_graus ?? dir24;
+    $("ponto-motivos").innerHTML = esc(pior.motivos.join(" · ")) +
+      (dirSeta !== null && pior.nivel > 0 ? `<div style="margin-top:4px">${textoDirecao(dirSeta, Indice.rosa(dir24), pior.nivel)}</div>` : "") +
+      textoArFrio(janelas);
     $("ponto-janelas").innerHTML = janelas.map(w => `
       <div class="jan ${cls(w.nivel)}"><span class="small muted">${esc(faixa(w))}</span>
         <b><span class="dot"></span>${esc(w.nome)}</b>
-        <span class="small">${w.nivel > 0 && w.perigos.length ? esc(w.perigos.join(", ")) : "&nbsp;"}</span></div>`).join("");
+        <span class="small">${w.nivel > 0 && w.perigos.length ? esc(w.perigos.join(", ")) : "&nbsp;"}</span>
+        ${arFrioVigente(w) ? `<span class="small">🌡️ queda brusca de temperatura perto das ${esc(w.ar_frio.hora_local.slice(0,2))}h</span>` : ""}</div>`).join("");
     const d = distKm(ASTORGA, [lat, lon]);
     $("ponto-nota").innerHTML = (d > 150
       ? "<b>Confiança menor:</b> os limites foram calibrados com eventos do norte do Paraná. "
@@ -698,7 +741,7 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
       (avisos.length ? ` · ${avisos.length} aviso(s) do INMET cobrem este ponto.` : "");
 
     // mapa: só o pino e a seta de chegada (o anel consultado fica nos bastidores)
-    if (dir24 !== null) seta(camadaPonto, lat, lon, dir24, pior.nivel, true);
+    if (dirSeta !== null) seta(camadaPonto, lat, lon, dirSeta, pior.nivel, true);
     SERIE = serie; ROTULO_SERIE = PONTO.nome || "ponto escolhido"; grafico();
   }catch(e){
     if (meu !== pedidoAtual) return;

@@ -3,25 +3,50 @@
   "fuso": "America/Sao_Paulo",
   "ibge_municipio": "4102109",
   "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
-
   "localidades": [
-    {"id": "sede",       "nome": "Astorga (sede)", "perfil": "urbano", "lat": -23.2325, "lon": -51.6656},
-    {"id": "santazelia", "nome": "Santa Zélia",    "perfil": "rural",  "lat": -23.1756, "lon": -51.6783},
-    {"id": "icara",      "nome": "Içara",          "perfil": "rural",  "lat": -23.1711, "lon": -51.6311},
-    {"id": "tupinamba",  "nome": "Tupinambá",      "perfil": "rural",  "lat": -23.2839, "lon": -51.7683}
+    {
+      "id": "sede",
+      "nome": "Astorga (sede)",
+      "perfil": "urbano",
+      "lat": -23.2325,
+      "lon": -51.6656
+    },
+    {
+      "id": "santazelia",
+      "nome": "Santa Zélia",
+      "perfil": "rural",
+      "lat": -23.1756,
+      "lon": -51.6783
+    },
+    {
+      "id": "icara",
+      "nome": "Içara",
+      "perfil": "rural",
+      "lat": -23.1711,
+      "lon": -51.6311
+    },
+    {
+      "id": "tupinamba",
+      "nome": "Tupinambá",
+      "perfil": "rural",
+      "lat": -23.2839,
+      "lon": -51.7683
+    }
   ],
-
   "anel_regional": {
     "raio_km": 60,
     "pontos": 8,
     "abertura_graus": 60,
     "comentario": "8 pontos em círculo a 60 km da sede. Os que estão a montante do vento em 700 hPa (±60°) servem de gatilho regional: tempestades que nascem ali tendem a chegar a Astorga em 1-2 h."
   },
-
-  "modelos": ["ecmwf_ifs025", "gfs_seamless", "icon_seamless", "gem_seamless"],
+  "modelos": [
+    "ecmwf_ifs025",
+    "gfs_seamless",
+    "icon_seamless",
+    "gem_seamless"
+  ],
   "ensemble_modelo": "ecmwf_ifs025",
   "ensemble_a_cada_horas": 3,
-
   "limiares": {
     "wmaxshear_atencao": 500,
     "wmaxshear_alerta": 800,
@@ -37,11 +62,26 @@
     "isoterma_zero_granizo_grande_m": 4000,
     "chuva_intensa_mm_h": 15,
     "prob_ensemble_eleva": 0.5,
-    "comentario": "WMAXSHEAR = raiz(2*CAPE) x cisalhamento 0-6 km (m2/s2). Valores calibrados nos eventos de 02/11/2026 e 07/11/2026; revisar após cada evento."
+    "comentario": "WMAXSHEAR = raiz(2*CAPE) x cisalhamento 0-6 km (m2/s2). Valores calibrados nos eventos de 02/11/2026 e 07/11/2026; revisar após cada evento.",
+    "queda_brusca_c_1h": 2.5
   },
-
-  "janelas_horas": [[0, 6, "Próximas 6 horas"], [6, 24, "De 6 a 24 horas"], [24, 48, "Amanhã (24-48 h)"]],
-
+  "janelas_horas": [
+    [
+      0,
+      6,
+      "Próximas 6 horas"
+    ],
+    [
+      6,
+      24,
+      "De 6 a 24 horas"
+    ],
+    [
+      24,
+      48,
+      "Amanhã (24-48 h)"
+    ]
+  ],
   "telegram": {
     "ativo": false,
     "boletim_diario_hora": 6,

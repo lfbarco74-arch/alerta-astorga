@@ -42,6 +42,14 @@ def fake_det(pontos, modelos, fuso, dias=3):
     return HORAS, out, []
 
 
+def fake_perfil(ponto, modelos, fuso, horas_ref, dias=3):
+    """Perfil parecido com o de 20/11: jato de norte em 850 hPa, oeste acima; queda de 3 °C na hora 12."""
+    p = {"v850": [30] * N, "d850": [350] * N, "v700": [40] * N, "d700": [270] * N,
+         "v500": [60] * N, "d500": [270] * N, "v300": [90] * N, "d300": [260] * N,
+         "t2m": [29 if k < 12 else 26 for k in range(N)], "d10": [330 if k < 12 else 200 for k in range(N)]}
+    return {m: p for m in modelos}
+
+
 def fake_ens(ponto, modelo, fuso, dias=3):
     return HORAS, [serie(esticar(NOV02))] * 35 + [calmo(N)] * 16
 
@@ -61,6 +69,8 @@ alerta.coletar_relatos = lambda agora: 0
 alerta.DIR_ARQUIVO = RAIZ / "tests" / "_arquivo"
 fontes.modelos_deterministicos = fake_det
 fontes.ensemble = fake_ens
+fontes.perfil_vertical = fake_perfil
+alerta.time.sleep = lambda s: None
 fontes.avisos_inmet = fake_inmet
 alerta.ARQ_ESTADO = RAIZ / "tests" / "_estado_sim.json"
 alerta.ARQ_ENS = RAIZ / "tests" / "_ens_sim.json"
@@ -72,4 +82,9 @@ if "--manter" not in sys.argv:
 st = alerta.rodar(enviar_telegram=False)
 assert st["resumo"]["nivel_24h"] >= 2, st["resumo"]
 assert st["janelas"] and st["serie_horaria"] and st["localidades"]
+j0 = st["janelas"][0]
+print("linha:", j0["direcao_linha_graus"], j0["direcao_chegada"], "| células:", j0["direcao_celulas"], "| ar frio:", j0["ar_frio"],
+      "| seta:", st["direcao_graus"], st["direcao_chegada"])
+assert j0["direcao_linha_graus"] is not None and j0["direcao_chegada"] != j0["direcao_celulas"]
+assert any(j["ar_frio"] for j in st["janelas"])
 print("\nOK — status.json de exemplo gravado em docs/data/status.json")
