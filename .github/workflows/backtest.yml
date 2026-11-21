@@ -12,7 +12,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: python ferramentas/backtest_direcao.py | tee resultado.md >> "$GITHUB_STEP_SUMMARY"
+      - run: |
+          python ferramentas/backtest_direcao.py | tee resultado.md
+          cat resultado.md >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
           name: backtest-direcao
