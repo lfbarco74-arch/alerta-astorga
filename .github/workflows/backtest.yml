@@ -14,6 +14,7 @@ jobs:
           python-version: "3.12"
       - run: |
           python ferramentas/backtest_direcao.py | tee resultado.md
+          python ferramentas/backtest_frente.py | tee -a resultado.md
           cat resultado.md >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
