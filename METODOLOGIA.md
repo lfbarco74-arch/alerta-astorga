@@ -54,6 +54,19 @@ Regras de entrada:
 - **Granizo**: CAPE ≥ 1500 e cisalhamento ≥ 12,5 m/s, com gatilho; "maior porte" se a isoterma de 0 °C estiver abaixo de 4000 m.
 - **Chuva intensa**: algum modelo com ≥ 15 mm/h, ou nível ≥ 2 com gatilho.
 
+### 3.6 Direção de chegada: linha x células (desde 21/11/2026)
+O vento em 700 hPa (~3 km) conduz cada célula, mas linhas de instabilidade avançam também pela borda do ar frio que despejam, e chegam por outro lado. A seta passou a usar o **vetor de Corfidi** (Corfidi, 2003): vento médio 850-300 hPa (Vcl) e jato de baixos níveis (V850); deslocamento da linha = 2·Vcl − V850, calculado nas 5 horas em torno do pico previsto. O vento em 700 hPa continua guiando o gatilho regional (pontos a montante) e aparece como "direção das células".
+
+| Caso | Observado | 700 hPa (4 modelos) | Corfidi (média na janela) | Corfidi na hora (ECMWF) |
+|---|---|---|---|---|
+| 20/11, 19h | sudoeste (relato) | 273-299° (oeste/noroeste) | 241-254° | 227° (sudoeste) |
+| 02/11 e 07/11 | não registrado | 298-311° / 264-271° | 263-270° / 262-266° | — |
+
+Evidência ainda fraca: um único caso com direção observada. Os relatos de campo com "de onde veio" vão decidir se o vetor de Corfidi fica.
+
+### 3.7 Queda brusca de temperatura
+Aviso quando ≥ 2 modelos preveem queda ≥ 2,5 °C em 1 hora (tolerância de 1 h entre modelos): assinatura de frente de rajada ou frente fria. O resfriamento normal do fim de tarde fica perto de 1 °C/h; critérios de 3 °C em 2-3 h dispararam em quase todos os fins de tarde de novembro e foram descartados. Backtest 01-21/11/2026: disparou em 01/11 16h, 07/11 14-15h (frente fria), 14/11 16-17h (a confirmar) e 20/11 18-19h (observado às 19h). Não altera o nível de alerta.
+
 ## 4. Evidência da calibração (Open-Meteo Historical Forecast, Astorga)
 
 | Janela | CAPE máx. | Cisalhamento | WMAXSHEAR | Gatilho | Nível |
@@ -89,6 +102,7 @@ A meta para a v0.2 é ter 2 a 3 meses de histórico e ajustar os limiares por es
 4. Variável de energia de descida (DCAPE), o melhor discriminador de downburst, assim que houver fonte aberta para o Brasil.
 
 ## Fontes
+- Corfidi, S. F. (2003). Cold pools and MCS propagation: forecasting the motion of downwind-developing MCSs. *Weather and Forecasting*, 18(6), 997-1017.
 - Open-Meteo: Forecast, Ensemble e Historical Forecast APIs (CC-BY 4.0).
 - INMET: feed RSS `apiprevmet3.inmet.gov.br/avisos/rss` e CAP de cada aviso.
 - Simepar e imprensa regional: registros dos eventos de 02/11 e 07/11/2026.
