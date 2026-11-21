@@ -81,6 +81,20 @@ Aviso quando ≥ 2 modelos preveem queda ≥ 2,5 °C em 1 hora (tolerância de 1
 ## 4.1 Primeiro caso registrado (20/11/2026, 19h, relato de campo)
 Painel em **Alerta** desde as 15h20 (pico previsto 18–19h, chegada pelo oeste); aviso laranja do INMET ativo. Às 19h, frente de rajada em Astorga: vento forte com direção variável, queda brusca de temperatura, energia piscou. Pouca chuva, sem granizo, sem danos; núcleo passou ao lado. **Acerto parcial**: ambiente, horário e rajada corretos; chuva intensa e granizo listados não ocorreram no ponto. Consequência: os perigos passaram a ter grau ("provável" ou "possível").
 
+## 4.2 Segundo caso: madrugada de 21/11/2026 (Severo sem evento severo)
+Das 23h14 à 1h04 o painel marcou **Severo** para as horas seguintes (pico previsto entre 1h e 3h). A composição desse nível:
+- modelos determinísticos: só 2 de 4 em nível 1 (ECMWF e ICON); GFS e GEM em 0. WMAXSHEAR de consenso entre 732 e 824, abaixo do limiar de Alerta (800) na maior parte das rodadas;
+- ensemble ECMWF: 100% dos 51 membros em ambiente de alerta e 51-55% em ambiente severo;
+- INMET: aviso amarelo (Perigo Potencial), piso nível 1.
+
+Observado: relato de campo às 2h08 com "chuva forte" de intensidade **fraca**; nenhum registro de vendaval, granizo ou danos em Astorga e vizinhos na imprensa e na Defesa Civil até a manhã de 21/11 (busca às 8h40). **Falso alarme de severidade**: choveu, mas o nível ficou dois degraus acima do que aconteceu.
+
+Causa identificada: na regra do ensemble, as duas elevações (p_alerta ≥ 0,5 leva 1→2; p_severo ≥ 0,5 leva 2→3) rodam em sequência na mesma avaliação. O nível 1 dos modelos virou 3, contrariando a regra documentada ("eleva um nível"). O ensemble mede só o ambiente, sem gatilho, então não deveria subir dois degraus sozinho. Com a regra como documentada, o nível teria sido **Alerta**; sem o ensemble, **Atenção**, o mais próximo do observado.
+
+Efeito colateral visto na mesma noite: a rodada das 0h15 perdeu o ECMWF (limite de consultas) e o nível caiu de 3 para 1 por 5 minutos. Um modelo faltando muda o consenso "2 de 4".
+
+Ajustes propostos (aguardando aval, não aplicados): (1) ensemble eleva no máximo um nível por avaliação; (2) modelo que falhar entra com a última rodada válida dele (até 6 h) em vez de sumir do consenso.
+
 ## 5. Como vamos medir se funciona
 Cada rodada grava uma linha em `data/historico.csv`. Depois de cada evento (ou de cada mês), comparar com o que aconteceu:
 - **POD** (acerto): eventos reais em que o sistema estava em Alerta ou Severo com antecedência.
