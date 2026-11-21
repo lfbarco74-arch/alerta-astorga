@@ -1,17 +1,17 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-21T16:51-03:00",
+ "gerado_em": "2026-11-21T18:36-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 3,
   "nome_24h": "Severo",
-  "wmaxshear_24h": 1212,
+  "wmaxshear_24h": 1197,
   "janela_pior": {
    "nivel": 3,
    "nome": "Severo",
    "nivel_modelos": 3,
    "motivos": [
-    "3 de 4 modelos indicam nível 3 ou mais"
+    "2 de 4 modelos indicam nível 3 ou mais"
    ],
    "perigos": [
     "raios",
@@ -21,23 +21,23 @@
    ],
    "perigos_nivel": {
     "raios": "provável",
-    "rajadas fortes / vendaval": "provável",
+    "rajadas fortes / vendaval": "possível",
     "granizo": "possível",
     "chuva intensa em pouco tempo": "possível"
    },
    "ingredientes": {
-    "wmaxshear": 1212,
-    "cape": 2905,
-    "cisalhamento_ms": 14.8,
-    "precip_max_mm_h": 7.0,
+    "wmaxshear": 1197,
+    "cape": 2835,
+    "cisalhamento_ms": 13.5,
+    "precip_max_mm_h": 13.5,
     "isoterma0_min_m": 4880
    },
    "por_modelo": {
     "ecmwf_ifs025": {
-     "nivel": 3,
-     "wmaxshear": 1202,
-     "gatilho_local": true,
-     "gatilho_regional": true,
+     "nivel": 1,
+     "wmaxshear": 1171,
+     "gatilho_local": false,
+     "gatilho_regional": false,
      "hora_pico": 39,
      "localidade_pico": "sede"
     },
@@ -58,38 +58,33 @@
      "localidade_pico": "santazelia"
     },
     "icon_seamless": {
-     "nivel": 2,
-     "wmaxshear": 870,
+     "nivel": 1,
+     "wmaxshear": 747,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 33,
+     "hora_pico": 37,
      "localidade_pico": "tupinamba"
     }
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.8431372549019608,
-    "p_severo": 0.27450980392156865
+    "p_alerta": 0.9411764705882353,
+    "p_severo": 0.35294117647058826
    },
    "inmet": {
-    "severidade": "Severe",
-    "id": "56473"
+    "severidade": "Moderate",
+    "id": "56475"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-21T22:00",
-   "fim": "2026-11-22T15:00",
+   "inicio": "2026-11-22T00:00",
+   "fim": "2026-11-22T17:00",
    "hora_pico_local": "15:00",
    "hora_pico_iso": "2026-11-22T15:00",
-   "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 297,
+   "direcao_celulas": "oeste",
+   "direcao_celulas_graus": 292,
    "direcao_linha_graus": 271,
    "direcao_chegada": "oeste",
-   "ar_frio": {
-    "hora_iso": "2026-11-22T13:00",
-    "hora_local": "13:00",
-    "queda_c": 2.9,
-    "vento_depois": "noroeste"
-   },
+   "ar_frio": null,
    "pontos_regionais": [
     "anel270",
     "anel315"
@@ -100,33 +95,26 @@
   {
    "nivel": 2,
    "nome": "Alerta",
-   "nivel_modelos": 1,
+   "nivel_modelos": 0,
    "motivos": [
-    "2 de 4 modelos indicam nível 1 ou mais",
     "Aviso oficial do INMET: Perigo (laranja)"
    ],
-   "perigos": [
-    "raios",
-    "chuva intensa em pouco tempo"
-   ],
-   "perigos_nivel": {
-    "raios": "possível",
-    "chuva intensa em pouco tempo": "possível"
-   },
+   "perigos": [],
+   "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 704,
-    "cape": 1720,
-    "cisalhamento_ms": 11.9,
-    "precip_max_mm_h": 0.6,
+    "wmaxshear": 758,
+    "cape": 1385,
+    "cisalhamento_ms": 12.8,
+    "precip_max_mm_h": 0.0,
     "isoterma0_min_m": 5060
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 448,
+     "wmaxshear": 558,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 21,
+     "hora_pico": 23,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -138,25 +126,25 @@
      "localidade_pico": "santazelia"
     },
     "gfs_seamless": {
-     "nivel": 2,
+     "nivel": 0,
      "wmaxshear": 959,
-     "gatilho_local": true,
+     "gatilho_local": false,
      "gatilho_regional": false,
      "hora_pico": 21,
      "localidade_pico": "santazelia"
     },
     "icon_seamless": {
      "nivel": 0,
-     "wmaxshear": 442,
+     "wmaxshear": 178,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 20,
+     "hora_pico": 19,
      "localidade_pico": "tupinamba"
     }
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.09803921568627451,
+    "p_alerta": 0.11764705882352941,
     "p_severo": 0.0196078431372549
    },
    "inmet": {
@@ -164,8 +152,8 @@
     "id": "56473"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-21T16:00",
-   "fim": "2026-11-21T21:00",
+   "inicio": "2026-11-21T18:00",
+   "fim": "2026-11-21T23:00",
    "hora_pico_local": "20:00",
    "hora_pico_iso": "2026-11-21T20:00",
    "direcao_celulas": "oeste",
@@ -173,95 +161,6 @@
    "direcao_linha_graus": 275,
    "direcao_chegada": "oeste",
    "ar_frio": null,
-   "pontos_regionais": [
-    "anel270",
-    "anel315"
-   ]
-  },
-  {
-   "nivel": 3,
-   "nome": "Severo",
-   "nivel_modelos": 3,
-   "motivos": [
-    "3 de 4 modelos indicam nível 3 ou mais"
-   ],
-   "perigos": [
-    "raios",
-    "rajadas fortes / vendaval",
-    "granizo",
-    "chuva intensa em pouco tempo"
-   ],
-   "perigos_nivel": {
-    "raios": "provável",
-    "rajadas fortes / vendaval": "provável",
-    "granizo": "possível",
-    "chuva intensa em pouco tempo": "possível"
-   },
-   "ingredientes": {
-    "wmaxshear": 1212,
-    "cape": 2905,
-    "cisalhamento_ms": 14.8,
-    "precip_max_mm_h": 7.0,
-    "isoterma0_min_m": 4880
-   },
-   "por_modelo": {
-    "ecmwf_ifs025": {
-     "nivel": 3,
-     "wmaxshear": 1202,
-     "gatilho_local": true,
-     "gatilho_regional": true,
-     "hora_pico": 39,
-     "localidade_pico": "sede"
-    },
-    "gem_seamless": {
-     "nivel": 3,
-     "wmaxshear": 1278,
-     "gatilho_local": true,
-     "gatilho_regional": true,
-     "hora_pico": 39,
-     "localidade_pico": "santazelia"
-    },
-    "gfs_seamless": {
-     "nivel": 3,
-     "wmaxshear": 1223,
-     "gatilho_local": true,
-     "gatilho_regional": true,
-     "hora_pico": 39,
-     "localidade_pico": "santazelia"
-    },
-    "icon_seamless": {
-     "nivel": 2,
-     "wmaxshear": 870,
-     "gatilho_local": true,
-     "gatilho_regional": true,
-     "hora_pico": 33,
-     "localidade_pico": "tupinamba"
-    }
-   },
-   "prob_ensemble": {
-    "membros": 51,
-    "p_alerta": 0.8431372549019608,
-    "p_severo": 0.27450980392156865
-   },
-   "inmet": {
-    "severidade": "Severe",
-    "id": "56473"
-   },
-   "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-21T22:00",
-   "fim": "2026-11-22T15:00",
-   "hora_pico_local": "15:00",
-   "hora_pico_iso": "2026-11-22T15:00",
-   "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 297,
-   "direcao_linha_graus": 271,
-   "direcao_chegada": "oeste",
-   "ar_frio": {
-    "hora_iso": "2026-11-22T13:00",
-    "hora_local": "13:00",
-    "queda_c": 2.9,
-    "vento_depois": "noroeste"
-   },
    "pontos_regionais": [
     "anel270",
     "anel315"
@@ -282,75 +181,155 @@
    ],
    "perigos_nivel": {
     "raios": "provável",
-    "rajadas fortes / vendaval": "provável",
+    "rajadas fortes / vendaval": "possível",
+    "granizo": "possível",
+    "chuva intensa em pouco tempo": "possível"
+   },
+   "ingredientes": {
+    "wmaxshear": 1197,
+    "cape": 2835,
+    "cisalhamento_ms": 13.5,
+    "precip_max_mm_h": 13.5,
+    "isoterma0_min_m": 4880
+   },
+   "por_modelo": {
+    "ecmwf_ifs025": {
+     "nivel": 1,
+     "wmaxshear": 1171,
+     "gatilho_local": false,
+     "gatilho_regional": false,
+     "hora_pico": 39,
+     "localidade_pico": "sede"
+    },
+    "gem_seamless": {
+     "nivel": 3,
+     "wmaxshear": 1278,
+     "gatilho_local": true,
+     "gatilho_regional": true,
+     "hora_pico": 39,
+     "localidade_pico": "santazelia"
+    },
+    "gfs_seamless": {
+     "nivel": 3,
+     "wmaxshear": 1223,
+     "gatilho_local": true,
+     "gatilho_regional": true,
+     "hora_pico": 39,
+     "localidade_pico": "santazelia"
+    },
+    "icon_seamless": {
+     "nivel": 1,
+     "wmaxshear": 747,
+     "gatilho_local": true,
+     "gatilho_regional": true,
+     "hora_pico": 37,
+     "localidade_pico": "tupinamba"
+    }
+   },
+   "prob_ensemble": {
+    "membros": 51,
+    "p_alerta": 0.9411764705882353,
+    "p_severo": 0.35294117647058826
+   },
+   "inmet": {
+    "severidade": "Moderate",
+    "id": "56475"
+   },
+   "rotulo": "De 6 a 24 horas",
+   "inicio": "2026-11-22T00:00",
+   "fim": "2026-11-22T17:00",
+   "hora_pico_local": "15:00",
+   "hora_pico_iso": "2026-11-22T15:00",
+   "direcao_celulas": "oeste",
+   "direcao_celulas_graus": 292,
+   "direcao_linha_graus": 271,
+   "direcao_chegada": "oeste",
+   "ar_frio": null,
+   "pontos_regionais": [
+    "anel270",
+    "anel315"
+   ]
+  },
+  {
+   "nivel": 3,
+   "nome": "Severo",
+   "nivel_modelos": 2,
+   "motivos": [
+    "3 de 4 modelos indicam nível 2 ou mais",
+    "55% dos 51 cenários do ECMWF com ambiente severo"
+   ],
+   "perigos": [
+    "raios",
+    "rajadas fortes / vendaval",
+    "granizo",
+    "chuva intensa em pouco tempo"
+   ],
+   "perigos_nivel": {
+    "raios": "provável",
+    "rajadas fortes / vendaval": "possível",
     "granizo": "possível",
     "chuva intensa em pouco tempo": "provável"
    },
    "ingredientes": {
-    "wmaxshear": 1112,
-    "cape": 2125,
-    "cisalhamento_ms": 19.6,
+    "wmaxshear": 942,
+    "cape": 1505,
+    "cisalhamento_ms": 16.4,
     "precip_max_mm_h": 25.2,
     "isoterma0_min_m": 4810
    },
    "por_modelo": {
     "ecmwf_ifs025": {
-     "nivel": 3,
-     "wmaxshear": 1498,
+     "nivel": 2,
+     "wmaxshear": 1026,
      "gatilho_local": false,
      "gatilho_regional": true,
      "hora_pico": 42,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
-     "nivel": 3,
-     "wmaxshear": 1211,
+     "nivel": 2,
+     "wmaxshear": 1086,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 40,
-     "localidade_pico": "santazelia"
+     "hora_pico": 65,
+     "localidade_pico": "icara"
     },
     "gfs_seamless": {
-     "nivel": 2,
-     "wmaxshear": 1014,
+     "nivel": 1,
+     "wmaxshear": 760,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 41,
-     "localidade_pico": "tupinamba"
+     "hora_pico": 64,
+     "localidade_pico": "santazelia"
     },
     "icon_seamless": {
      "nivel": 2,
-     "wmaxshear": 909,
+     "wmaxshear": 859,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 43,
-     "localidade_pico": "sede"
+     "hora_pico": 44,
+     "localidade_pico": "tupinamba"
     }
    },
    "prob_ensemble": {
     "membros": 51,
     "p_alerta": 0.9607843137254902,
-    "p_severo": 0.5882352941176471
+    "p_severo": 0.5490196078431373
    },
    "inmet": {
     "severidade": "Moderate",
     "id": "56475"
    },
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-22T16:00",
-   "fim": "2026-11-23T15:00",
-   "hora_pico_local": "17:00",
-   "hora_pico_iso": "2026-11-22T17:00",
+   "inicio": "2026-11-22T18:00",
+   "fim": "2026-11-23T17:00",
+   "hora_pico_local": "06:00",
+   "hora_pico_iso": "2026-11-23T06:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 281,
-   "direcao_linha_graus": 273,
-   "direcao_chegada": "oeste",
-   "ar_frio": {
-    "hora_iso": "2026-11-22T17:00",
-    "hora_local": "17:00",
-    "queda_c": 5.1,
-    "vento_depois": "sudeste"
-   },
+   "direcao_celulas_graus": 278,
+   "direcao_linha_graus": 244,
+   "direcao_chegada": "sudoeste",
+   "ar_frio": null,
    "pontos_regionais": [
     "anel225",
     "anel270",
@@ -364,7 +343,7 @@
    "nome": "Astorga (sede)",
    "perfil": "urbano",
    "nivel_modelos": 2,
-   "wmaxshear": 1171,
+   "wmaxshear": 1160,
    "perigos": [
     "raios",
     "rajadas fortes / vendaval",
@@ -379,7 +358,7 @@
    "nome": "Santa Zélia",
    "perfil": "rural",
    "nivel_modelos": 3,
-   "wmaxshear": 1212,
+   "wmaxshear": 1197,
    "perigos": [
     "raios",
     "rajadas fortes / vendaval",
@@ -393,7 +372,7 @@
    "id": "icara",
    "nome": "Içara",
    "perfil": "rural",
-   "nivel_modelos": 3,
+   "nivel_modelos": 2,
    "wmaxshear": 1162,
    "perigos": [
     "raios",
@@ -408,8 +387,8 @@
    "id": "tupinamba",
    "nome": "Tupinambá",
    "perfil": "rural",
-   "nivel_modelos": 3,
-   "wmaxshear": 1146,
+   "nivel_modelos": 2,
+   "wmaxshear": 1131,
    "perigos": [
     "raios",
     "rajadas fortes / vendaval",
@@ -488,250 +467,250 @@
  ],
  "serie_horaria": [
   {
-   "hora": "2026-11-21T16:00",
-   "wmaxshear": 439,
-   "gatilho": false
-  },
-  {
-   "hora": "2026-11-21T17:00",
-   "wmaxshear": 451,
-   "gatilho": true
-  },
-  {
    "hora": "2026-11-21T18:00",
-   "wmaxshear": 389,
+   "wmaxshear": 385,
    "gatilho": false
   },
   {
    "hora": "2026-11-21T19:00",
-   "wmaxshear": 381,
+   "wmaxshear": 317,
    "gatilho": false
   },
   {
    "hora": "2026-11-21T20:00",
-   "wmaxshear": 421,
+   "wmaxshear": 389,
    "gatilho": false
   },
   {
    "hora": "2026-11-21T21:00",
-   "wmaxshear": 704,
+   "wmaxshear": 698,
    "gatilho": false
   },
   {
    "hora": "2026-11-21T22:00",
-   "wmaxshear": 695,
+   "wmaxshear": 677,
    "gatilho": false
   },
   {
    "hora": "2026-11-21T23:00",
-   "wmaxshear": 634,
+   "wmaxshear": 599,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T00:00",
-   "wmaxshear": 620,
+   "wmaxshear": 581,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T01:00",
-   "wmaxshear": 657,
+   "wmaxshear": 566,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T02:00",
-   "wmaxshear": 745,
+   "wmaxshear": 673,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T03:00",
-   "wmaxshear": 766,
+   "wmaxshear": 648,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T04:00",
-   "wmaxshear": 733,
+   "wmaxshear": 679,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T05:00",
-   "wmaxshear": 744,
+   "wmaxshear": 718,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T06:00",
-   "wmaxshear": 748,
+   "wmaxshear": 700,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T07:00",
-   "wmaxshear": 770,
+   "wmaxshear": 675,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T08:00",
-   "wmaxshear": 832,
+   "wmaxshear": 678,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T09:00",
-   "wmaxshear": 950,
+   "wmaxshear": 596,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T10:00",
-   "wmaxshear": 861,
+   "wmaxshear": 626,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T11:00",
-   "wmaxshear": 671,
+   "wmaxshear": 616,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T12:00",
-   "wmaxshear": 811,
+   "wmaxshear": 768,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T13:00",
-   "wmaxshear": 881,
+   "wmaxshear": 875,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T14:00",
-   "wmaxshear": 977,
+   "wmaxshear": 986,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T15:00",
-   "wmaxshear": 1212,
+   "wmaxshear": 1197,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T16:00",
-   "wmaxshear": 964,
+   "wmaxshear": 928,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T17:00",
-   "wmaxshear": 1047,
+   "wmaxshear": 1036,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T18:00",
-   "wmaxshear": 759,
+   "wmaxshear": 775,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T19:00",
-   "wmaxshear": 832,
+   "wmaxshear": 791,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T20:00",
-   "wmaxshear": 644,
+   "wmaxshear": 635,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T21:00",
-   "wmaxshear": 343,
+   "wmaxshear": 346,
    "gatilho": false
   },
   {
    "hora": "2026-11-22T22:00",
-   "wmaxshear": 301,
+   "wmaxshear": 378,
    "gatilho": true
   },
   {
    "hora": "2026-11-22T23:00",
-   "wmaxshear": 240,
+   "wmaxshear": 350,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T00:00",
-   "wmaxshear": 259,
+   "wmaxshear": 294,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T01:00",
-   "wmaxshear": 285,
+   "wmaxshear": 303,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T02:00",
-   "wmaxshear": 309,
+   "wmaxshear": 301,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T03:00",
-   "wmaxshear": 327,
+   "wmaxshear": 295,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T04:00",
-   "wmaxshear": 366,
+   "wmaxshear": 302,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T05:00",
-   "wmaxshear": 360,
+   "wmaxshear": 288,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T06:00",
-   "wmaxshear": 269,
+   "wmaxshear": 246,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T07:00",
-   "wmaxshear": 529,
+   "wmaxshear": 474,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T08:00",
-   "wmaxshear": 436,
+   "wmaxshear": 454,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T09:00",
-   "wmaxshear": 345,
+   "wmaxshear": 379,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T10:00",
-   "wmaxshear": 245,
-   "gatilho": false
+   "wmaxshear": 324,
+   "gatilho": true
   },
   {
    "hora": "2026-11-23T11:00",
-   "wmaxshear": 173,
-   "gatilho": false
+   "wmaxshear": 227,
+   "gatilho": true
   },
   {
    "hora": "2026-11-23T12:00",
-   "wmaxshear": 158,
+   "wmaxshear": 145,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T13:00",
-   "wmaxshear": 182,
+   "wmaxshear": 257,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T14:00",
-   "wmaxshear": 237,
+   "wmaxshear": 377,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T15:00",
-   "wmaxshear": 463,
+   "wmaxshear": 626,
    "gatilho": true
+  },
+  {
+   "hora": "2026-11-23T16:00",
+   "wmaxshear": 707,
+   "gatilho": true
+  },
+  {
+   "hora": "2026-11-23T17:00",
+   "wmaxshear": 509,
+   "gatilho": false
   }
  ],
  "direcao_chegada": "oeste",
  "direcao_graus": 271,
- "direcao_celulas": "noroeste",
- "direcao_celulas_graus": 295,
+ "direcao_celulas": "oeste",
+ "direcao_celulas_graus": 291,
  "avisos_inmet": [
   {
    "id": "56472",
