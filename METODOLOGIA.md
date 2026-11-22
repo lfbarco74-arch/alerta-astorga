@@ -103,6 +103,19 @@ Cada rodada grava uma linha em `data/historico.csv`. Depois de cada evento (ou d
 
 A meta para a v0.2 é ter 2 a 3 meses de histórico e ajustar os limiares por esses números, não por impressão.
 
+### 5.1 Relatos de campo (escala desde 22/11/2026)
+Cada fenômeno tem a própria escala, para não misturar intensidade com tipo de evento (o formulário antigo permitia "vendaval fraco"):
+
+| Fenômeno | Escala | Referência para quem relata |
+|---|---|---|
+| Vento | calmo · fraco · moderado · forte · vendaval | folhas paradas · folhas mexem (até ~20 km/h) · galhos finos (~20-40) · galhos grossos, guarda-chuva difícil (~40-60) · quebra galhos, telhas (> ~60) |
+| Chuva | sem · garoa · fraca · moderada · forte · muito forte | sem poças · poças e barulho no telhado · enxurrada · rua vira rio |
+| Granizo | não · pequeno · médio · grande | ervilha · bola de gude · noz ou maior |
+| Trovoada | não · trovões ao longe · raios perto | trovão a menos de 5 s do clarão = perto |
+| Céu | limpo · poucas nuvens · nublado · neblina | — |
+
+Mais consequências (esfriou de repente, alagamento, galhos/árvores caídos, estrago, falta de energia) e, opcional, **de onde o temporal chegou** (8 direções), que valida a seta da linha (seção 3.6). Para a calibração, conta como **evento severo** um relato com vento forte ou vendaval, chuva forte ou muito forte, qualquer granizo, ou galhos/árvores caídos e estragos. Relatos da versão anterior são convertidos (vento forte → forte; vendaval → vendaval; chuva forte com intensidade fraca/moderada/forte → moderada/forte/muito forte).
+
 ## 6. Limites conhecidos
 - Sem observações em tempo real (estações, raios, radar quantitativo) no motor. O radar aparece só no painel.
 - A rede aberta de radares do Simepar não tem API pública. O radar de banda S previsto para Jandaia do Sul (~30 km) muda o jogo se os dados forem abertos.

@@ -96,9 +96,17 @@
   .opt{display:flex;gap:8px;align-items:center;padding:4px 0;cursor:pointer}
   .grade-ev{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
   @media (max-width:520px){.grade-ev{grid-template-columns:1fr}}
-  .seg-int{display:flex}
-  .seg-int label{padding:6px 12px;cursor:pointer;display:flex;gap:6px;align-items:center}
-  .seg-int label+label{border-left:1px solid var(--line)}
+  .linha-rel{display:grid;grid-template-columns:92px 1fr;gap:4px 10px;align-items:start;padding:5px 0}
+  .linha-rel+.linha-rel{border-top:1px dashed var(--line)}
+  .rot-rel{font-size:.9rem;padding-top:4px}
+  .dica-rel{grid-column:2;min-height:0}
+  .dica-rel:empty{display:none}
+  @media (max-width:520px){.linha-rel{grid-template-columns:1fr}.dica-rel{grid-column:1}}
+  .chips{display:flex;flex-wrap:wrap;gap:6px}
+  .chips label{position:relative;border:1px solid var(--line);border-radius:999px;padding:4px 11px;cursor:pointer;font-size:.86rem;user-select:none}
+  .chips input{position:absolute;opacity:0;pointer-events:none;width:0;height:0}
+  .chips label:has(input:checked){background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .chips label:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:2px}
   .modal select{font:inherit;padding:6px 8px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
   .relato-acoes{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px}
   .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
@@ -255,26 +263,62 @@
         </select>
       </fieldset>
 
-      <fieldset><legend>O que está acontecendo (marque o que se aplica)</legend>
+      <fieldset><legend>Como está agora (marque só o que você observou; toque de novo para desmarcar)</legend>
+        <div class="linha-rel"><span class="rot-rel">☁️ Céu</span>
+          <div class="chips" data-grupo="ceu">
+            <label><input type="radio" name="ceu" value="limpo">Limpo</label>
+            <label><input type="radio" name="ceu" value="parcial">Poucas nuvens</label>
+            <label><input type="radio" name="ceu" value="nublado">Nublado</label>
+            <label><input type="radio" name="ceu" value="neblina">Neblina</label>
+          </div></div>
+        <div class="linha-rel"><span class="rot-rel">💨 Vento</span>
+          <div class="chips" data-grupo="vento">
+            <label><input type="radio" name="vento" value="0">Calmo</label>
+            <label><input type="radio" name="vento" value="1">Fraco</label>
+            <label><input type="radio" name="vento" value="2">Moderado</label>
+            <label><input type="radio" name="vento" value="3">Forte</label>
+            <label><input type="radio" name="vento" value="4">Vendaval</label>
+          </div><div class="dica-rel small muted" id="dica-vento"></div></div>
+        <div class="linha-rel"><span class="rot-rel">🌧️ Chuva</span>
+          <div class="chips" data-grupo="chuva">
+            <label><input type="radio" name="chuva" value="0">Sem chuva</label>
+            <label><input type="radio" name="chuva" value="1">Garoa</label>
+            <label><input type="radio" name="chuva" value="2">Fraca</label>
+            <label><input type="radio" name="chuva" value="3">Moderada</label>
+            <label><input type="radio" name="chuva" value="4">Forte</label>
+            <label><input type="radio" name="chuva" value="5">Muito forte</label>
+          </div><div class="dica-rel small muted" id="dica-chuva"></div></div>
+        <div class="linha-rel"><span class="rot-rel">🧊 Granizo</span>
+          <div class="chips" data-grupo="granizo">
+            <label><input type="radio" name="granizo" value="0">Não</label>
+            <label><input type="radio" name="granizo" value="1">Pequeno (ervilha)</label>
+            <label><input type="radio" name="granizo" value="2">Médio (bola de gude)</label>
+            <label><input type="radio" name="granizo" value="3">Grande (noz ou maior)</label>
+          </div></div>
+        <div class="linha-rel"><span class="rot-rel">⚡ Trovoada</span>
+          <div class="chips" data-grupo="raios">
+            <label><input type="radio" name="raios" value="0">Não</label>
+            <label><input type="radio" name="raios" value="1">Trovões ao longe</label>
+            <label><input type="radio" name="raios" value="2">Raios perto</label>
+          </div><div class="dica-rel small muted" id="dica-raios"></div></div>
+      </fieldset>
+
+      <fieldset><legend>Consequências (se houver)</legend>
         <div class="grade-ev">
-          <label class="opt"><input type="checkbox" name="ev" value="vento_forte"> 💨 Vento forte</label>
-          <label class="opt"><input type="checkbox" name="ev" value="vendaval"> 🌪️ Vendaval / rajada muito forte</label>
-          <label class="opt"><input type="checkbox" name="ev" value="chuva_forte"> 🌧️ Chuva forte</label>
-          <label class="opt"><input type="checkbox" name="ev" value="granizo"> 🧊 Granizo</label>
-          <label class="opt"><input type="checkbox" name="ev" value="raios"> ⚡ Raios / trovoadas</label>
-          <label class="opt"><input type="checkbox" name="ev" value="alagamento"> 🌊 Alagamento</label>
-          <label class="opt"><input type="checkbox" name="ev" value="estragos"> 🌳 Queda de árvore / estrago</label>
-          <label class="opt"><input type="checkbox" name="ev" value="sem_energia"> 🔌 Falta de energia</label>
-          <label class="opt"><input type="checkbox" name="ev" value="tempo_bom"> ☀️ Tempo firme, nada a relatar</label>
+          <label class="opt"><input type="checkbox" name="efeito" value="esfriou"> 🌡️ Esfriou de repente</label>
+          <label class="opt"><input type="checkbox" name="efeito" value="alagamento"> 🌊 Alagamento</label>
+          <label class="opt"><input type="checkbox" name="efeito" value="galhos"> 🌳 Galhos ou árvores caídos</label>
+          <label class="opt"><input type="checkbox" name="efeito" value="estragos"> 🏚️ Destelhamento ou outro estrago</label>
+          <label class="opt"><input type="checkbox" name="efeito" value="sem_energia"> 🔌 Falta de energia</label>
         </div>
       </fieldset>
 
-      <fieldset id="fs-intensidade"><legend>Intensidade</legend>
-        <div class="seg seg-int">
-          <label><input type="radio" name="intensidade" value="1"> Fraca</label>
-          <label><input type="radio" name="intensidade" value="2" checked> Moderada</label>
-          <label><input type="radio" name="intensidade" value="3"> Forte</label>
-        </div>
+      <fieldset><legend>Se veio um temporal: de onde ele chegou? (opcional)</legend>
+        <select name="de_onde">
+          <option value="">Não sei / não se aplica</option>
+          <option value="N">Norte</option><option value="NE">Nordeste</option><option value="E">Leste</option><option value="SE">Sudeste</option>
+          <option value="S">Sul</option><option value="SW">Sudoeste</option><option value="W">Oeste</option><option value="NW">Noroeste</option>
+        </select>
       </fieldset>
 
       <input type="text" name="site" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
@@ -852,29 +896,86 @@ document.querySelectorAll(".wchips button").forEach(b => b.addEventListener("cli
 }));
 
 /* ---------- relatos de campo ("Como está o tempo aí?") ---------- */
-const EMOJI = {vendaval:"🌪️", granizo:"🧊", estragos:"🌳", alagamento:"🌊", chuva_forte:"🌧️", vento_forte:"💨", raios:"⚡", sem_energia:"🔌", tempo_bom:"☀️"};
-const PRIORIDADE = ["vendaval","granizo","estragos","alagamento","chuva_forte","vento_forte","raios","sem_energia","tempo_bom"];
-const ROTULO_EV = {vento_forte:"vento forte", vendaval:"vendaval", chuva_forte:"chuva forte", granizo:"granizo", raios:"raios",
-  alagamento:"alagamento", estragos:"queda de árvore/estrago", sem_energia:"falta de energia", tempo_bom:"tempo firme"};
-const INTENS = {1:"fraca", 2:"moderada", 3:"forte"};
+// Escalas por fenômeno (versão 2 do relato). Cada fenômeno tem a sua: não existe "vendaval fraco".
+const ESCALA = {
+  vento: ["calmo", "fraco", "moderado", "forte", "vendaval"],
+  chuva: ["sem chuva", "garoa", "fraca", "moderada", "forte", "muito forte"],
+  granizo: ["não", "pequeno", "médio", "grande"],
+  raios: ["não", "trovões ao longe", "raios perto"],
+};
+const CEU = {limpo:"céu limpo", parcial:"poucas nuvens", nublado:"nublado", neblina:"neblina"};
+const EFEITO = {esfriou:"esfriou de repente", alagamento:"alagamento", galhos:"galhos/árvores caídos", estragos:"destelhamento/estrago", sem_energia:"falta de energia"};
+const RUMO = {N:"norte", NE:"nordeste", E:"leste", SE:"sudeste", S:"sul", SW:"sudoeste", W:"oeste", NW:"noroeste"};
+const DICA = {
+  vento: ["fumaça sobe reta, folhas paradas", "folhas mexem, sente no rosto (até ~20 km/h)", "galhos finos balançam, levanta poeira (~20 a 40 km/h)",
+          "galhos grossos balançam, difícil segurar guarda-chuva (~40 a 60 km/h)", "quebra galhos, arranca telhas ou derruba árvores (acima de ~60 km/h)"],
+  chuva: ["", "gotículas, quase não molha", "molha aos poucos, sem poças", "forma poças, barulho no telhado",
+          "enxurrada na rua, difícil enxergar longe", "rua vira rio, mal se vê a quadra da frente"],
+  raios: ["", "trovão vários segundos depois do clarão", "trovão quase junto com o clarão (menos de 5 s)"],
+};
+
+/* relatos da versão 1 (lista de eventos + intensidade única) convertidos para as escalas novas */
+function normalizarRelato(x){
+  if (x.v === 2) return x;
+  const ev = x.eventos || [], i = x.intensidade || 2, r = {...x, v: 1, efeitos: []};
+  if (ev.includes("vendaval")) r.vento = 4; else if (ev.includes("vento_forte")) r.vento = 3;
+  if (ev.includes("chuva_forte")) r.chuva = 2 + i;          // fraca→moderada, moderada→forte, forte→muito forte
+  if (ev.includes("granizo")) r.granizo = i;
+  if (ev.includes("raios")) r.raios = 2;
+  if (ev.includes("tempo_bom")) r.ceu = "limpo";
+  if (ev.includes("alagamento")) r.efeitos.push("alagamento");
+  if (ev.includes("estragos")) r.efeitos.push("estragos");
+  if (ev.includes("sem_energia")) r.efeitos.push("sem_energia");
+  return r;
+}
+const temNum = v => v !== null && v !== undefined;
+function iconeRelato(x){
+  const ef = x.efeitos || [];
+  if (ef.includes("estragos")) return "🏚️";
+  if (x.granizo >= 1) return "🧊";
+  if (x.vento === 4) return "🌪️";
+  if (ef.includes("galhos")) return "🌳";
+  if (ef.includes("alagamento")) return "🌊";
+  if (x.chuva >= 4) return "🌧️";
+  if (x.vento === 3) return "💨";
+  if (x.raios === 2) return "⚡";
+  if (x.chuva >= 1) return "🌦️";
+  if (x.raios === 1) return "🌩️";
+  if (x.vento >= 1) return "🍃";
+  if (ef.includes("sem_energia")) return "🔌";
+  if (ef.includes("esfriou")) return "🌡️";
+  return {neblina:"🌫️", nublado:"☁️", parcial:"⛅", limpo:"☀️"}[x.ceu] || "💬";
+}
+const severo = x => x.granizo >= 1 || x.vento >= 3 || x.chuva >= 4 || (x.efeitos || []).some(e => e === "estragos" || e === "galhos");
+function descreverRelato(x){
+  const p = [];
+  if (temNum(x.vento)) p.push("vento " + ESCALA.vento[x.vento]);
+  if (temNum(x.chuva)) p.push(x.chuva === 0 ? "sem chuva" : "chuva " + ESCALA.chuva[x.chuva]);
+  if (temNum(x.granizo) && x.granizo > 0) p.push("granizo " + ESCALA.granizo[x.granizo]);
+  if (x.raios > 0) p.push(ESCALA.raios[x.raios]);
+  if (x.ceu) p.push(CEU[x.ceu]);
+  return p;
+}
 let camadaRelatos = null, gpsPos = null;
 
 async function carregarRelatos(){
   let lista = [];
-  try{ const r = await fetch("/api/relatos?horas=6", {cache:"no-store"}); if (r.ok) lista = (await r.json()).relatos || []; }catch(e){}
+  try{ const r = await fetch("/api/relatos?horas=6", {cache:"no-store"}); if (r.ok) lista = ((await r.json()).relatos || []).map(normalizarRelato); }catch(e){}
   const perto = lista.filter(x => distKm(ASTORGA, [x.lat, x.lon]) <= 30 && Date.now() - Date.parse(x.quando) <= 3*3600e3);
+  const fortes = perto.filter(severo);
   $("relatos-resumo").textContent = perto.length
-    ? `${perto.length} relato(s) perto de Astorga nas últimas 3 h. Mande o seu também.`
+    ? `${perto.length} relato(s) perto de Astorga nas últimas 3 h${fortes.length ? ` (${fortes.length} com tempo forte: ${descreverRelato(fortes[0]).slice(0, 2).join(", ")})` : ""}. Mande o seu também.`
     : "Seu relato ajuda a calibrar o painel.";
   if (!M || !camadaRelatos) return;
   camadaRelatos.clearLayers();
   lista.forEach(x => {
-    const ev = PRIORIDADE.find(e => x.eventos.includes(e)) || "tempo_bom";
     const idade = (Date.now() - Date.parse(x.quando)) / 3600e3;
     const min = Math.max(0, Math.round((Date.now() - Date.parse(x.quando)) / 60000));
-    L.marker([x.lat, x.lon], {opacity: Math.max(.35, 1 - idade/7), icon: L.divIcon({className:"relato-ico", html: EMOJI[ev], iconSize:[22,22], iconAnchor:[11,11]})})
+    const desc = descreverRelato(x), ef = (x.efeitos || []).map(e => EFEITO[e] || e);
+    L.marker([x.lat, x.lon], {opacity: Math.max(.35, 1 - idade/7), zIndexOffset: severo(x) ? 500 : 0,
+      icon: L.divIcon({className:"relato-ico", html: iconeRelato(x), iconSize:[22,22], iconAnchor:[11,11]})})
       .addTo(camadaRelatos)
-      .bindPopup(`<b>${x.eventos.map(e => ROTULO_EV[e] || e).join(", ")}</b>${x.intensidade ? "<br>Intensidade " + INTENS[x.intensidade] : ""}<br><span style="color:#888">há ${min < 90 ? min + " min" : Math.round(min/60) + " h"} · relato de quem estava no local</span>`);
+      .bindPopup(`<b>${esc(desc.join(" · ") || "relato")}</b>${ef.length ? "<br>" + esc(ef.join(", ")) : ""}${x.de_onde ? "<br>chegou pelo " + esc(RUMO[x.de_onde] || x.de_onde) : ""}<br><span style="color:#888">há ${min < 90 ? min + " min" : Math.round(min/60) + " h"} · relato de quem estava no local</span>`);
   });
 }
 
@@ -906,9 +1007,14 @@ function atualizarOnde(){
     st.textContent = "Centro de Astorga.";
   } else st.textContent = "Escolha onde você está.";
 }
-function ajustarIntensidade(){
-  const evs = [...document.querySelectorAll('#form-relato input[name=ev]:checked')].map(x => x.value);
-  $("fs-intensidade").hidden = evs.length === 1 && evs[0] === "tempo_bom";
+function atualizarDicas(){
+  const f = $("form-relato");
+  ["vento", "chuva", "raios"].forEach(g => { const v = marcado(f, g); $("dica-" + g).textContent = v !== "" ? DICA[g][+v] : ""; });
+}
+function limparRelato(){
+  const f = $("form-relato");
+  f.querySelectorAll(".chips input, input[name=efeito]").forEach(c => c.checked = false);
+  campo(f, "de_onde").value = ""; atualizarDicas();
 }
 
 $("abrir-relato").addEventListener("click", abrirRelato);
@@ -916,27 +1022,38 @@ $("fechar-relato").addEventListener("click", fecharRelato);
 $("modal-relato").addEventListener("click", e => { if (e.target.id === "modal-relato") fecharRelato(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("modal-relato").hidden) fecharRelato(); });
 document.querySelectorAll('#form-relato input[name=onde]').forEach(r => r.addEventListener("change", atualizarOnde));
-document.querySelectorAll('#form-relato input[name=ev]').forEach(c => c.addEventListener("change", ajustarIntensidade));
+// chips: tocar de novo no item marcado desmarca (cada fenômeno é opcional)
+document.querySelectorAll("#form-relato .chips label").forEach(l => {
+  const inp = l.querySelector("input");
+  l.addEventListener("pointerdown", () => { l.dataset.estava = inp.checked ? "1" : ""; });
+  l.addEventListener("click", ev => {
+    if (l.dataset.estava === "1"){ ev.preventDefault(); inp.checked = false; l.dataset.estava = ""; atualizarDicas(); }
+  });
+  inp.addEventListener("change", atualizarDicas);
+});
 
 $("form-relato").addEventListener("submit", async e => {
   e.preventDefault();
   const f = e.target, msg = $("relato-msg");
-  const eventos = [...f.querySelectorAll("input[name=ev]:checked")].map(x => x.value);
+  const num = g => { const v = marcado(f, g); return v === "" ? null : +v; };
+  const dados = {ceu: marcado(f, "ceu") || null, vento: num("vento"), chuva: num("chuva"), granizo: num("granizo"), raios: num("raios"),
+    efeitos: [...f.querySelectorAll("input[name=efeito]:checked")].map(x => x.value), de_onde: campo(f, "de_onde").value || null};
+  const algum = ["ceu","vento","chuva","granizo","raios"].some(k => dados[k] !== null) || dados.efeitos.length > 0;
   const onde = marcado(f, "onde");
   let pos = onde === "gps" ? gpsPos : onde === "ponto" && PONTO ? {lat: PONTO.lat, lon: PONTO.lon} : onde === "astorga" ? {lat: ASTORGA[0], lon: ASTORGA[1]} : null;
   if (!pos){ msg.textContent = "Escolha onde você está."; return; }
-  if (!eventos.length){ msg.textContent = "Marque pelo menos um item."; return; }
+  if (!algum){ msg.textContent = "Marque pelo menos um item (céu, vento, chuva…)."; return; }
   $("enviar-relato").disabled = true; msg.textContent = "Enviando…";
   try{
     const r = await fetch("/api/relato", {method:"POST", headers:{"Content-Type":"application/json"},
       // arredonda no próprio aparelho (~1 km): a coordenada exata nunca sai do celular
-      body: JSON.stringify({lat: Math.round(pos.lat * 100) / 100, lon: Math.round(pos.lon * 100) / 100, eventos, intensidade: +(marcado(f, "intensidade") || 2),
+      body: JSON.stringify({lat: Math.round(pos.lat * 100) / 100, lon: Math.round(pos.lon * 100) / 100, ...dados,
         minutos_atras: +campo(f, "minutos_atras").value, origem: onde === "gps" ? "gps" : "mapa", site: campo(f, "site").value})});
     const j = await r.json().catch(() => ({}));
     if (r.status === 429){ msg.textContent = "Muitos envios seguidos. Aguarde um minuto."; $("enviar-relato").disabled = false; return; }
     if (!r.ok || !j.ok){ msg.textContent = j.erro || "Não foi possível enviar agora."; $("enviar-relato").disabled = false; return; }
     msg.textContent = "Obrigado! Relato registrado.";
-    f.querySelectorAll("input[name=ev]").forEach(c => c.checked = false); ajustarIntensidade();
+    limparRelato();
     setTimeout(fecharRelato, 1400);
     carregarRelatos();
   }catch(err){ msg.textContent = "Sem conexão. Tente de novo."; $("enviar-relato").disabled = false; }

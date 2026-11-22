@@ -3,7 +3,11 @@
 import type { Config, Context } from "@netlify/functions";
 import { getStore } from "@netlify/blobs";
 
-const EVENTOS = ["vento_forte", "vendaval", "chuva_forte", "granizo", "raios", "alagamento", "estragos", "sem_energia", "tempo_bom"];
+// Versão 2: cada fenômeno com a própria escala (não existe "vendaval fraco").
+const CEU = ["limpo", "parcial", "nublado", "neblina"];
+const MAXIMO = { vento: 4, chuva: 5, granizo: 3, raios: 2 }; // vento: calmo..vendaval; chuva: sem..muito forte; granizo: não..grande; raios: não..perto
+const EFEITOS = ["esfriou", "alagamento", "galhos", "estragos", "sem_energia"];
+const RUMOS = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
 const PR = { latMin: -27.0, latMax: -22.2, lonMin: -55.0, lonMax: -47.7 }; // Paraná com folga
 const ATRASOS = [0, 30, 60, 120]; // "agora", "há 30 min", "há 1 h", "há 2 h"
 
@@ -22,12 +26,18 @@ export default async (req: Request, _context: Context) => {
   if (!Number.isFinite(lat) || !Number.isFinite(lon) || lat < PR.latMin || lat > PR.latMax || lon < PR.lonMin || lon > PR.lonMax) {
     return erro("localização fora do Paraná");
   }
-  let eventos: string[] = Array.isArray(b?.eventos) ? [...new Set(b.eventos.filter((e: unknown) => EVENTOS.includes(String(e))))] as string[] : [];
-  if (eventos.length > 1) eventos = eventos.filter(e => e !== "tempo_bom");
-  if (!eventos.length) return erro("marque pelo menos um item");
+  const escala = (nome: keyof typeof MAXIMO) => {
+    const v = b?.[nome];
+    if (v === null || v === undefined || v === "") return null;
+    const n = Number(v);
+    return Number.isInteger(n) && n >= 0 && n <= MAXIMO[nome] ? n : null;
+  };
+  const ceu = CEU.includes(String(b?.ceu)) ? String(b.ceu) : null;
+  const vento = escala("vento"), chuva = escala("chuva"), granizo = escala("granizo"), raios = escala("raios");
+  const efeitos: string[] = Array.isArray(b?.efeitos) ? [...new Set(b.efeitos.map(String).filter((e: string) => EFEITOS.includes(e)))] as string[] : [];
+  const de_onde = RUMOS.includes(String(b?.de_onde)) ? String(b.de_onde) : null;
+  if ([ceu, vento, chuva, granizo, raios].every(x => x === null) && !efeitos.length) return erro("marque pelo menos um item");
 
-  const soTempoBom = eventos.length === 1 && eventos[0] === "tempo_bom";
-  const intensidade = soTempoBom ? null : Math.min(3, Math.max(1, Math.round(Number(b?.intensidade) || 2)));
   const atraso = ATRASOS.includes(Number(b?.minutos_atras)) ? Number(b.minutos_atras) : 0;
   const origem = b?.origem === "gps" ? "gps" : "mapa";
 
@@ -39,8 +49,8 @@ export default async (req: Request, _context: Context) => {
     quando: new Date(agora.getTime() - atraso * 60_000).toISOString(),
     lat: Math.round(lat * 100) / 100,
     lon: Math.round(lon * 100) / 100,
-    eventos,
-    intensidade,
+    v: 2,
+    ceu, vento, chuva, granizo, raios, efeitos, de_onde,
     origem,
   };
   try {
