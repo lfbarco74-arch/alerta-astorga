@@ -191,8 +191,8 @@
           <button type="button" class="btn" id="abrir-relato">Relatar</button>
         </div>
       </section>
-      <section class="card">
-        <h2>Linha do tempo</h2>
+      <section class="card" id="sec-janelas">
+        <h2>Linha do tempo · Astorga</h2>
         <div class="jans" id="janelas"></div>
       </section>
     </aside>
@@ -208,17 +208,17 @@
       </div>
     </div>
     <div id="grafico"></div>
-    <p class="small muted" style="margin:6px 0 0">Barras: potencial de tempestade severa (energia × cisalhamento do vento). Cor forte e ⚡ = algum modelo simula tempestade em Astorga ou na região de onde ela viria. Passe o dedo ou o mouse sobre as barras para ver a hora.</p>
+    <p class="small muted" style="margin:6px 0 0">Barras: potencial de tempestade severa (energia × cisalhamento do vento). Cor forte e ⚡ = algum modelo simula tempestade no local ou na região de onde ela viria. Passe o dedo ou o mouse sobre as barras para ver a hora.</p>
   </section>
 
   <section class="card">
-    <h2>Cidade e zona rural (próximas 24 h)</h2>
+    <h2 id="locais-titulo">Cidade e zona rural (próximas 24 h)</h2>
     <table id="locais"><thead><tr><th>Local</th><th>Sinal dos modelos</th><th>O que pode acontecer</th></tr></thead><tbody></tbody></table>
-    <p class="small muted" style="margin:8px 0 0">Os modelos enxergam o município em blocos de 9 a 28 km. Por isso cidade e distritos costumam ter o mesmo sinal; o que muda é o tipo de impacto.</p>
+    <p class="small muted" style="margin:8px 0 0" id="locais-nota">Os modelos enxergam o município em blocos de 9 a 28 km. Por isso cidade e distritos costumam ter o mesmo sinal; o que muda é o tipo de impacto.</p>
   </section>
 
   <section class="card">
-    <h2>Avisos oficiais do INMET</h2>
+    <h2 id="inmet-titulo">Avisos oficiais do INMET · Astorga</h2>
     <div id="inmet" class="small"></div>
   </section>
 
@@ -443,37 +443,80 @@ function render(s){
   if (!PONTO){ SERIE = s.serie_horaria || []; ROTULO_SERIE = "Astorga"; grafico(); }
   mapa(s);
 
-  $("locais").querySelector("tbody").innerHTML = (s.localidades||[]).map(l => `
-    <tr class="${cls(l.nivel_modelos)}">
-      <td><b>${esc(l.nome)}</b><br><span class="small muted">${l.perfil === "urbano" ? "zona urbana" : "distrito / zona rural"}</span></td>
-      <td><span class="dot"></span>${NOMES[l.nivel_modelos]}</td>
-      <td class="small">${l.nivel_modelos > 0 ? esc(IMPACTO[l.perfil]) : "—"}</td>
-    </tr>`).join("");
+  renderDetalhes();
+}
 
-  const corAv = {Moderate:"l1", Severe:"l2", Extreme:"l3"}, peso = {Moderate:1, Severe:2, Extreme:3};
-  const agoraMs = Date.now();
-  const av = (s.avisos_inmet || []).filter(a => new Date(a.fim) >= agoraMs)
-    .sort((a,b) => (peso[b.severidade]||0) - (peso[a.severidade]||0) || new Date(a.inicio) - new Date(b.inicio));
-  const cartao = a => `
-    <div class="aviso ${corAv[a.severidade]||"l1"}">
+/* ---------- blocos que mudam conforme o local em foco (Astorga ou cidade/ponto escolhido) ---------- */
+let PONTO_RES = null;   // {janelas, avisos} da última análise de ponto
+const NOME_MODELO = m => m.replace("_seamless","").replace("ecmwf_ifs025","ECMWF").toUpperCase();
+const COR_AV = {Moderate:"l1", Severe:"l2", Extreme:"l3"}, PESO_AV = {Moderate:1, Severe:2, Extreme:3};
+const cartaoAviso = a => `
+    <div class="aviso ${COR_AV[a.severidade]||"l1"}">
       <b>${esc(a.titulo)}</b><br>
       ${fmtHora(a.inicio)} até ${fmtHora(a.fim)}<br>
       ${esc(a.descricao)}<br>
       <a href="${esc(a.link)}" target="_blank" rel="noopener">Ver aviso oficial</a>
     </div>`;
-  $("inmet").innerHTML = !av.length ? "Nenhum aviso do INMET ativo para Astorga."
-    : av.slice(0,2).map(cartao).join("") + (av.length > 2
-      ? `<details style="margin-top:6px"><summary>Mais ${av.length - 2} aviso(s) vigente(s) que incluem Astorga</summary>${av.slice(2).map(cartao).join("")}</details>` : "");
-
-  const ing = (s.janelas||[]).map(w => {
+function listaAvisos(lista, onde){
+  const av = (lista || []).filter(a => new Date(a.fim) >= Date.now())
+    .sort((a,b) => (PESO_AV[b.severidade]||0) - (PESO_AV[a.severidade]||0) || new Date(a.inicio) - new Date(b.inicio));
+  return !av.length ? `Nenhum aviso do INMET ativo para ${esc(onde)}.`
+    : av.slice(0,2).map(cartaoAviso).join("") + (av.length > 2
+      ? `<details style="margin-top:6px"><summary>Mais ${av.length - 2} aviso(s) vigente(s) para ${esc(onde)}</summary>${av.slice(2).map(cartaoAviso).join("")}</details>` : "");
+}
+function textoIngredientes(janelas, onde){
+  return (janelas||[]).map(w => {
     const i = w.ingredientes || {}, pe = w.prob_ensemble;
-    const mods = Object.entries(w.por_modelo||{}).map(([m,v]) => `${m.replace("_seamless","").replace("ecmwf_ifs025","ECMWF").toUpperCase()}: ${NOMES[v.nivel]}`).join(" · ");
+    const mods = Object.entries(w.por_modelo||{}).map(([m,v]) => `${NOME_MODELO(m)}: ${NOMES[v.nivel]}`).join(" · ");
     return `<p><b>${esc(w.rotulo)}</b><br>
       CAPE ${i.cape ?? "—"} J/kg · cisalhamento ${i.cisalhamento_ms ?? "—"} m/s · índice ${i.wmaxshear ?? "—"}
       ${pe ? ` · ensemble: ${Math.round(pe.p_alerta*100)}% dos ${pe.membros} cenários em ambiente de alerta` : ""}<br>
       <span class="muted">${esc(mods)}</span></p>`;
-  }).join("");
-  $("ingredientes").innerHTML = ing + `<p class="muted">Índice = √(2·CAPE) × cisalhamento (WMAXSHEAR). Acima de 500 = atenção; 800 = alerta; 1200 = severo, desde que haja tempestade simulada em Astorga ou na região a montante.</p>`;
+  }).join("") + `<p class="muted">Índice = √(2·CAPE) × cisalhamento (WMAXSHEAR). Acima de 500 = atenção; 800 = alerta; 1200 = severo, desde que haja tempestade simulada em ${esc(onde)} ou na região a montante.</p>`;
+}
+function renderDetalhes(){
+  const ponto = PONTO && PONTO_RES;
+  // Astorga sai de cena quando outro local está em foco
+  $("hero").hidden = !!PONTO; $("sec-janelas").hidden = !!PONTO;
+  if (M && camadas){
+    if (PONTO){ camadas.remove(); camadaDetalhe.remove(); }
+    else { camadas.addTo(M); if (M.getZoom() >= ZOOM_DETALHE) camadaDetalhe.addTo(M); }
+  }
+  if (ponto){
+    const nome = PONTO.nome || "ponto escolhido";
+    const j24 = PONTO_RES.janelas.slice(0, 2), max = Math.max(...j24.map(j => j.nivel)), pior = j24.find(j => j.nivel === max);
+    $("locais-titulo").textContent = `Sinal de cada modelo em ${nome} (próximas 24 h)`;
+    $("locais").querySelector("thead").innerHTML = "<tr><th>Modelo</th><th>Sinal</th><th>Índice e tempestade simulada</th></tr>";
+    $("locais").querySelector("tbody").innerHTML = Object.entries(pior.por_modelo || {}).map(([m, v]) => `
+      <tr class="${cls(v.nivel)}">
+        <td><b>${esc(NOME_MODELO(m))}</b></td>
+        <td><span class="dot"></span>${NOMES[v.nivel]}</td>
+        <td class="small">índice ${v.wmaxshear ?? "—"} · ${v.gatilho_local ? "tempestade simulada no local" : v.gatilho_regional ? "tempestade simulada na região de onde viria" : "sem tempestade simulada"}</td>
+      </tr>`).join("");
+    $("locais-nota").textContent = "Vale o nível em que pelo menos 2 dos 4 modelos concordam. Um modelo isolado não define o nível.";
+    $("inmet-titulo").textContent = `Avisos oficiais do INMET · ${nome}`;
+    $("inmet").innerHTML = listaAvisos(PONTO_RES.avisos, nome);
+    $("ingredientes").innerHTML = textoIngredientes(PONTO_RES.janelas, nome);
+  } else if (PONTO){
+    $("locais-titulo").textContent = `Analisando ${PONTO.nome || "o ponto escolhido"}…`;
+    $("locais").querySelector("tbody").innerHTML = "";
+    $("inmet").innerHTML = ""; $("ingredientes").innerHTML = "";
+  } else if (STATUS){
+    const s = STATUS;
+    $("locais-titulo").textContent = "Cidade e zona rural (próximas 24 h)";
+    $("locais").querySelector("thead").innerHTML = "<tr><th>Local</th><th>Sinal dos modelos</th><th>O que pode acontecer</th></tr>";
+    $("locais").querySelector("tbody").innerHTML = (s.localidades||[]).map(l => `
+    <tr class="${cls(l.nivel_modelos)}">
+      <td><b>${esc(l.nome)}</b><br><span class="small muted">${l.perfil === "urbano" ? "zona urbana" : "distrito / zona rural"}</span></td>
+      <td><span class="dot"></span>${NOMES[l.nivel_modelos]}</td>
+      <td class="small">${l.nivel_modelos > 0 ? esc(IMPACTO[l.perfil]) : "—"}</td>
+    </tr>`).join("");
+    $("locais-nota").textContent = "Os modelos enxergam o município em blocos de 9 a 28 km. Por isso cidade e distritos costumam ter o mesmo sinal; o que muda é o tipo de impacto.";
+    $("inmet-titulo").textContent = "Avisos oficiais do INMET · Astorga";
+    $("inmet").innerHTML = listaAvisos(s.avisos_inmet, "Astorga");
+    $("ingredientes").innerHTML = textoIngredientes(s.janelas, "Astorga");
+  }
+  carregarRelatos();
 }
 
 let SERIE = [], HORAS_GRAF = 24, ROTULO_SERIE = "Astorga", STATUS = null, PONTO = null;
@@ -552,7 +595,7 @@ async function iniciarMapa(){
     maxZoom: 13, pane: "overlayPane", zIndex: 650}).addTo(M);
   camadas = L.layerGroup().addTo(M);
   camadaDetalhe = L.layerGroup();
-  const ajustarDetalhe = () => { M.getZoom() >= ZOOM_DETALHE ? camadaDetalhe.addTo(M) : camadaDetalhe.remove(); };
+  const ajustarDetalhe = () => { (!PONTO && M.getZoom() >= ZOOM_DETALHE) ? camadaDetalhe.addTo(M) : camadaDetalhe.remove(); };
   M.on("zoomend", ajustarDetalhe); ajustarDetalhe();
   const extras = {};
   // radar (opcional)
@@ -589,6 +632,7 @@ async function mapa(s){
     else if (u) setTimeout(() => { analisarPonto(u.lat, u.lon, u.nome); M.setView([u.lat, u.lon], 9); }, 0);
   }
   camadas.clearLayers(); camadaDetalhe.clearLayers();
+  if (PONTO){ camadas.remove(); camadaDetalhe.remove(); }
   const sede = (s.localidades||[])[0] || {lat:ASTORGA[0], lon:ASTORGA[1]};
   const nivel = s.resumo.nivel_24h || 0;
   // visão geral: Astorga como um pino colorido pelo nível + seta de chegada
@@ -654,6 +698,8 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
   ["ponto-quando","ponto-perigos","ponto-motivos","ponto-janelas","ponto-nota"].forEach(id => $(id).innerHTML = "");
   camadaPonto.clearLayers();
   L.circleMarker([lat, lon], {radius:9, color:"#fff", weight:3, fillColor:"#3b82f6", fillOpacity:1}).addTo(camadaPonto);
+  if (!mesmo) PONTO_RES = null;
+  renderDetalhes();
   if (window.matchMedia("(max-width:900px)").matches) card.scrollIntoView({behavior:"smooth", block:"start"});
 
   // nome do lugar (não bloqueia a análise; dispensado quando veio da busca)
@@ -662,7 +708,7 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
       if (meu !== pedidoAtual) return;
       const a = j.address || {};
       const nome = a.city || a.town || a.village || a.municipality || a.county;
-      if (nome){ $("ponto-nome").textContent = nome; PONTO.nome = nome; if (!automatico) lembrar({lat, lon, nome}); if (ROTULO_SERIE !== "Astorga"){ ROTULO_SERIE = nome; grafico(); } }
+      if (nome){ $("ponto-nome").textContent = nome; PONTO.nome = nome; if (!automatico) lembrar({lat, lon, nome}); if (ROTULO_SERIE !== "Astorga"){ ROTULO_SERIE = nome; grafico(); } renderDetalhes(); }
     }).catch(() => {});
 
   const lim = (STATUS && STATUS.limiares) || LIM_PADRAO;
@@ -787,6 +833,7 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
     // mapa: só o pino e a seta de chegada (o anel consultado fica nos bastidores)
     if (dirSeta !== null) seta(camadaPonto, lat, lon, dirSeta, pior.nivel, true);
     SERIE = serie; ROTULO_SERIE = PONTO.nome || "ponto escolhido"; grafico();
+    PONTO_RES = {janelas, avisos}; renderDetalhes();
   }catch(e){
     if (meu !== pedidoAtual) return;
     card.className = "card ponto";
@@ -803,11 +850,14 @@ $("ponto-fechar").addEventListener("click", () => {
   pedidoAtual++; PONTO = null; $("ponto").hidden = true; lembrar(null); $("busca").value = "";
   try{ history.replaceState(null, "", location.pathname + location.search); }catch(e){}
   if (camadaPonto) camadaPonto.clearLayers();
+  PONTO_RES = null;
   if (STATUS){ SERIE = STATUS.serie_horaria || []; ROTULO_SERIE = "Astorga"; grafico(); }
+  renderDetalhes();
 });
 
 $("hero-mapa").addEventListener("click", () => {
   if (!M) return;
+  if (PONTO) $("ponto-fechar").click();
   document.querySelector('.maptabs .seg button[data-t="risco"]').click();
   const sede = (STATUS && STATUS.localidades && STATUS.localidades[0]) || {lat:ASTORGA[0], lon:ASTORGA[1]};
   M.setView([sede.lat, sede.lon], ZOOM_DETALHE);
@@ -961,10 +1011,11 @@ let camadaRelatos = null, gpsPos = null;
 async function carregarRelatos(){
   let lista = [];
   try{ const r = await fetch("/api/relatos?horas=6", {cache:"no-store"}); if (r.ok) lista = ((await r.json()).relatos || []).map(normalizarRelato); }catch(e){}
-  const perto = lista.filter(x => distKm(ASTORGA, [x.lat, x.lon]) <= 30 && Date.now() - Date.parse(x.quando) <= 3*3600e3);
+  const centro = PONTO ? [PONTO.lat, PONTO.lon] : ASTORGA, ondeNome = PONTO ? (PONTO.nome || "do ponto escolhido") : "Astorga";
+  const perto = lista.filter(x => distKm(centro, [x.lat, x.lon]) <= 30 && Date.now() - Date.parse(x.quando) <= 3*3600e3);
   const fortes = perto.filter(severo);
   $("relatos-resumo").textContent = perto.length
-    ? `${perto.length} relato(s) perto de Astorga nas últimas 3 h${fortes.length ? ` (${fortes.length} com tempo forte: ${descreverRelato(fortes[0]).slice(0, 2).join(", ")})` : ""}. Mande o seu também.`
+    ? `${perto.length} relato(s) perto de ${ondeNome} nas últimas 3 h${fortes.length ? ` (${fortes.length} com tempo forte: ${descreverRelato(fortes[0]).slice(0, 2).join(", ")})` : ""}. Mande o seu também.`
     : "Seu relato ajuda a calibrar o painel.";
   if (!M || !camadaRelatos) return;
   camadaRelatos.clearLayers();
