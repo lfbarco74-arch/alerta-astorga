@@ -7,7 +7,8 @@ import type { Config } from "@netlify/functions";
 const URL_DISPARO = "https://api.github.com/repos/lfbarco74-arch/alerta-astorga/actions/workflows/alerta.yml/dispatches";
 
 export default async () => {
-  const token = Netlify.env.get("GITHUB_TOKEN_DISPARO");
+  // aceita o nome em maiúsculas ou minúsculas (o nome de variável no Netlify diferencia as duas)
+  const token = Netlify.env.get("GITHUB_TOKEN_DISPARO") ?? Netlify.env.get("github_token_disparo");
   if (!token) {
     console.log("disparo: variável GITHUB_TOKEN_DISPARO ausente; nada feito");
     return;
