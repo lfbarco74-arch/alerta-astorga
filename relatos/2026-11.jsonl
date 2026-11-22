@@ -3,3 +3,4 @@
 {"id":"2026-11-21T21:43:39.643Z-hj009l","recebido":"2026-11-21T21:43:39.643Z","quando":"2026-11-21T21:43:39.643Z","lat":-23.24,"lon":-51.67,"eventos":["tempo_bom"],"intensidade":null,"origem":"gps"}
 {"id":"2026-11-22T15:08:50.416Z-1msepl","recebido":"2026-11-22T15:08:50.416Z","quando":"2026-11-22T15:08:50.416Z","lat":-23.25,"lon":-51.67,"v":2,"ceu":"nublado","vento":1,"chuva":0,"granizo":0,"raios":0,"efeitos":[],"de_onde":null,"origem":"gps"}
 {"id":"2026-11-22T17:46:47.583Z-syemyn","recebido":"2026-11-22T17:46:47.583Z","quando":"2026-11-22T17:46:47.583Z","lat":-23.24,"lon":-51.67,"v":2,"ceu":"nublado","vento":null,"chuva":2,"granizo":0,"raios":0,"efeitos":[],"de_onde":null,"origem":"gps"}
+{"id":"2026-11-22T18:37:47.874Z-994pa5","recebido":"2026-11-22T18:37:47.874Z","quando":"2026-11-22T18:37:47.874Z","lat":-23.25,"lon":-51.67,"v":2,"ceu":null,"vento":null,"chuva":3,"granizo":0,"raios":2,"efeitos":[],"de_onde":null,"origem":"gps"}
