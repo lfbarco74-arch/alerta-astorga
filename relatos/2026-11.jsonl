@@ -1,3 +1,4 @@
 {"id":"2026-11-20T23:11:00.225Z-2zhuhq","recebido":"2026-11-20T23:11:00.225Z","quando":"2026-11-20T22:11:00.225Z","lat":-23.25,"lon":-51.67,"eventos":["vento_forte","vendaval","raios"],"intensidade":2,"origem":"gps"}
 {"id":"2026-11-21T05:08:00.985Z-p24mpy","recebido":"2026-11-21T05:08:00.985Z","quando":"2026-11-21T05:08:00.985Z","lat":-23.25,"lon":-51.67,"eventos":["chuva_forte"],"intensidade":1,"origem":"gps"}
 {"id":"2026-11-21T21:43:39.643Z-hj009l","recebido":"2026-11-21T21:43:39.643Z","quando":"2026-11-21T21:43:39.643Z","lat":-23.24,"lon":-51.67,"eventos":["tempo_bom"],"intensidade":null,"origem":"gps"}
+{"id":"2026-11-22T15:08:50.416Z-1msepl","recebido":"2026-11-22T15:08:50.416Z","quando":"2026-11-22T15:08:50.416Z","lat":-23.25,"lon":-51.67,"v":2,"ceu":"nublado","vento":1,"chuva":0,"granizo":0,"raios":0,"efeitos":[],"de_onde":null,"origem":"gps"}
