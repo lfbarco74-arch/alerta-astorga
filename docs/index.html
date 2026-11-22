@@ -447,7 +447,7 @@ function render(s){
 }
 
 /* ---------- blocos que mudam conforme o local em foco (Astorga ou cidade/ponto escolhido) ---------- */
-let PONTO_RES = null;   // {janelas, avisos} da última análise de ponto
+let PONTO_RES = null, PONTO_FALHOU = false;   // última análise de ponto: {janelas, avisos}; ou falha
 const NOME_MODELO = m => m.replace("_seamless","").replace("ecmwf_ifs025","ECMWF").toUpperCase();
 const COR_AV = {Moderate:"l1", Severe:"l2", Extreme:"l3"}, PESO_AV = {Moderate:1, Severe:2, Extreme:3};
 const cartaoAviso = a => `
@@ -479,8 +479,8 @@ function renderDetalhes(){
   // Astorga sai de cena quando outro local está em foco
   $("hero").hidden = !!PONTO; $("sec-janelas").hidden = !!PONTO;
   if (M && camadas){
-    if (PONTO){ camadas.remove(); camadaDetalhe.remove(); }
-    else { camadas.addTo(M); if (M.getZoom() >= ZOOM_DETALHE) camadaDetalhe.addTo(M); }
+    if (PONTO){ camadas.remove(); camadaDetalhe.remove(); if (contornoAstorga) contornoAstorga.remove(); }
+    else { camadas.addTo(M); if (M.getZoom() >= ZOOM_DETALHE) camadaDetalhe.addTo(M); if (contornoAstorga) contornoAstorga.addTo(M); }
   }
   if (ponto){
     const nome = PONTO.nome || "ponto escolhido";
@@ -498,9 +498,15 @@ function renderDetalhes(){
     $("inmet").innerHTML = listaAvisos(PONTO_RES.avisos, nome);
     $("ingredientes").innerHTML = textoIngredientes(PONTO_RES.janelas, nome);
   } else if (PONTO){
-    $("locais-titulo").textContent = `Analisando ${PONTO.nome || "o ponto escolhido"}…`;
-    $("locais").querySelector("tbody").innerHTML = "";
-    $("inmet").innerHTML = ""; $("ingredientes").innerHTML = "";
+    const nome = PONTO.nome || "ponto escolhido", falhou = PONTO_FALHOU;
+    $("locais-titulo").textContent = `Sinal de cada modelo em ${nome} (próximas 24 h)`;
+    $("locais").querySelector("thead").innerHTML = "<tr><th>Modelo</th><th>Sinal</th><th>Índice e tempestade simulada</th></tr>";
+    $("locais").querySelector("tbody").innerHTML = `<tr><td colspan="3" class="small muted">${falhou ? "Não foi possível consultar os modelos agora." : "Analisando…"}</td></tr>`;
+    $("locais-nota").textContent = "";
+    $("inmet-titulo").textContent = `Avisos oficiais do INMET · ${nome}`;
+    const avs = ((STATUS && STATUS.avisos_estado) || []).filter(a => (a.poligonos||[]).some(pl => Indice.dentro(PONTO.lat, PONTO.lon, pl)));
+    $("inmet").innerHTML = listaAvisos(avs, nome);
+    $("ingredientes").innerHTML = `<p class="muted">${falhou ? "Sem dados dos modelos para este local nesta tentativa." : "Analisando…"}</p>`;
   } else if (STATUS){
     const s = STATUS;
     $("locais-titulo").textContent = "Cidade e zona rural (próximas 24 h)";
@@ -529,7 +535,7 @@ document.querySelectorAll(".cab .seg button").forEach(b => b.addEventListener("c
 function grafico(){
   const serie = SERIE.slice(0, HORAS_GRAF);
   $("graf-titulo").textContent = `Potencial de tempestade em ${ROTULO_SERIE} — próximas ${HORAS_GRAF} horas`;
-  if (!serie.length){ $("grafico").innerHTML = '<p class="muted small">Sem dados de modelo.</p>'; return; }
+  if (!serie.length){ $("grafico").innerHTML = `<p class="muted small">${PONTO && !PONTO_RES && !PONTO_FALHOU ? "Analisando…" : "Sem dados de modelo."}</p>`; return; }
   const W = 1100, H = 230, pad = {l:62, r:8, t:18, b:30};
   const max = Math.max(1400, ...serie.map(p => p.wmaxshear || 0));
   const bw = (W - pad.l - pad.r) / serie.length;
@@ -556,7 +562,16 @@ function grafico(){
 }
 
 const COR = ["#2f8f5b","#d9a400","#e06a12","#c62828"];
-let M = null, camadas = null, camadaDetalhe = null, camadaPonto = null;
+let M = null, camadas = null, camadaDetalhe = null, camadaPonto = null, contornoAstorga = null;
+/* contorno oficial (IBGE) do município buscado */
+const CONTORNOS = {};
+async function desenharContorno(cod, grupo){
+  try{
+    CONTORNOS[cod] = CONTORNOS[cod] || await fetch(`https://servicodados.ibge.gov.br/api/v3/malhas/municipios/${cod}?formato=application/vnd.geo+json&qualidade=intermediaria`).then(r => r.json());
+    if (PONTO && PONTO.cod === cod)
+      L.geoJSON(CONTORNOS[cod], {interactive:false, style:{color:"#3b82f6", weight:2, fill:false, dashArray:"5 4"}}).addTo(grupo);
+  }catch(e){}
+}
 const ZOOM_DETALHE = 10;
 const BBOX_PR = [[-26.72,-54.62],[-22.5,-48.02]];
 
@@ -610,7 +625,8 @@ async function iniciarMapa(){
   // contorno do município (IBGE)
   try{
     const g = await fetch("https://servicodados.ibge.gov.br/api/v3/malhas/municipios/4102109?formato=application/vnd.geo+json&qualidade=intermediaria").then(r => r.json());
-    extras["Limite de Astorga"] = L.geoJSON(g, {style:{color: escuro ? "#f1ede6" : "#1d1b18", weight:2, fill:false, dashArray:"5 4"}}).addTo(M);
+    contornoAstorga = extras["Limite de Astorga"] = L.geoJSON(g, {style:{color: escuro ? "#f1ede6" : "#1d1b18", weight:2, fill:false, dashArray:"5 4"}});
+    if (!PONTO) contornoAstorga.addTo(M);
   }catch(e){}
   if (Object.keys(extras).length) L.control.layers(null, extras, {collapsed:true}).addTo(M);
   camadaPonto = L.layerGroup().addTo(M);
@@ -628,8 +644,8 @@ async function mapa(s){
     // prioridade: link compartilhado (#p=) > última cidade deste navegador > visão do Paraná
     const m = location.hash.match(/^#p=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)$/);
     const u = ultimo();
-    if (m) setTimeout(() => { const la = +m[1], lo = +m[2]; analisarPonto(la, lo, u && Math.abs(u.lat - la) < 1e-3 && Math.abs(u.lon - lo) < 1e-3 ? u.nome : undefined); M.setView([la, lo], 9); }, 0);
-    else if (u) setTimeout(() => { analisarPonto(u.lat, u.lon, u.nome); M.setView([u.lat, u.lon], 9); }, 0);
+    if (m) setTimeout(() => { const la = +m[1], lo = +m[2]; const igual = u && Math.abs(u.lat - la) < 1e-3 && Math.abs(u.lon - lo) < 1e-3; analisarPonto(la, lo, igual ? u.nome : undefined, false, igual ? u.cod : undefined); M.setView([la, lo], 9); }, 0);
+    else if (u) setTimeout(() => { analisarPonto(u.lat, u.lon, u.nome, false, u.cod); M.setView([u.lat, u.lon], 9); }, 0);
   }
   camadas.clearLayers(); camadaDetalhe.clearLayers();
   if (PONTO){ camadas.remove(); camadaDetalhe.remove(); }
@@ -682,15 +698,15 @@ const temDados = s => s.cape.some(x => x !== null) && s.v500.some(x => x !== nul
 const fatiar = (s, k) => Object.fromEntries(Object.entries(s).map(([c, v]) => [c, v.slice(k)]));
 
 let pedidoAtual = 0;
-async function analisarPonto(lat, lon, nomeConhecido, automatico){
+async function analisarPonto(lat, lon, nomeConhecido, automatico, codConhecido){
   if (lat < PR.latMin || lat > PR.latMax || lon < PR.lonMin || lon > PR.lonMax){
     L.popup().setLatLng([lat, lon]).setContent("A previsão por ponto está disponível para o Paraná.").openOn(M);
     return;
   }
   const meu = ++pedidoAtual;
   const mesmo = PONTO && PONTO.lat === lat && PONTO.lon === lon;
-  PONTO = {lat, lon, nome: nomeConhecido || (mesmo ? PONTO.nome : undefined)};
-  if (!automatico) lembrar({lat, lon, nome: PONTO.nome});
+  PONTO = {lat, lon, nome: nomeConhecido || (mesmo ? PONTO.nome : undefined), cod: codConhecido || (mesmo ? PONTO.cod : undefined)};
+  if (!automatico) lembrar({lat, lon, nome: PONTO.nome, cod: PONTO.cod});
   try{ history.replaceState(null, "", `#p=${lat.toFixed(3)},${lon.toFixed(3)}`); }catch(e){}
   const card = $("ponto"); card.hidden = false; card.className = "card ponto lvl l0";
   $("ponto-nome").textContent = PONTO.nome || `${lat.toFixed(3)}, ${lon.toFixed(3)}`;
@@ -698,7 +714,8 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
   ["ponto-quando","ponto-perigos","ponto-motivos","ponto-janelas","ponto-nota"].forEach(id => $(id).innerHTML = "");
   camadaPonto.clearLayers();
   L.circleMarker([lat, lon], {radius:9, color:"#fff", weight:3, fillColor:"#3b82f6", fillOpacity:1}).addTo(camadaPonto);
-  if (!mesmo) PONTO_RES = null;
+  if (PONTO.cod) desenharContorno(PONTO.cod, camadaPonto);
+  if (!mesmo){ PONTO_RES = null; PONTO_FALHOU = false; SERIE = []; ROTULO_SERIE = PONTO.nome || "ponto escolhido"; grafico(); }
   renderDetalhes();
   if (window.matchMedia("(max-width:900px)").matches) card.scrollIntoView({behavior:"smooth", block:"start"});
 
@@ -708,7 +725,7 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
       if (meu !== pedidoAtual) return;
       const a = j.address || {};
       const nome = a.city || a.town || a.village || a.municipality || a.county;
-      if (nome){ $("ponto-nome").textContent = nome; PONTO.nome = nome; if (!automatico) lembrar({lat, lon, nome}); if (ROTULO_SERIE !== "Astorga"){ ROTULO_SERIE = nome; grafico(); } renderDetalhes(); }
+      if (nome){ $("ponto-nome").textContent = nome; PONTO.nome = nome; if (!automatico) lembrar({lat, lon, nome, cod: PONTO.cod}); ROTULO_SERIE = nome; grafico(); renderDetalhes(); }
     }).catch(() => {});
 
   const lim = (STATUS && STATUS.limiares) || LIM_PADRAO;
@@ -833,9 +850,10 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
     // mapa: só o pino e a seta de chegada (o anel consultado fica nos bastidores)
     if (dirSeta !== null) seta(camadaPonto, lat, lon, dirSeta, pior.nivel, true);
     SERIE = serie; ROTULO_SERIE = PONTO.nome || "ponto escolhido"; grafico();
-    PONTO_RES = {janelas, avisos}; renderDetalhes();
+    PONTO_RES = {janelas, avisos}; PONTO_FALHOU = false; renderDetalhes();
   }catch(e){
     if (meu !== pedidoAtual) return;
+    PONTO_FALHOU = true; renderDetalhes();
     card.className = "card ponto";
     $("ponto-nivel").textContent = "Não foi possível analisar";
     $("ponto-nota").textContent = /limit/i.test(e.message)
@@ -844,7 +862,7 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico){
   }
 }
 
-setInterval(() => { if (PONTO && !$("ponto").hidden) analisarPonto(PONTO.lat, PONTO.lon, PONTO.nome, true); }, 30 * 60 * 1000);
+setInterval(() => { if (PONTO && !$("ponto").hidden) analisarPonto(PONTO.lat, PONTO.lon, PONTO.nome, true, PONTO.cod); }, 30 * 60 * 1000);
 
 $("ponto-fechar").addEventListener("click", () => {
   pedidoAtual++; PONTO = null; $("ponto").hidden = true; lembrar(null); $("busca").value = "";
@@ -898,7 +916,7 @@ function escolherMunicipio(m){
   $("busca").value = m.nome; buscaRes = []; buscaAtivo = -1; desenharLista(); $("busca-lista").hidden = true;
   $("busca").blur();
   const windy = !$("windy").hidden;
-  analisarPonto(m.lat, m.lon, m.nome);
+  analisarPonto(m.lat, m.lon, m.nome, false, m.cod);
   if (M) M.setView([m.lat, m.lon], 9);
   if (windy){ const f = $("windy-frame"), src = srcWindy(); if (f.src !== src) f.src = src; }
 }
