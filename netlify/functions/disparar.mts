@@ -22,7 +22,7 @@ export default async () => {
     },
     body: JSON.stringify({ ref: "main", inputs: { origem: "agendador" } }),
   });
-  console.log(`disparo: GitHub respondeu ${r.status}${r.ok ? "" : " " + (await r.text()).slice(0, 200)}`);
+  console.log(`disparo ${new Date().toISOString()}: GitHub respondeu ${r.status}${r.ok ? "" : " " + (await r.text()).slice(0, 200)}`);
 };
 
 export const config: Config = { schedule: "7,37 * * * *" };
