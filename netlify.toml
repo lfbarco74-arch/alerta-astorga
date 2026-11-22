@@ -1,5 +1,8 @@
 # Página estática: o Netlify só publica a pasta docs/. Não há build.
 [build]
+  # Cada publicação em produção custa 15 créditos: só publica quando a página, as funções ou a configuração mudam.
+  # (Mudanças no motor, testes e metodologia não afetam o site; os dados vêm do branch "dados" no GitHub.)
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- docs/ netlify/ netlify.toml package.json package-lock.json"
   publish = "docs"
   command = ""
 
