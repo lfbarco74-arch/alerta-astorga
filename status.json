@@ -1,17 +1,16 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-23T18:37-03:00",
+ "gerado_em": "2026-11-23T19:06-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 3,
   "nome_24h": "Severo",
-  "wmaxshear_24h": 730,
+  "wmaxshear_24h": 655,
   "janela_pior": {
    "nivel": 3,
    "nome": "Severo",
-   "nivel_modelos": 1,
+   "nivel_modelos": 0,
    "motivos": [
-    "4 de 4 modelos indicam nível 1 ou mais",
     "Aviso oficial do INMET: Grande Perigo (vermelho)"
    ],
    "perigos": [
@@ -19,104 +18,23 @@
     "chuva intensa em pouco tempo"
    ],
    "perigos_nivel": {
-    "raios": "provável",
+    "raios": "possível",
     "chuva intensa em pouco tempo": "possível"
-   },
-   "ingredientes": {
-    "wmaxshear": 730,
-    "cape": 2795,
-    "cisalhamento_ms": 10.0,
-    "precip_max_mm_h": 14.7,
-    "isoterma0_min_m": 4990
-   },
-   "por_modelo": {
-    "ecmwf_ifs025": {
-     "nivel": 1,
-     "wmaxshear": 698,
-     "gatilho_local": false,
-     "gatilho_regional": true,
-     "hora_pico": 37,
-     "localidade_pico": "sede"
-    },
-    "gem_seamless": {
-     "nivel": 2,
-     "wmaxshear": 912,
-     "gatilho_local": true,
-     "gatilho_regional": true,
-     "hora_pico": 39,
-     "localidade_pico": "icara"
-    },
-    "gfs_seamless": {
-     "nivel": 1,
-     "wmaxshear": 763,
-     "gatilho_local": true,
-     "gatilho_regional": true,
-     "hora_pico": 41,
-     "localidade_pico": "santazelia"
-    },
-    "icon_seamless": {
-     "nivel": 1,
-     "wmaxshear": 629,
-     "gatilho_local": true,
-     "gatilho_regional": true,
-     "hora_pico": 39,
-     "localidade_pico": "sede"
-    }
-   },
-   "prob_ensemble": {
-    "membros": 51,
-    "p_alerta": 0.3137254901960784,
-    "p_severo": 0.0196078431372549
-   },
-   "inmet": {
-    "severidade": "Extreme",
-    "id": "56492"
-   },
-   "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-24T00:00",
-   "fim": "2026-11-24T17:00",
-   "hora_pico_local": "15:00",
-   "hora_pico_iso": "2026-11-24T15:00",
-   "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 305,
-   "direcao_linha_graus": 289,
-   "direcao_chegada": "oeste",
-   "ar_frio": null,
-   "pontos_regionais": [
-    "anel000",
-    "anel270",
-    "anel315"
-   ]
-  }
- },
- "janelas": [
-  {
-   "nivel": 1,
-   "nome": "Atenção",
-   "nivel_modelos": 0,
-   "motivos": [
-    "Aviso oficial do INMET: Perigo Potencial (amarelo)"
-   ],
-   "perigos": [
-    "raios"
-   ],
-   "perigos_nivel": {
-    "raios": "possível"
    },
    "ingredientes": {
     "wmaxshear": 655,
     "cape": 1625,
     "cisalhamento_ms": 10.9,
     "precip_max_mm_h": 12.0,
-    "isoterma0_min_m": 5010
+    "isoterma0_min_m": 5140
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 560,
+     "wmaxshear": 563,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 23,
+     "hora_pico": 24,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -150,16 +68,99 @@
     "p_severo": 0.0
    },
    "inmet": {
-    "severidade": "Moderate",
-    "id": "56474"
+    "severidade": "Extreme",
+    "id": "56492"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-23T18:00",
-   "fim": "2026-11-23T23:00",
+   "inicio": "2026-11-23T19:00",
+   "fim": "2026-11-24T00:00",
    "hora_pico_local": "21:00",
    "hora_pico_iso": "2026-11-23T21:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 284,
+   "direcao_celulas_graus": 283,
+   "direcao_linha_graus": 268,
+   "direcao_chegada": "oeste",
+   "ar_frio": null,
+   "pontos_regionais": [
+    "anel225",
+    "anel270",
+    "anel315"
+   ]
+  }
+ },
+ "janelas": [
+  {
+   "nivel": 3,
+   "nome": "Severo",
+   "nivel_modelos": 0,
+   "motivos": [
+    "Aviso oficial do INMET: Grande Perigo (vermelho)"
+   ],
+   "perigos": [
+    "raios",
+    "chuva intensa em pouco tempo"
+   ],
+   "perigos_nivel": {
+    "raios": "possível",
+    "chuva intensa em pouco tempo": "possível"
+   },
+   "ingredientes": {
+    "wmaxshear": 655,
+    "cape": 1625,
+    "cisalhamento_ms": 10.9,
+    "precip_max_mm_h": 12.0,
+    "isoterma0_min_m": 5140
+   },
+   "por_modelo": {
+    "ecmwf_ifs025": {
+     "nivel": 0,
+     "wmaxshear": 563,
+     "gatilho_local": false,
+     "gatilho_regional": false,
+     "hora_pico": 24,
+     "localidade_pico": "sede"
+    },
+    "gem_seamless": {
+     "nivel": 1,
+     "wmaxshear": 641,
+     "gatilho_local": true,
+     "gatilho_regional": true,
+     "hora_pico": 19,
+     "localidade_pico": "santazelia"
+    },
+    "gfs_seamless": {
+     "nivel": 0,
+     "wmaxshear": 785,
+     "gatilho_local": false,
+     "gatilho_regional": false,
+     "hora_pico": 21,
+     "localidade_pico": "sede"
+    },
+    "icon_seamless": {
+     "nivel": 0,
+     "wmaxshear": 670,
+     "gatilho_local": false,
+     "gatilho_regional": false,
+     "hora_pico": 21,
+     "localidade_pico": "santazelia"
+    }
+   },
+   "prob_ensemble": {
+    "membros": 51,
+    "p_alerta": 0.1568627450980392,
+    "p_severo": 0.0
+   },
+   "inmet": {
+    "severidade": "Extreme",
+    "id": "56492"
+   },
+   "rotulo": "Próximas 6 horas",
+   "inicio": "2026-11-23T19:00",
+   "fim": "2026-11-24T00:00",
+   "hora_pico_local": "21:00",
+   "hora_pico_iso": "2026-11-23T21:00",
+   "direcao_celulas": "oeste",
+   "direcao_celulas_graus": 283,
    "direcao_linha_graus": 268,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -186,9 +187,9 @@
     "chuva intensa em pouco tempo": "possível"
    },
    "ingredientes": {
-    "wmaxshear": 730,
-    "cape": 2795,
-    "cisalhamento_ms": 10.0,
+    "wmaxshear": 746,
+    "cape": 2600,
+    "cisalhamento_ms": 10.4,
     "precip_max_mm_h": 14.7,
     "isoterma0_min_m": 4990
    },
@@ -211,37 +212,37 @@
     },
     "gfs_seamless": {
      "nivel": 1,
-     "wmaxshear": 763,
+     "wmaxshear": 794,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 41,
+     "hora_pico": 42,
      "localidade_pico": "santazelia"
     },
     "icon_seamless": {
      "nivel": 1,
-     "wmaxshear": 629,
+     "wmaxshear": 649,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 39,
-     "localidade_pico": "sede"
+     "hora_pico": 42,
+     "localidade_pico": "santazelia"
     }
    },
    "prob_ensemble": {
     "membros": 51,
     "p_alerta": 0.3137254901960784,
-    "p_severo": 0.0196078431372549
+    "p_severo": 0.0392156862745098
    },
    "inmet": {
     "severidade": "Extreme",
     "id": "56492"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-24T00:00",
-   "fim": "2026-11-24T17:00",
-   "hora_pico_local": "15:00",
-   "hora_pico_iso": "2026-11-24T15:00",
+   "inicio": "2026-11-24T01:00",
+   "fim": "2026-11-24T18:00",
+   "hora_pico_local": "16:00",
+   "hora_pico_iso": "2026-11-24T16:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 305,
+   "direcao_celulas_graus": 306,
    "direcao_linha_graus": 289,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -254,24 +255,27 @@
   {
    "nivel": 3,
    "nome": "Severo",
-   "nivel_modelos": 1,
+   "nivel_modelos": 2,
    "motivos": [
-    "4 de 4 modelos indicam nível 1 ou mais",
-    "55% dos 51 cenários do ECMWF com ambiente de alerta",
+    "2 de 4 modelos indicam nível 2 ou mais",
     "Aviso oficial do INMET: Grande Perigo (vermelho)"
    ],
    "perigos": [
     "raios",
+    "rajadas fortes / vendaval",
+    "granizo",
     "chuva intensa em pouco tempo"
    ],
    "perigos_nivel": {
     "raios": "provável",
+    "rajadas fortes / vendaval": "possível",
+    "granizo": "possível",
     "chuva intensa em pouco tempo": "provável"
    },
    "ingredientes": {
-    "wmaxshear": 712,
-    "cape": 2205,
-    "cisalhamento_ms": 10.9,
+    "wmaxshear": 809,
+    "cape": 1825,
+    "cisalhamento_ms": 15.4,
     "precip_max_mm_h": 28.5,
     "isoterma0_min_m": 5020
    },
@@ -285,20 +289,20 @@
      "localidade_pico": "sede"
     },
     "gem_seamless": {
-     "nivel": 1,
-     "wmaxshear": 688,
+     "nivel": 2,
+     "wmaxshear": 881,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 42,
+     "hora_pico": 66,
      "localidade_pico": "santazelia"
     },
     "gfs_seamless": {
-     "nivel": 1,
-     "wmaxshear": 794,
+     "nivel": 2,
+     "wmaxshear": 978,
      "gatilho_local": true,
-     "gatilho_regional": false,
-     "hora_pico": 42,
-     "localidade_pico": "santazelia"
+     "gatilho_regional": true,
+     "hora_pico": 66,
+     "localidade_pico": "tupinamba"
     },
     "icon_seamless": {
      "nivel": 1,
@@ -319,14 +323,14 @@
     "id": "56492"
    },
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-24T18:00",
-   "fim": "2026-11-25T17:00",
-   "hora_pico_local": "04:00",
-   "hora_pico_iso": "2026-11-25T04:00",
+   "inicio": "2026-11-24T19:00",
+   "fim": "2026-11-25T18:00",
+   "hora_pico_local": "17:00",
+   "hora_pico_iso": "2026-11-25T17:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 299,
-   "direcao_linha_graus": 276,
-   "direcao_chegada": "oeste",
+   "direcao_celulas_graus": 298,
+   "direcao_linha_graus": 302,
+   "direcao_chegada": "noroeste",
    "ar_frio": null,
    "pontos_regionais": [
     "anel270",
@@ -352,7 +356,7 @@
    "nome": "Santa Zélia",
    "perfil": "rural",
    "nivel_modelos": 1,
-   "wmaxshear": 740,
+   "wmaxshear": 746,
    "perigos": [
     "raios"
    ],
@@ -364,7 +368,7 @@
    "nome": "Içara",
    "perfil": "rural",
    "nivel_modelos": 1,
-   "wmaxshear": 740,
+   "wmaxshear": 746,
    "perigos": [
     "raios"
    ],
@@ -451,11 +455,6 @@
   }
  ],
  "serie_horaria": [
-  {
-   "hora": "2026-11-23T18:00",
-   "wmaxshear": 541,
-   "gatilho": true
-  },
   {
    "hora": "2026-11-23T19:00",
    "wmaxshear": 589,
@@ -690,12 +689,17 @@
    "hora": "2026-11-25T17:00",
    "wmaxshear": 632,
    "gatilho": true
+  },
+  {
+   "hora": "2026-11-25T18:00",
+   "wmaxshear": 754,
+   "gatilho": true
   }
  ],
  "direcao_chegada": "oeste",
- "direcao_graus": 289,
+ "direcao_graus": 268,
  "direcao_celulas": "noroeste",
- "direcao_celulas_graus": 299,
+ "direcao_celulas_graus": 300,
  "avisos_inmet": [
   {
    "id": "56474",
