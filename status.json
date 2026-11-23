@@ -1,17 +1,18 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-22T23:37-03:00",
+ "gerado_em": "2026-11-23T00:02-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 2,
   "nome_24h": "Alerta",
-  "wmaxshear_24h": 416,
+  "wmaxshear_24h": 718,
   "janela_pior": {
    "nivel": 2,
    "nome": "Alerta",
-   "nivel_modelos": 0,
+   "nivel_modelos": 1,
    "motivos": [
-    "Aviso oficial do INMET: Perigo (laranja)"
+    "3 de 3 modelos indicam nível 1 ou mais",
+    "73% dos 51 cenários do ECMWF com ambiente de alerta"
    ],
    "perigos": [
     "raios",
@@ -19,70 +20,61 @@
    ],
    "perigos_nivel": {
     "raios": "provável",
-    "chuva intensa em pouco tempo": "possível"
+    "chuva intensa em pouco tempo": "provável"
    },
    "ingredientes": {
-    "wmaxshear": 416,
-    "cape": 425,
-    "cisalhamento_ms": 13.8,
-    "precip_max_mm_h": 9.2,
-    "isoterma0_min_m": 4820
+    "wmaxshear": 718,
+    "cape": 890,
+    "cisalhamento_ms": 17.0,
+    "precip_max_mm_h": 18.3,
+    "isoterma0_min_m": 4690
    },
    "por_modelo": {
-    "ecmwf_ifs025": {
-     "nivel": 0,
-     "wmaxshear": 783,
-     "gatilho_local": false,
-     "gatilho_regional": false,
-     "hora_pico": 26,
-     "localidade_pico": "sede"
-    },
     "gem_seamless": {
-     "nivel": 0,
-     "wmaxshear": 315,
+     "nivel": 2,
+     "wmaxshear": 887,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 24,
-     "localidade_pico": "santazelia"
+     "hora_pico": 18,
+     "localidade_pico": "icara"
     },
     "gfs_seamless": {
-     "nivel": 0,
-     "wmaxshear": 391,
-     "gatilho_local": false,
-     "gatilho_regional": false,
-     "hora_pico": 23,
-     "localidade_pico": "tupinamba"
-    },
-    "icon_seamless": {
-     "nivel": 0,
-     "wmaxshear": 442,
+     "nivel": 1,
+     "wmaxshear": 564,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 25,
+     "hora_pico": 16,
+     "localidade_pico": "santazelia"
+    },
+    "icon_seamless": {
+     "nivel": 1,
+     "wmaxshear": 718,
+     "gatilho_local": true,
+     "gatilho_regional": true,
+     "hora_pico": 21,
      "localidade_pico": "santazelia"
     }
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.7843137254901961,
-    "p_severo": 0.058823529411764705
+    "p_alerta": 0.7254901960784313,
+    "p_severo": 0.0392156862745098
    },
    "inmet": {
-    "severidade": "Severe",
-    "id": "56477"
+    "severidade": "Moderate",
+    "id": "56474"
    },
-   "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-22T23:00",
-   "fim": "2026-11-23T04:00",
-   "hora_pico_local": "00:00",
-   "hora_pico_iso": "2026-11-23T00:00",
-   "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 272,
-   "direcao_linha_graus": 243,
-   "direcao_chegada": "sudoeste",
+   "rotulo": "De 6 a 24 horas",
+   "inicio": "2026-11-23T06:00",
+   "fim": "2026-11-23T23:00",
+   "hora_pico_local": "18:00",
+   "hora_pico_iso": "2026-11-23T18:00",
+   "direcao_celulas": "noroeste",
+   "direcao_celulas_graus": 294,
+   "direcao_linha_graus": 280,
+   "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
-    "anel225",
     "anel270",
     "anel315"
    ]
@@ -90,78 +82,68 @@
  },
  "janelas": [
   {
-   "nivel": 2,
-   "nome": "Alerta",
+   "nivel": 1,
+   "nome": "Atenção",
    "nivel_modelos": 0,
    "motivos": [
-    "Aviso oficial do INMET: Perigo (laranja)"
+    "Aviso oficial do INMET: Perigo Potencial (amarelo)"
    ],
    "perigos": [
-    "raios",
-    "chuva intensa em pouco tempo"
+    "raios"
    ],
    "perigos_nivel": {
-    "raios": "provável",
-    "chuva intensa em pouco tempo": "possível"
+    "raios": "provável"
    },
    "ingredientes": {
-    "wmaxshear": 416,
-    "cape": 425,
-    "cisalhamento_ms": 13.8,
+    "wmaxshear": 351,
+    "cape": 330,
+    "cisalhamento_ms": 13.6,
     "precip_max_mm_h": 9.2,
-    "isoterma0_min_m": 4820
+    "isoterma0_min_m": 4790
    },
    "por_modelo": {
-    "ecmwf_ifs025": {
-     "nivel": 0,
-     "wmaxshear": 783,
-     "gatilho_local": false,
-     "gatilho_regional": false,
-     "hora_pico": 26,
-     "localidade_pico": "sede"
-    },
     "gem_seamless": {
      "nivel": 0,
      "wmaxshear": 315,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 24,
+     "hora_pico": 0,
      "localidade_pico": "santazelia"
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 391,
+     "wmaxshear": 351,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 23,
-     "localidade_pico": "tupinamba"
+     "hora_pico": 0,
+     "localidade_pico": "santazelia"
     },
     "icon_seamless": {
      "nivel": 0,
      "wmaxshear": 442,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 25,
+     "hora_pico": 1,
      "localidade_pico": "santazelia"
     }
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.7843137254901961,
-    "p_severo": 0.058823529411764705
+    "p_alerta": 0.803921568627451,
+    "p_severo": 0.0784313725490196
    },
    "inmet": {
-    "severidade": "Severe",
-    "id": "56477"
+    "severidade": "Moderate",
+    "id": "56474"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-22T23:00",
-   "fim": "2026-11-23T04:00",
+   "inicio": "2026-11-23T00:00",
+   "fim": "2026-11-23T05:00",
    "hora_pico_local": "00:00",
    "hora_pico_iso": "2026-11-23T00:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 272,
-   "direcao_linha_graus": 243,
+   "direcao_celulas_graus": 271,
+   "direcao_linha_graus": 242,
    "direcao_chegada": "sudoeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -173,42 +155,33 @@
   {
    "nivel": 2,
    "nome": "Alerta",
-   "nivel_modelos": 2,
+   "nivel_modelos": 1,
    "motivos": [
-    "2 de 4 modelos indicam nível 2 ou mais"
+    "3 de 3 modelos indicam nível 1 ou mais",
+    "73% dos 51 cenários do ECMWF com ambiente de alerta"
    ],
    "perigos": [
     "raios",
-    "granizo",
     "chuva intensa em pouco tempo"
    ],
    "perigos_nivel": {
     "raios": "provável",
-    "granizo": "possível",
     "chuva intensa em pouco tempo": "provável"
    },
    "ingredientes": {
-    "wmaxshear": 773,
-    "cape": 1645,
-    "cisalhamento_ms": 14.9,
+    "wmaxshear": 718,
+    "cape": 890,
+    "cisalhamento_ms": 17.0,
     "precip_max_mm_h": 18.3,
     "isoterma0_min_m": 4690
    },
    "por_modelo": {
-    "ecmwf_ifs025": {
-     "nivel": 2,
-     "wmaxshear": 828,
-     "gatilho_local": true,
-     "gatilho_regional": true,
-     "hora_pico": 46,
-     "localidade_pico": "sede"
-    },
     "gem_seamless": {
      "nivel": 2,
      "wmaxshear": 887,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 42,
+     "hora_pico": 18,
      "localidade_pico": "icara"
     },
     "gfs_seamless": {
@@ -216,7 +189,7 @@
      "wmaxshear": 564,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 40,
+     "hora_pico": 16,
      "localidade_pico": "santazelia"
     },
     "icon_seamless": {
@@ -224,13 +197,13 @@
      "wmaxshear": 718,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 45,
+     "hora_pico": 21,
      "localidade_pico": "santazelia"
     }
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.6862745098039216,
+    "p_alerta": 0.7254901960784313,
     "p_severo": 0.0392156862745098
    },
    "inmet": {
@@ -238,13 +211,13 @@
     "id": "56474"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-23T05:00",
-   "fim": "2026-11-23T22:00",
-   "hora_pico_local": "19:00",
-   "hora_pico_iso": "2026-11-23T19:00",
+   "inicio": "2026-11-23T06:00",
+   "fim": "2026-11-23T23:00",
+   "hora_pico_local": "18:00",
+   "hora_pico_iso": "2026-11-23T18:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 293,
-   "direcao_linha_graus": 277,
+   "direcao_celulas_graus": 294,
+   "direcao_linha_graus": 280,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -255,9 +228,10 @@
   {
    "nivel": 2,
    "nome": "Alerta",
-   "nivel_modelos": 2,
+   "nivel_modelos": 1,
    "motivos": [
-    "2 de 4 modelos indicam nível 2 ou mais"
+    "2 de 3 modelos indicam nível 1 ou mais",
+    "67% dos 51 cenários do ECMWF com ambiente de alerta"
    ],
    "perigos": [
     "raios",
@@ -268,27 +242,19 @@
     "chuva intensa em pouco tempo": "possível"
    },
    "ingredientes": {
-    "wmaxshear": 737,
-    "cape": 2395,
-    "cisalhamento_ms": 11.8,
+    "wmaxshear": 673,
+    "cape": 2250,
+    "cisalhamento_ms": 12.3,
     "precip_max_mm_h": 12.2,
     "isoterma0_min_m": 5040
    },
    "por_modelo": {
-    "ecmwf_ifs025": {
-     "nivel": 2,
-     "wmaxshear": 802,
-     "gatilho_local": true,
-     "gatilho_regional": false,
-     "hora_pico": 47,
-     "localidade_pico": "sede"
-    },
     "gem_seamless": {
      "nivel": 2,
      "wmaxshear": 1079,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 64,
+     "hora_pico": 40,
      "localidade_pico": "sede"
     },
     "gfs_seamless": {
@@ -296,7 +262,7 @@
      "wmaxshear": 615,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 65,
+     "hora_pico": 41,
      "localidade_pico": "santazelia"
     },
     "icon_seamless": {
@@ -304,7 +270,7 @@
      "wmaxshear": 673,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 65,
+     "hora_pico": 41,
      "localidade_pico": "santazelia"
     }
    },
@@ -315,15 +281,15 @@
    },
    "inmet": {
     "severidade": "Moderate",
-    "id": "56474"
+    "id": "56480"
    },
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-23T23:00",
-   "fim": "2026-11-24T22:00",
-   "hora_pico_local": "16:00",
-   "hora_pico_iso": "2026-11-24T16:00",
+   "inicio": "2026-11-24T00:00",
+   "fim": "2026-11-24T23:00",
+   "hora_pico_local": "17:00",
+   "hora_pico_iso": "2026-11-24T17:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 301,
+   "direcao_celulas_graus": 300,
    "direcao_linha_graus": 282,
    "direcao_chegada": "oeste",
    "ar_frio": {
@@ -333,7 +299,6 @@
     "vento_depois": "sul"
    },
    "pontos_regionais": [
-    "anel000",
     "anel270",
     "anel315"
    ]
@@ -345,10 +310,9 @@
    "nome": "Astorga (sede)",
    "perfil": "urbano",
    "nivel_modelos": 1,
-   "wmaxshear": 753,
+   "wmaxshear": 707,
    "perigos": [
     "raios",
-    "granizo",
     "chuva intensa em pouco tempo"
    ],
    "lat": -23.2325,
@@ -358,8 +322,8 @@
    "id": "santazelia",
    "nome": "Santa Zélia",
    "perfil": "rural",
-   "nivel_modelos": 2,
-   "wmaxshear": 773,
+   "nivel_modelos": 1,
+   "wmaxshear": 718,
    "perigos": [
     "raios",
     "chuva intensa em pouco tempo"
@@ -371,12 +335,10 @@
    "id": "icara",
    "nome": "Içara",
    "perfil": "rural",
-   "nivel_modelos": 2,
-   "wmaxshear": 773,
+   "nivel_modelos": 1,
+   "wmaxshear": 718,
    "perigos": [
-    "raios",
-    "granizo",
-    "chuva intensa em pouco tempo"
+    "raios"
    ],
    "lat": -23.1711,
    "lon": -51.6311
@@ -385,8 +347,8 @@
    "id": "tupinamba",
    "nome": "Tupinambá",
    "perfil": "rural",
-   "nivel_modelos": 2,
-   "wmaxshear": 771,
+   "nivel_modelos": 1,
+   "wmaxshear": 714,
    "perigos": [
     "raios",
     "chuva intensa em pouco tempo"
@@ -463,23 +425,18 @@
  ],
  "serie_horaria": [
   {
-   "hora": "2026-11-22T23:00",
-   "wmaxshear": 384,
-   "gatilho": true
-  },
-  {
    "hora": "2026-11-23T00:00",
-   "wmaxshear": 379,
+   "wmaxshear": 351,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T01:00",
-   "wmaxshear": 221,
+   "wmaxshear": 0,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T02:00",
-   "wmaxshear": 190,
+   "wmaxshear": 0,
    "gatilho": true
   },
   {
@@ -494,230 +451,225 @@
   },
   {
    "hora": "2026-11-23T05:00",
-   "wmaxshear": 135,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T06:00",
-   "wmaxshear": 133,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T07:00",
-   "wmaxshear": 344,
+   "wmaxshear": 245,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T08:00",
-   "wmaxshear": 364,
+   "wmaxshear": 232,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T09:00",
-   "wmaxshear": 292,
+   "wmaxshear": 194,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T10:00",
-   "wmaxshear": 276,
+   "wmaxshear": 214,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T11:00",
-   "wmaxshear": 363,
+   "wmaxshear": 417,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T12:00",
-   "wmaxshear": 370,
+   "wmaxshear": 421,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T13:00",
-   "wmaxshear": 323,
+   "wmaxshear": 240,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T14:00",
-   "wmaxshear": 466,
+   "wmaxshear": 394,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T15:00",
-   "wmaxshear": 538,
+   "wmaxshear": 407,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T16:00",
-   "wmaxshear": 593,
+   "wmaxshear": 564,
    "gatilho": true
   },
   {
    "hora": "2026-11-23T17:00",
-   "wmaxshear": 430,
+   "wmaxshear": 322,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T18:00",
-   "wmaxshear": 502,
+   "wmaxshear": 496,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T19:00",
-   "wmaxshear": 607,
+   "wmaxshear": 611,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T20:00",
-   "wmaxshear": 692,
+   "wmaxshear": 667,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T21:00",
-   "wmaxshear": 697,
+   "wmaxshear": 676,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T22:00",
-   "wmaxshear": 694,
+   "wmaxshear": 689,
    "gatilho": false
   },
   {
    "hora": "2026-11-23T23:00",
-   "wmaxshear": 595,
+   "wmaxshear": 553,
    "gatilho": false
   },
   {
    "hora": "2026-11-24T00:00",
-   "wmaxshear": 509,
+   "wmaxshear": 455,
    "gatilho": false
   },
   {
    "hora": "2026-11-24T01:00",
-   "wmaxshear": 480,
+   "wmaxshear": 396,
    "gatilho": false
   },
   {
    "hora": "2026-11-24T02:00",
-   "wmaxshear": 404,
+   "wmaxshear": 339,
    "gatilho": false
   },
   {
    "hora": "2026-11-24T03:00",
-   "wmaxshear": 203,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-24T04:00",
-   "wmaxshear": 212,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-24T05:00",
-   "wmaxshear": 230,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-24T06:00",
-   "wmaxshear": 217,
+   "wmaxshear": 0,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T07:00",
-   "wmaxshear": 447,
+   "wmaxshear": 397,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T08:00",
-   "wmaxshear": 447,
+   "wmaxshear": 403,
    "gatilho": false
   },
   {
    "hora": "2026-11-24T09:00",
-   "wmaxshear": 489,
+   "wmaxshear": 510,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T10:00",
-   "wmaxshear": 464,
+   "wmaxshear": 486,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T11:00",
-   "wmaxshear": 466,
+   "wmaxshear": 498,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T12:00",
-   "wmaxshear": 410,
+   "wmaxshear": 389,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T13:00",
-   "wmaxshear": 410,
+   "wmaxshear": 400,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T14:00",
-   "wmaxshear": 462,
+   "wmaxshear": 482,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T15:00",
-   "wmaxshear": 567,
+   "wmaxshear": 629,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T16:00",
-   "wmaxshear": 626,
+   "wmaxshear": 635,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T17:00",
-   "wmaxshear": 703,
+   "wmaxshear": 673,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T18:00",
-   "wmaxshear": 609,
+   "wmaxshear": 566,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T19:00",
-   "wmaxshear": 638,
+   "wmaxshear": 624,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T20:00",
-   "wmaxshear": 602,
+   "wmaxshear": 573,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T21:00",
-   "wmaxshear": 554,
+   "wmaxshear": 536,
    "gatilho": false
   },
   {
    "hora": "2026-11-24T22:00",
-   "wmaxshear": 521,
+   "wmaxshear": 475,
+   "gatilho": false
+  },
+  {
+   "hora": "2026-11-24T23:00",
+   "wmaxshear": 500,
    "gatilho": false
   }
  ],
- "direcao_chegada": "sudoeste",
- "direcao_graus": 243,
+ "direcao_chegada": "oeste",
+ "direcao_graus": 280,
  "direcao_celulas": "oeste",
  "direcao_celulas_graus": 288,
  "avisos_inmet": [
-  {
-   "id": "56475",
-   "titulo": "Aviso de Tempestade. Severidade Grau: Perigo Potencial",
-   "evento": "Tempestade",
-   "severidade": "Moderate",
-   "inicio": "2026-11-21T09:28:00-03:00",
-   "fim": "2026-11-22T23:59:00-03:00",
-   "descricao": "INMET publica aviso iniciando em: 21/11/2026 09:28. Chuva entre 20 e 30 mm/h ou até 50 mm/dia, ventos intensos (40-60 km/h), e queda de granizo. Baixo risco de corte de energia elétrica, estragos em plantações, queda de galhos de árvores e de alagamentos.",
-   "link": "https://avisos.inmet.gov.br/56475"
-  },
   {
    "id": "56474",
    "titulo": "Aviso de Tempestade. Severidade Grau: Perigo Potencial",
@@ -727,26 +679,6 @@
    "fim": "2026-11-23T23:59:00-03:00",
    "descricao": "INMET publica aviso iniciando em: 22/11/2026 00:00. Chuva entre 20 e 30 mm/h ou até 50 mm/dia, ventos intensos (40-60 km/h), e queda de granizo. Baixo risco de corte de energia elétrica, estragos em plantações, queda de galhos de árvores e de alagamentos.",
    "link": "https://avisos.inmet.gov.br/56474"
-  },
-  {
-   "id": "56477",
-   "titulo": "Aviso de Tempestade. Severidade Grau: Perigo",
-   "evento": "Tempestade",
-   "severidade": "Severe",
-   "inicio": "2026-11-22T08:20:00-03:00",
-   "fim": "2026-11-22T23:59:00-03:00",
-   "descricao": "INMET publica aviso iniciando em: 22/11/2026 08:20. Chuva entre 30 e 60 mm/h ou 50 e 100 mm/dia, ventos intensos (60-100 km/h), e queda de granizo. Risco de corte de energia elétrica, estragos em plantações,  queda de árvores e de alagamentos.",
-   "link": "https://avisos.inmet.gov.br/56477"
-  },
-  {
-   "id": "56467",
-   "titulo": "Aviso de Tempestade. Severidade Grau: Perigo Potencial",
-   "evento": "Tempestade",
-   "severidade": "Moderate",
-   "inicio": "2026-11-22T09:33:00-03:00",
-   "fim": "2026-11-22T23:59:00-03:00",
-   "descricao": "INMET publica aviso iniciando em: 22/11/2026 09:33. Chuva entre 20 e 30 mm/h ou até 50 mm/dia, ventos intensos (40-60 km/h), e queda de granizo. Baixo risco de corte de energia elétrica, estragos em plantações, queda de galhos de árvores e de alagamentos.",
-   "link": "https://avisos.inmet.gov.br/56467"
   },
   {
    "id": "56476",
@@ -1064,120 +996,6 @@
      [
       -9.95,
       -47.236
-     ]
-    ]
-   ]
-  },
-  {
-   "id": "56477",
-   "titulo": "Aviso de Tempestade. Severidade Grau: Perigo",
-   "evento": "Tempestade",
-   "severidade": "Severe",
-   "inicio": "2026-11-22T08:20:00-03:00",
-   "fim": "2026-11-22T23:59:00-03:00",
-   "descricao": "INMET publica aviso iniciando em: 22/11/2026 08:20. Chuva entre 30 e 60 mm/h ou 50 e 100 mm/dia, ventos intensos (60-100 km/h), e queda de granizo. Risco de corte de energia elétrica, estragos em plantações,  queda de árvores e de alagamentos.",
-   "link": "https://avisos.inmet.gov.br/56477",
-   "poligonos": [
-    [
-     [
-      -22.287,
-      -55.818
-     ],
-     [
-      -23.891,
-      -55.37
-     ],
-     [
-      -23.885,
-      -54.393
-     ],
-     [
-      -25.308,
-      -54.386
-     ],
-     [
-      -25.606,
-      -53.898
-     ],
-     [
-      -26.333,
-      -53.716
-     ],
-     [
-      -27.069,
-      -53.698
-     ],
-     [
-      -27.096,
-      -52.996
-     ],
-     [
-      -27.107,
-      -51.989
-     ],
-     [
-      -27.052,
-      -51.52
-     ],
-     [
-      -26.813,
-      -50.684
-     ],
-     [
-      -26.469,
-      -50.214
-     ],
-     [
-      -25.96,
-      -49.811
-     ],
-     [
-      -25.542,
-      -49.616
-     ],
-     [
-      -24.88,
-      -49.359
-     ],
-     [
-      -24.138,
-      -49.293
-     ],
-     [
-      -23.591,
-      -49.318
-     ],
-     [
-      -22.592,
-      -49.66
-     ],
-     [
-      -22.592,
-      -49.66
-     ],
-     [
-      -21.54,
-      -50.306
-     ],
-     [
-      -21.165,
-      -50.929
-     ],
-     [
-      -21.188,
-      -52.101
-     ],
-     [
-      -21.495,
-      -53.26
-     ],
-     [
-      -21.959,
-      -54.822
-     ],
-     [
-      -22.287,
-      -55.818
      ]
     ]
    ]
@@ -1621,416 +1439,6 @@
    ]
   },
   {
-   "id": "56475",
-   "titulo": "Aviso de Tempestade. Severidade Grau: Perigo Potencial",
-   "evento": "Tempestade",
-   "severidade": "Moderate",
-   "inicio": "2026-11-21T09:28:00-03:00",
-   "fim": "2026-11-22T23:59:00-03:00",
-   "descricao": "INMET publica aviso iniciando em: 21/11/2026 09:28. Chuva entre 20 e 30 mm/h ou até 50 mm/dia, ventos intensos (40-60 km/h), e queda de granizo. Baixo risco de corte de energia elétrica, estragos em plantações, queda de galhos de árvores e de alagamentos.",
-   "link": "https://avisos.inmet.gov.br/56475",
-   "poligonos": [
-    [
-     [
-      -5.266,
-      -72.773
-     ],
-     [
-      -6.315,
-      -70.488
-     ],
-     [
-      -8.842,
-      -67.148
-     ],
-     [
-      -9.796,
-      -65.566
-     ],
-     [
-      -10.055,
-      -63.633
-     ],
-     [
-      -11.006,
-      -60.645
-     ],
-     [
-      -12.125,
-      -59.326
-     ],
-     [
-      -13.582,
-      -58.359
-     ],
-     [
-      -15.03,
-      -57.48
-     ],
-     [
-      -16.552,
-      -56.689
-     ],
-     [
-      -17.811,
-      -57.305
-     ],
-     [
-      -18.979,
-      -57.744
-     ],
-     [
-      -20.303,
-      -58.008
-     ],
-     [
-      -22.025,
-      -57.832
-     ],
-     [
-      -22.269,
-      -55.811
-     ],
-     [
-      -23.886,
-      -55.371
-     ],
-     [
-      -23.886,
-      -54.404
-     ],
-     [
-      -25.404,
-      -54.404
-     ],
-     [
-      -25.562,
-      -53.877
-     ],
-     [
-      -26.431,
-      -53.701
-     ],
-     [
-      -27.059,
-      -53.701
-     ],
-     [
-      -27.917,
-      -55.107
-     ],
-     [
-      -28.382,
-      -54.756
-     ],
-     [
-      -28.922,
-      -53.262
-     ],
-     [
-      -30.145,
-      -50.186
-     ],
-     [
-      -29.191,
-      -49.438
-     ],
-     [
-      -28.575,
-      -48.647
-     ],
-     [
-      -27.425,
-      -48.34
-     ],
-     [
-      -27.152,
-      -48.45
-     ],
-     [
-      -26.775,
-      -48.565
-     ],
-     [
-      -26.505,
-      -48.565
-     ],
-     [
-      -26.21,
-      -48.461
-     ],
-     [
-      -25.973,
-      -48.532
-     ],
-     [
-      -25.294,
-      -48.038
-     ],
-     [
-      -25.086,
-      -47.851
-     ],
-     [
-      -24.981,
-      -47.812
-     ],
-     [
-      -24.412,
-      -46.983
-     ],
-     [
-      -24.041,
-      -46.335
-     ],
-     [
-      -23.896,
-      -45.945
-     ],
-     [
-      -23.881,
-      -45.703
-     ],
-     [
-      -23.936,
-      -45.445
-     ],
-     [
-      -23.971,
-      -45.258
-     ],
-     [
-      -23.805,
-      -45.132
-     ],
-     [
-      -23.539,
-      -44.973
-     ],
-     [
-      -23.07,
-      -43.489
-     ],
-     [
-      -22.999,
-      -42.649
-     ],
-     [
-      -22.994,
-      -42.006
-     ],
-     [
-      -22.751,
-      -41.847
-     ],
-     [
-      -22.467,
-      -41.83
-     ],
-     [
-      -21.999,
-      -40.946
-     ],
-     [
-      -21.289,
-      -40.891
-     ],
-     [
-      -20.406,
-      -40.21
-     ],
-     [
-      -19.891,
-      -39.99
-     ],
-     [
-      -19.518,
-      -39.661
-     ],
-     [
-      -19.083,
-      -39.639
-     ],
-     [
-      -18.334,
-      -39.617
-     ],
-     [
-      -18.021,
-      -39.353
-     ],
-     [
-      -17.791,
-      -39.111
-     ],
-     [
-      -17.183,
-      -39.089
-     ],
-     [
-      -16.426,
-      -38.979
-     ],
-     [
-      -15.961,
-      -38.826
-     ],
-     [
-      -15.75,
-      -38.979
-     ],
-     [
-      -15.093,
-      -39.683
-     ],
-     [
-      -14.626,
-      -39.88
-     ],
-     [
-      -13.881,
-      -40.518
-     ],
-     [
-      -12.94,
-      -40.891
-     ],
-     [
-      -11.48,
-      -41.748
-     ],
-     [
-      -9.926,
-      -42.188
-     ],
-     [
-      -8.755,
-      -42.253
-     ],
-     [
-      -7.537,
-      -42.319
-     ],
-     [
-      -6.796,
-      -42.935
-     ],
-     [
-      -5.878,
-      -44.561
-     ],
-     [
-      -5.31,
-      -46.714
-     ],
-     [
-      -5.003,
-      -47.593
-     ],
-     [
-      -4.653,
-      -49.57
-     ],
-     [
-      -4.434,
-      -51.636
-     ],
-     [
-      -4.565,
-      -53.833
-     ],
-     [
-      -4.828,
-      -55.942
-     ],
-     [
-      -4.259,
-      -57.964
-     ],
-     [
-      -2.987,
-      -59.985
-     ],
-     [
-      -1.494,
-      -61.04
-     ],
-     [
-      2.285,
-      -61.963
-     ],
-     [
-      4.04,
-      -62.051
-     ],
-     [
-      4.127,
-      -64.688
-     ],
-     [
-      2.46,
-      -63.984
-     ],
-     [
-      2.021,
-      -63.369
-     ],
-     [
-      1.933,
-      -64.248
-     ],
-     [
-      0.967,
-      -65.654
-     ],
-     [
-      1.23,
-      -67.148
-     ],
-     [
-      2.109,
-      -67.412
-     ],
-     [
-      1.67,
-      -69.785
-     ],
-     [
-      1.055,
-      -69.785
-     ],
-     [
-      0.879,
-      -69.258
-     ],
-     [
-      0.527,
-      -70.049
-     ],
-     [
-      -0.352,
-      -70.049
-     ],
-     [
-      -0.615,
-      -69.697
-     ],
-     [
-      -4.215,
-      -70.049
-     ],
-     [
-      -4.565,
-      -71.895
-     ],
-     [
-      -5.266,
-      -72.773
-     ]
-    ]
-   ]
-  },
-  {
    "id": "56474",
    "titulo": "Aviso de Tempestade. Severidade Grau: Perigo Potencial",
    "evento": "Tempestade",
@@ -2447,588 +1855,6 @@
      ]
     ]
    ]
-  },
-  {
-   "id": "56467",
-   "titulo": "Aviso de Tempestade. Severidade Grau: Perigo Potencial",
-   "evento": "Tempestade",
-   "severidade": "Moderate",
-   "inicio": "2026-11-22T09:33:00-03:00",
-   "fim": "2026-11-22T23:59:00-03:00",
-   "descricao": "INMET publica aviso iniciando em: 22/11/2026 09:33. Chuva entre 20 e 30 mm/h ou até 50 mm/dia, ventos intensos (40-60 km/h), e queda de granizo. Baixo risco de corte de energia elétrica, estragos em plantações, queda de galhos de árvores e de alagamentos.",
-   "link": "https://avisos.inmet.gov.br/56467",
-   "poligonos": [
-    [
-     [
-      -28.652,
-      -55.942
-     ],
-     [
-      -29.229,
-      -54.536
-     ],
-     [
-      -29.917,
-      -53.218
-     ],
-     [
-      -30.373,
-      -51.592
-     ],
-     [
-      -30.827,
-      -50.713
-     ],
-     [
-      -30.789,
-      -50.405
-     ],
-     [
-      -30.05,
-      -50.054
-     ],
-     [
-      -29.401,
-      -49.724
-     ],
-     [
-      -29.037,
-      -49.373
-     ],
-     [
-      -28.459,
-      -48.625
-     ],
-     [
-      -27.859,
-      -48.384
-     ],
-     [
-      -27.294,
-      -48.142
-     ],
-     [
-      -26.902,
-      -48.494
-     ],
-     [
-      -26.234,
-      -48.384
-     ],
-     [
-      -25.701,
-      -48.142
-     ],
-     [
-      -24.906,
-      -47.483
-     ],
-     [
-      -24.267,
-      -46.187
-     ],
-     [
-      -23.966,
-      -45.198
-     ],
-     [
-      -23.423,
-      -44.473
-     ],
-     [
-      -23.201,
-      -43.857
-     ],
-     [
-      -23.1,
-      -42.825
-     ],
-     [
-      -23.12,
-      -42.012
-     ],
-     [
-      -22.938,
-      -41.726
-     ],
-     [
-      -22.573,
-      -41.638
-     ],
-     [
-      -22.187,
-      -41.155
-     ],
-     [
-      -22.045,
-      -40.847
-     ],
-     [
-      -21.596,
-      -40.781
-     ],
-     [
-      -21.105,
-      -40.693
-     ],
-     [
-      -20.571,
-      -40.254
-     ],
-     [
-      -20.077,
-      -40.078
-     ],
-     [
-      -19.746,
-      -39.792
-     ],
-     [
-      -19.477,
-      -39.529
-     ],
-     [
-      -18.917,
-      -39.639
-     ],
-     [
-      -18.5,
-      -39.573
-     ],
-     [
-      -18.146,
-      -39.507
-     ],
-     [
-      -17.811,
-      -39.045
-     ],
-     [
-      -17.581,
-      -39.045
-     ],
-     [
-      -17.225,
-      -39.045
-     ],
-     [
-      -16.741,
-      -38.958
-     ],
-     [
-      -16.257,
-      -38.848
-     ],
-     [
-      -15.877,
-      -38.76
-     ],
-     [
-      -15.39,
-      -38.782
-     ],
-     [
-      -14.913,
-      -38.892
-     ],
-     [
-      -14.509,
-      -38.919
-     ],
-     [
-      -14.158,
-      -38.831
-     ],
-     [
-      -14.115,
-      -38.826
-     ],
-     [
-      -13.897,
-      -38.798
-     ],
-     [
-      -13.63,
-      -38.787
-     ],
-     [
-      -13.459,
-      -38.727
-     ],
-     [
-      -13.288,
-      -38.694
-     ],
-     [
-      -13.133,
-      -38.694
-     ],
-     [
-      -12.892,
-      -38.782
-     ],
-     [
-      -12.517,
-      -39.062
-     ],
-     [
-      -11.733,
-      -39.677
-     ],
-     [
-      -11.232,
-      -40.435
-     ],
-     [
-      -10.526,
-      -41.27
-     ],
-     [
-      -10.337,
-      -41.743
-     ],
-     [
-      -10.347,
-      -41.754
-     ],
-     [
-      -10.293,
-      -42.039
-     ],
-     [
-      -10.18,
-      -42.352
-     ],
-     [
-      -10.066,
-      -42.676
-     ],
-     [
-      -9.53,
-      -43.632
-     ],
-     [
-      -9.46,
-      -44.028
-     ],
-     [
-      -9.053,
-      -44.621
-     ],
-     [
-      -8.619,
-      -45.313
-     ],
-     [
-      -8.135,
-      -45.923
-     ],
-     [
-      -7.499,
-      -46.176
-     ],
-     [
-      -6.877,
-      -46.225
-     ],
-     [
-      -6.823,
-      -46.252
-     ],
-     [
-      -6.162,
-      -46.566
-     ],
-     [
-      -5.589,
-      -46.868
-     ],
-     [
-      -5.124,
-      -47.554
-     ],
-     [
-      -4.39,
-      -48.516
-     ],
-     [
-      -3.338,
-      -50.493
-     ],
-     [
-      -3.031,
-      -51.899
-     ],
-     [
-      -2.394,
-      -53.13
-     ],
-     [
-      -1.955,
-      -54.119
-     ],
-     [
-      -1.955,
-      -56.228
-     ],
-     [
-      -1.977,
-      -57.327
-     ],
-     [
-      -2.021,
-      -57.942
-     ],
-     [
-      -1.67,
-      -61.194
-     ],
-     [
-      -1.758,
-      -62.336
-     ],
-     [
-      -1.428,
-      -64.731
-     ],
-     [
-      -1.384,
-      -67.28
-     ],
-     [
-      -1.845,
-      -69.478
-     ],
-     [
-      -2.811,
-      -69.631
-     ],
-     [
-      -3.36,
-      -69.675
-     ],
-     [
-      -4.062,
-      -69.961
-     ],
-     [
-      -4.39,
-      -70.027
-     ],
-     [
-      -4.149,
-      -70.62
-     ],
-     [
-      -4.412,
-      -71.213
-     ],
-     [
-      -4.828,
-      -72.466
-     ],
-     [
-      -5.113,
-      -72.686
-     ],
-     [
-      -5.725,
-      -72.29
-     ],
-     [
-      -6.861,
-      -71.279
-     ],
-     [
-      -7.428,
-      -70.466
-     ],
-     [
-      -8.255,
-      -69.543
-     ],
-     [
-      -9.167,
-      -68.181
-     ],
-     [
-      -9.579,
-      -67.258
-     ],
-     [
-      -9.817,
-      -66.731
-     ],
-     [
-      -9.839,
-      -65.742
-     ],
-     [
-      -10.272,
-      -64.248
-     ],
-     [
-      -10.423,
-      -63.105
-     ],
-     [
-      -10.855,
-      -61.831
-     ],
-     [
-      -10.855,
-      -61.304
-     ],
-     [
-      -10.963,
-      -60.754
-     ],
-     [
-      -11.415,
-      -59.062
-     ],
-     [
-      -12.64,
-      -57.48
-     ],
-     [
-      -13.582,
-      -56.514
-     ],
-     [
-      -14.605,
-      -55.723
-     ],
-     [
-      -15.665,
-      -54.668
-     ],
-     [
-      -16.889,
-      -54.448
-     ],
-     [
-      -17.791,
-      -54.47
-     ],
-     [
-      -18.688,
-      -54.536
-     ],
-     [
-      -19.311,
-      -54.426
-     ],
-     [
-      -20.406,
-      -54.426
-     ],
-     [
-      -21.514,
-      -54.404
-     ],
-     [
-      -22.35,
-      -54.36
-     ],
-     [
-      -23.342,
-      -54.316
-     ],
-     [
-      -23.966,
-      -54.25
-     ],
-     [
-      -24.207,
-      -54.316
-     ],
-     [
-      -24.267,
-      -54.316
-     ],
-     [
-      -24.387,
-      -54.338
-     ],
-     [
-      -24.787,
-      -54.382
-     ],
-     [
-      -25.304,
-      -54.492
-     ],
-     [
-      -25.622,
-      -54.646
-     ],
-     [
-      -25.741,
-      -54.382
-     ],
-     [
-      -25.622,
-      -54.207
-     ],
-     [
-      -25.562,
-      -54.053
-     ],
-     [
-      -25.82,
-      -53.767
-     ],
-     [
-      -26.313,
-      -53.657
-     ],
-     [
-      -26.667,
-      -53.701
-     ],
-     [
-      -26.922,
-      -53.701
-     ],
-     [
-      -27.118,
-      -53.833
-     ],
-     [
-      -27.333,
-      -54.163
-     ],
-     [
-      -27.528,
-      -54.514
-     ],
-     [
-      -27.703,
-      -54.932
-     ],
-     [
-      -27.859,
-      -55.195
-     ],
-     [
-      -28.13,
-      -55.591
-     ],
-     [
-      -28.246,
-      -55.723
-     ],
-     [
-      -28.362,
-      -55.854
-     ],
-     [
-      -28.652,
-      -55.942
-     ]
-    ]
-   ]
   }
  ],
  "limiares": {
@@ -3061,7 +1887,9 @@
   "pontos": 8,
   "abertura_graus": 60
  },
- "erros": [],
+ "erros": [
+  "modelo ecmwf_ifs025: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: <urlopen error _ssl.c:994: The handshake operation timed out>"
+ ],
  "fontes": [
   "Open-Meteo (CC-BY 4.0): ECMWF IFS, GFS, ICON, GEM e ensemble ECMWF",
   "INMET — avisos meteorológicos (RSS/CAP)"
