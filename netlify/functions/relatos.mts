@@ -4,6 +4,11 @@ import { getStore } from "@netlify/blobs";
 
 const MAX = 300;
 
+async function resumo(texto: string): Promise<string> {
+  const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(texto));
+  return Array.from(new Uint8Array(h).slice(0, 6), b => b.toString(16).padStart(2, "0")).join("");
+}
+
 export default async (req: Request, _context: Context) => {
   const url = new URL(req.url);
   const horas = Math.min(48, Math.max(1, Math.round(Number(url.searchParams.get("horas")) || 6)));
@@ -24,7 +29,12 @@ export default async (req: Request, _context: Context) => {
       }
     }
     chaves.sort().reverse();
-    const relatos = (await Promise.all(chaves.slice(0, MAX).map(k => store.get(k, { type: "json" })))).filter(Boolean);
+    const brutos = (await Promise.all(chaves.slice(0, MAX).map(k => store.get(k, { type: "json" })))).filter(Boolean);
+    // o código do aparelho não sai como está: vira um resumo que muda a cada dia (dá para contar aparelhos
+    // diferentes no mesmo dia, mas não para seguir uma pessoa ao longo do tempo)
+    const relatos = await Promise.all(brutos.map(async ({ aparelho, ...r }: any) => ({
+      ...r, ap: aparelho ? await resumo(`${aparelho}|${String(r.quando || r.recebido || "").slice(0, 10)}`) : null,
+    })));
     return Response.json(
       { horas, total: relatos.length, relatos },
       { headers: { "Cache-Control": "public, max-age=60", "Netlify-CDN-Cache-Control": "public, s-maxage=60, stale-while-revalidate=60" } },

@@ -39,7 +39,13 @@ export default async (req: Request, _context: Context) => {
   if ([ceu, vento, chuva, granizo, raios].every(x => x === null) && !efeitos.length) return erro("marque pelo menos um item");
 
   const atraso = ATRASOS.includes(Number(b?.minutos_atras)) ? Number(b.minutos_atras) : 0;
-  const origem = b?.origem === "gps" ? "gps" : "mapa";
+  // só vale relato com a localização do aparelho, com precisão de até 2 km (evita local marcado à mão)
+  if (b?.origem !== "gps") return erro("é preciso usar a localização do aparelho");
+  const precisao_m = Number(b?.precisao_m);
+  if (!Number.isFinite(precisao_m) || precisao_m < 0 || precisao_m > 2000) return erro("localização imprecisa demais (máximo de 2 km)");
+  const origem = "gps";
+  // código aleatório do aparelho (sem login): só para contar aparelhos diferentes; nunca é publicado como está
+  const aparelho = typeof b?.aparelho === "string" && /^[A-Za-z0-9-]{16,64}$/.test(b.aparelho) ? b.aparelho : null;
 
   const agora = new Date();
   const id = `${agora.toISOString()}-${Math.random().toString(36).slice(2, 8)}`;
@@ -52,6 +58,8 @@ export default async (req: Request, _context: Context) => {
     v: 2,
     ceu, vento, chuva, granizo, raios, efeitos, de_onde,
     origem,
+    precisao_m: Math.round(precisao_m),
+    aparelho,
   };
   try {
     await getStore("relatos").setJSON(`r/${agora.toISOString().slice(0, 10)}/${id}`, registro);

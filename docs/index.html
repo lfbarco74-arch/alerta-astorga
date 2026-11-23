@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tempo severo — Paraná · alerta piloto em Astorga</title>
-<meta name="description" content="Previsão de risco de tempestades, vendaval e granizo para qualquer cidade do Paraná, com alerta piloto em Astorga. Projeto pessoal, não oficial.">
+<title>Como está o tempo — relatos e potencial de tempestade no Paraná</title>
+<meta name="description" content="Portal colaborativo de relatos do tempo, com o potencial de tempestade previsto para qualquer cidade do Paraná. Projeto pessoal, não oficial.">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
 <style>
   :root{
@@ -123,7 +123,7 @@
 <body>
 <main>
   <header>
-    <h1>Tempo severo — Paraná</h1>
+    <h1>Como está o tempo — Paraná</h1>
     <div class="hdr"><span class="small muted">Astorga (piloto):</span> <span class="pill lvl l0" id="pill">—</span><span class="muted small" id="atualizado">carregando…</span></div>
   </header>
 
@@ -155,10 +155,11 @@
       <iframe id="windy-frame" title="Mapa Windy" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <div class="legenda small">
-      <span><span class="sw" style="background:var(--n0)"></span>Normal</span>
-      <span><span class="sw" style="background:var(--n1)"></span>Atenção</span>
-      <span><span class="sw" style="background:var(--n2)"></span>Alerta</span>
-      <span><span class="sw" style="background:var(--n3)"></span>Severo</span>
+      <span class="muted">Potencial de tempestade:</span>
+      <span><span class="sw" style="background:var(--n0)"></span>Baixo</span>
+      <span><span class="sw" style="background:var(--n1)"></span>Moderado</span>
+      <span><span class="sw" style="background:var(--n2)"></span>Alto</span>
+      <span><span class="sw" style="background:var(--n3)"></span>Muito alto</span>
       <span>➜ por onde a linha de tempestades tende a chegar</span>
       <span>💬 relatos de quem está no local (6 h)</span>
     </div>
@@ -166,6 +167,13 @@
     </section>
 
     <aside class="lado">
+      <section class="card relato-card">
+        <div class="relato-topo">
+          <div><b>Como está o tempo aí?</b><div class="small muted" id="relatos-resumo">Conte o que está acontecendo onde você está. Os relatos aparecem no mapa por 6 horas.</div></div>
+          <button type="button" class="btn" id="abrir-relato">Relatar</button>
+        </div>
+      </section>
+
       <section class="card ponto lvl l0" id="ponto" hidden>
         <div class="ponto-topo"><span class="small muted">Previsão para o ponto escolhido</span>
           <button type="button" class="link" id="ponto-fechar">Fechar e voltar para Astorga ✕</button></div>
@@ -178,18 +186,12 @@
         <div class="small muted" id="ponto-nota" style="margin-top:8px"></div>
       </section>
       <section class="card hero lvl" id="hero">
-        <div class="small muted">Alerta · Astorga (cidade piloto) · <button type="button" class="link" id="hero-mapa">ver no mapa</button></div>
+        <div class="small muted">Potencial de tempestade · Astorga (cidade piloto) · <button type="button" class="link" id="hero-mapa">ver no mapa</button></div>
         <div class="nivel" id="hero-nivel">—</div>
         <div class="quando" id="hero-quando"></div>
         <div class="chips" id="hero-perigos"></div>
         <div class="small muted" id="hero-motivos"></div>
         <div class="small" id="hero-direcao" style="margin-top:8px"></div>
-      </section>
-      <section class="card relato-card">
-        <div class="relato-topo">
-          <div><b>Como está o tempo aí?</b><div class="small muted" id="relatos-resumo">Seu relato ajuda a calibrar o painel.</div></div>
-          <button type="button" class="btn" id="abrir-relato">Relatar</button>
-        </div>
       </section>
       <section class="card" id="sec-janelas">
         <h2>Linha do tempo · Astorga</h2>
@@ -233,7 +235,8 @@
     <details>
       <summary>Como funciona e quais são os limites</summary>
       <p>A cada 30 minutos, o sistema consulta quatro modelos de previsão (ECMWF, GFS, ICON e GEM), os 51 cenários do ensemble do ECMWF e os avisos do INMET. Ele mede dois ingredientes em Astorga: a <b>energia disponível</b> para tempestades (CAPE) e a <b>diferença de vento entre o solo e 5 km de altura</b> (cisalhamento), que organiza tempestades capazes de vendaval e granizo. Depois verifica se algum modelo simula tempestade em Astorga ou na região de onde o vento as traria.</p>
-      <p><b>Níveis:</b> <span class="l0"><span class="dot"></span>Normal</span> · <span class="l1"><span class="dot"></span>Atenção</span> (ambiente instável) · <span class="l2"><span class="dot"></span>Alerta</span> (tempestades fortes possíveis) · <span class="l3"><span class="dot"></span>Severo</span> (ambiente para vendaval, granizo e tempestades violentas). Um aviso do INMET para Astorga nunca é rebaixado pelo sistema.</p>
+      <p><b>Potencial de tempestade:</b> <span class="l0"><span class="dot"></span>baixo</span> · <span class="l1"><span class="dot"></span>moderado</span> (ambiente instável) · <span class="l2"><span class="dot"></span>alto</span> (tempestades fortes possíveis) · <span class="l3"><span class="dot"></span>muito alto</span> (ambiente para vendaval, granizo e tempestades violentas). É uma leitura das condições previstas, não um alerta: alertas oficiais vêm da Defesa Civil (SMS 40199) e do INMET. Um aviso do INMET para Astorga nunca é rebaixado pelo cálculo.</p>
+      <p><b>Relatos:</b> cada relato usa a localização do aparelho (GPS), arredondada a cerca de 1 km. Para cada relato, o portal olha os demais num raio de 5 km e 1 hora antes ou depois, conta quantos aparelhos diferentes relataram e mede a concordância: a parcela dos relatos que fica a até um grau da resposta típica (por exemplo, "vento forte"). Com menos de 3 aparelhos, não há concordância a medir.</p>
       <p><b>Limites honestos:</b> isto é previsão de <i>condições</i>, não rastreamento de cada tempestade. Os modelos não enxergam um downburst de 2 km. O sistema diz "hoje à noite há ambiente para vendaval", não "a tempestade chega às 3h12". Para isso, acompanhe o radar acima e os alertas oficiais.</p>
       <p>Calibrado nos eventos de 02/11/2026 e 07/11/2026. Os limiares serão revistos a cada evento.</p>
     </details>
@@ -247,13 +250,11 @@
     <form class="modal-caixa" id="form-relato" novalidate>
       <div class="relato-topo"><h3 id="relato-titulo">Como está o tempo aí?</h3>
         <button type="button" class="link" id="fechar-relato" aria-label="Fechar">Fechar ✕</button></div>
-      <p class="small muted" style="margin-top:0">Anônimo. A localização é arredondada (cerca de 1 km) e aparece no mapa por 6 horas.</p>
+      <p class="small muted" style="margin-top:0">Anônimo, sem cadastro. Para valer como evidência, o relato usa a localização do seu aparelho; ela é arredondada a cerca de 1 km antes de sair do celular e aparece no mapa por 6 horas.</p>
 
-      <fieldset><legend>Onde</legend>
-        <label class="opt"><input type="radio" name="onde" value="gps"> Minha localização (GPS)</label>
-        <label class="opt" id="opt-ponto"><input type="radio" name="onde" value="ponto"> Ponto escolhido no mapa</label>
-        <label class="opt"><input type="radio" name="onde" value="astorga"> Astorga (centro)</label>
-        <div class="small muted" id="onde-status"></div>
+      <fieldset><legend>Onde (localização do aparelho)</legend>
+        <div class="small" id="onde-status">Obtendo sua localização…</div>
+        <button type="button" class="link small" id="tentar-gps" hidden>Tentar de novo</button>
       </fieldset>
 
       <fieldset><legend>Quando</legend>
@@ -339,7 +340,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="indice.js"></script>
 <script>
-const NOMES = ["Normal","Atenção","Alerta","Severo"];
+const NOMES = ["Potencial baixo","Potencial moderado","Potencial alto","Potencial muito alto"];
 const IMPACTO = {
   urbano: "Queda de árvores e galhos, destelhamento, falta de energia, alagamentos rápidos.",
   rural: "Granizo em lavouras e estufas, vento em barracões e aviários, raios em áreas abertas."
@@ -419,13 +420,13 @@ function render(s){
   } else { $("velho").style.display = "none"; }
 
   const j = piorVigente(s.janelas || []) || s.resumo.janela_pior || {};
-  const nivel = j.nivel ?? s.resumo.nivel_24h, nome = j.nome || s.resumo.nome_24h;
+  const nivel = j.nivel ?? s.resumo.nivel_24h, nome = NOMES[nivel] || "—";
   const hero = $("hero"); hero.className = "card hero lvl " + cls(nivel);
   const pill = $("pill"); pill.className = "pill lvl " + cls(nivel); pill.textContent = nome;
   $("hero-nivel").textContent = nome;
   $("hero-quando").textContent = nivel > 0 && j.inicio
     ? `${faixa(j)}${notaPico(j)}`
-    : "Sem sinal de tempestade severa nas próximas horas.";
+    : "Potencial baixo de tempestade severa nas próximas horas.";
   $("hero-perigos").innerHTML = chips(j);
   $("hero-motivos").textContent = (j.motivos||[]).join(" · ");
   $("hero-direcao").innerHTML = textoDirecao(j.direcao_linha_graus ?? s.direcao_graus, j.direcao_celulas ?? s.direcao_celulas, nivel)
@@ -434,7 +435,7 @@ function render(s){
   $("janelas").innerHTML = (s.janelas||[]).filter(vigente).map(w => `
     <div class="jan ${cls(w.nivel)}">
       <span class="small muted">${esc(faixa(w))}</span>
-      <b><span class="dot"></span>${esc(w.nome)}</b>
+      <b><span class="dot"></span>${esc(NOMES[w.nivel])}</b>
       <span class="small">${w.nivel > 0 && w.perigos.length ? w.perigos.map(p => esc(p) + ((w.perigos_nivel||{})[p] === "possível" ? " (possível)" : "")).join(", ") : "&nbsp;"}</span>
       ${arFrioVigente(w) ? `<span class="small">🌡️ queda brusca de temperatura perto das ${esc(w.ar_frio.hora_local.slice(0,2))}h</span>` : ""}
     </div>`).join("") || '<p class="small muted">Aguardando a próxima rodada.</p>';
@@ -470,9 +471,9 @@ function textoIngredientes(janelas, onde){
     const mods = Object.entries(w.por_modelo||{}).map(([m,v]) => `${NOME_MODELO(m)}: ${NOMES[v.nivel]}`).join(" · ");
     return `<p><b>${esc(w.rotulo)}</b><br>
       CAPE ${i.cape ?? "—"} J/kg · cisalhamento ${i.cisalhamento_ms ?? "—"} m/s · índice ${i.wmaxshear ?? "—"}
-      ${pe ? ` · ensemble: ${Math.round(pe.p_alerta*100)}% dos ${pe.membros} cenários em ambiente de alerta` : ""}<br>
+      ${pe ? ` · ensemble: ${Math.round(pe.p_alerta*100)}% dos ${pe.membros} cenários com potencial alto` : ""}<br>
       <span class="muted">${esc(mods)}</span></p>`;
-  }).join("") + `<p class="muted">Índice = √(2·CAPE) × cisalhamento (WMAXSHEAR). Acima de 500 = atenção; 800 = alerta; 1200 = severo, desde que haja tempestade simulada em ${esc(onde)} ou na região a montante.</p>`;
+  }).join("") + `<p class="muted">Índice = √(2·CAPE) × cisalhamento (WMAXSHEAR). Acima de 500 = potencial moderado; 800 = alto; 1200 = muito alto, desde que haja tempestade simulada em ${esc(onde)} ou na região a montante.</p>`;
 }
 function renderDetalhes(){
   const ponto = PONTO && PONTO_RES;
@@ -543,7 +544,7 @@ function grafico(){
   const cor = v => v >= 1200 ? "var(--n3)" : v >= 800 ? "var(--n2)" : v >= 500 ? "var(--n1)" : "var(--n0)";
   const passo = HORAS_GRAF <= 12 ? 2 : HORAS_GRAF <= 24 ? 3 : 6;
   let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Potencial de tempestade severa nas próximas ${HORAS_GRAF} horas">`;
-  [[500,"atenção"],[800,"alerta"],[1200,"severo"]].forEach(([v,t]) => {
+  [[500,"moderado"],[800,"alto"],[1200,"muito alto"]].forEach(([v,t]) => {
     svg += `<line x1="${pad.l}" x2="${W-pad.r}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-dasharray="4 4"/>
             <text x="${pad.l-6}" y="${y(v)+4}" font-size="12" text-anchor="end" fill="var(--muted)">${t}</text>`;
   });
@@ -654,7 +655,7 @@ async function mapa(s){
   // visão geral: Astorga como um pino colorido pelo nível + seta de chegada
   if (s.direcao_graus != null) seta(camadas, sede.lat, sede.lon, s.direcao_graus, nivel, false);
   L.circleMarker([sede.lat, sede.lon], {radius: 9, color:"#fff", weight:3, fillColor: COR[nivel], fillOpacity: 1}).addTo(camadas)
-    .bindTooltip(`Astorga (alerta piloto): ${esc(s.resumo.nome_24h || NOMES[nivel])} · toque para detalhes`)
+    .bindTooltip(`Astorga (cidade piloto): ${esc(NOMES[nivel])} · toque para detalhes`)
     .on("click", ev => { L.DomEvent.stopPropagation(ev); M.setView([sede.lat, sede.lon], ZOOM_DETALHE); });
   // detalhe (aproximado): anel regional e localidades monitoradas
   (s.anel||[]).forEach(p => {
@@ -827,10 +828,10 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico, codConhecido){
     const j24 = janelas.slice(0, 2), max = Math.max(...j24.map(j => j.nivel));
     const pior = j24.find(j => j.nivel === max);
     card.className = "card ponto lvl " + cls(pior.nivel);
-    $("ponto-nivel").textContent = pior.nome;
+    $("ponto-nivel").textContent = NOMES[pior.nivel];
     $("ponto-quando").textContent = pior.nivel > 0
       ? `${faixa(pior)}${notaPico(pior)}`
-      : "Sem sinal de tempestade severa nas próximas 24 horas.";
+      : "Potencial baixo de tempestade severa nas próximas 24 horas.";
     $("ponto-perigos").innerHTML = chips(pior);
     const dirSeta = pior.direcao_linha_graus ?? dir24;
     $("ponto-motivos").innerHTML = esc(pior.motivos.join(" · ")) +
@@ -838,7 +839,7 @@ async function analisarPonto(lat, lon, nomeConhecido, automatico, codConhecido){
       textoArFrio(janelas);
     $("ponto-janelas").innerHTML = janelas.map(w => `
       <div class="jan ${cls(w.nivel)}"><span class="small muted">${esc(faixa(w))}</span>
-        <b><span class="dot"></span>${esc(w.nome)}</b>
+        <b><span class="dot"></span>${esc(NOMES[w.nivel])}</b>
         <span class="small">${w.nivel > 0 && w.perigos.length ? esc(w.perigos.join(", ")) : "&nbsp;"}</span>
         ${arFrioVigente(w) ? `<span class="small">🌡️ queda brusca de temperatura perto das ${esc(w.ar_frio.hora_local.slice(0,2))}h</span>` : ""}</div>`).join("");
     const d = distKm(ASTORGA, [lat, lon]);
@@ -1017,8 +1018,8 @@ function iconeRelato(x){
 const severo = x => x.granizo >= 1 || x.vento >= 3 || x.chuva >= 4 || (x.efeitos || []).some(e => e === "estragos" || e === "galhos");
 function descreverRelato(x){
   const p = [];
-  if (temNum(x.vento)) p.push("vento " + ESCALA.vento[x.vento]);
-  if (temNum(x.chuva)) p.push(x.chuva === 0 ? "sem chuva" : "chuva " + ESCALA.chuva[x.chuva]);
+  if (temNum(x.vento)) p.push(ROTULO_F.vento(x.vento));
+  if (temNum(x.chuva)) p.push(ROTULO_F.chuva(x.chuva));
   if (temNum(x.granizo) && x.granizo > 0) p.push("granizo " + ESCALA.granizo[x.granizo]);
   if (x.raios > 0) p.push(ESCALA.raios[x.raios]);
   if (x.ceu) p.push(CEU[x.ceu]);
@@ -1026,25 +1027,66 @@ function descreverRelato(x){
 }
 let camadaRelatos = null, gpsPos = null;
 
+/* ---------- concordância entre relatos (raio de 5 km, 1 h antes ou depois) ---------- */
+const RAIO_KM = 5, JANELA_MIN = 60, MIN_APARELHOS = 3;
+// vale como evidência: localização do aparelho (relatos antigos marcados no mapa ficam de fora das métricas)
+const verificado = x => x.origem === "gps" && (x.precisao_m == null || x.precisao_m <= 2000);
+const chaveAparelho = x => x.ap || x.id;
+function grupoDe(lista, lat, lon, t0, minutos){
+  const porAp = new Map();
+  lista.filter(verificado).forEach(x => {
+    if (distKm([lat, lon], [x.lat, x.lon]) > RAIO_KM) return;
+    if (minutos != null && Math.abs(Date.parse(x.quando) - t0) > minutos * 60e3) return;
+    const k = chaveAparelho(x), ant = porAp.get(k);
+    if (!ant || Date.parse(x.quando) > Date.parse(ant.quando)) porAp.set(k, x);   // um aparelho, um voto (o mais recente)
+  });
+  return [...porAp.values()];
+}
+function concordancia(grupo){
+  // por fenômeno: resposta típica (mediana) e parcela a até 1 grau dela
+  const out = {};
+  for (const f of ["vento", "chuva", "granizo", "raios"]){
+    const v = grupo.map(x => x[f]).filter(temNum).sort((a, b) => a - b);
+    if (v.length < MIN_APARELHOS) continue;
+    const med = v[Math.floor((v.length - 1) / 2)];
+    const juntos = v.filter(x => Math.abs(x - med) <= 1).length;
+    out[f] = {tipico: med, concordam: juntos, total: v.length, pct: Math.round(100 * juntos / v.length)};
+  }
+  return out;
+}
+const ROTULO_F = {vento: v => v === 4 ? "vendaval" : "vento " + ESCALA.vento[v], chuva: v => v === 0 ? "sem chuva" : v === 1 ? "garoa" : "chuva " + ESCALA.chuva[v],
+                  granizo: v => v === 0 ? "sem granizo" : "granizo " + ESCALA.granizo[v], raios: v => ESCALA.raios[v] === "não" ? "sem trovoada" : ESCALA.raios[v]};
+function textoConcordancia(grupo, total){
+  const c = concordancia(grupo), partes = Object.entries(c).map(([f, r]) => `${ROTULO_F[f](r.tipico)} (${r.concordam} de ${r.total} concordam)`);
+  const base = `${total} relato(s) de ${grupo.length} aparelho(s)`;
+  if (grupo.length < MIN_APARELHOS) return `${base}: poucos para medir concordância (mínimo ${MIN_APARELHOS} aparelhos).`;
+  return partes.length ? `${base}: ${partes.join(" · ")}.` : `${base}: respostas sobre fenômenos diferentes; ainda sem concordância a medir.`;
+}
+
 async function carregarRelatos(){
   let lista = [];
   try{ const r = await fetch("/api/relatos?horas=6", {cache:"no-store"}); if (r.ok) lista = ((await r.json()).relatos || []).map(normalizarRelato); }catch(e){}
-  const centro = PONTO ? [PONTO.lat, PONTO.lon] : ASTORGA, ondeNome = PONTO ? (PONTO.nome || "do ponto escolhido") : "Astorga";
-  const perto = lista.filter(x => distKm(centro, [x.lat, x.lon]) <= 30 && Date.now() - Date.parse(x.quando) <= 3*3600e3);
-  const fortes = perto.filter(severo);
-  $("relatos-resumo").textContent = perto.length
-    ? `${perto.length} relato(s) perto de ${ondeNome} nas últimas 3 h${fortes.length ? ` (${fortes.length} com tempo forte: ${descreverRelato(fortes[0]).slice(0, 2).join(", ")})` : ""}. Mande o seu também.`
-    : "Seu relato ajuda a calibrar o painel.";
+  const centro = PONTO ? [PONTO.lat, PONTO.lon] : ASTORGA, ondeNome = PONTO ? (PONTO.nome || "o ponto escolhido") : "Astorga";
+  const recentes = lista.filter(x => Date.now() - Date.parse(x.quando) <= 3*3600e3);
+  const grupo = grupoDe(recentes, centro[0], centro[1], null, null);
+  const totalPerto = recentes.filter(x => verificado(x) && distKm(centro, [x.lat, x.lon]) <= RAIO_KM).length;
+  $("relatos-resumo").textContent = grupo.length
+    ? `Até 5 km de ${ondeNome}, últimas 3 h: ${textoConcordancia(grupo, totalPerto)}`
+    : `Nenhum relato até 5 km de ${ondeNome} nas últimas 3 h. Conte o que está acontecendo onde você está.`;
   if (!M || !camadaRelatos) return;
   camadaRelatos.clearLayers();
   lista.forEach(x => {
     const idade = (Date.now() - Date.parse(x.quando)) / 3600e3;
     const min = Math.max(0, Math.round((Date.now() - Date.parse(x.quando)) / 60000));
-    const desc = descreverRelato(x), ef = (x.efeitos || []).map(e => EFEITO[e] || e);
-    L.marker([x.lat, x.lon], {opacity: Math.max(.35, 1 - idade/7), zIndexOffset: severo(x) ? 500 : 0,
+    const desc = descreverRelato(x), ef = (x.efeitos || []).map(e => EFEITO[e] || e), ok = verificado(x);
+    const viz = ok ? grupoDe(lista, x.lat, x.lon, Date.parse(x.quando), JANELA_MIN) : [];
+    const nViz = ok ? lista.filter(y => verificado(y) && distKm([x.lat, x.lon], [y.lat, y.lon]) <= RAIO_KM && Math.abs(Date.parse(y.quando) - Date.parse(x.quando)) <= JANELA_MIN * 60e3).length : 0;
+    L.marker([x.lat, x.lon], {opacity: ok ? Math.max(.35, 1 - idade/7) : .3, zIndexOffset: severo(x) && ok ? 500 : 0,
       icon: L.divIcon({className:"relato-ico", html: iconeRelato(x), iconSize:[22,22], iconAnchor:[11,11]})})
       .addTo(camadaRelatos)
-      .bindPopup(`<b>${esc(desc.join(" · ") || "relato")}</b>${ef.length ? "<br>" + esc(ef.join(", ")) : ""}${x.de_onde ? "<br>chegou pelo " + esc(RUMO[x.de_onde] || x.de_onde) : ""}<br><span style="color:#888">há ${min < 90 ? min + " min" : Math.round(min/60) + " h"} · relato de quem estava no local</span>`);
+      .bindPopup(`<b>${esc(desc.join(" · ") || "relato")}</b>${ef.length ? "<br>" + esc(ef.join(", ")) : ""}${x.de_onde ? "<br>chegou pelo " + esc(RUMO[x.de_onde] || x.de_onde) : ""}`
+        + `<br><span style="color:#888">há ${min < 90 ? min + " min" : Math.round(min/60) + " h"} · ${ok ? "localização do aparelho" : "local marcado no mapa (não verificado; fora das métricas)"}</span>`
+        + (ok ? `<br><span style="font-size:.85em">Região de 5 km, ±1 h: ${esc(textoConcordancia(viz, nViz))}</span>` : ""));
   });
 }
 
@@ -1052,29 +1094,37 @@ const marcado = (f, nome) => (f.querySelector(`input[name="${nome}"]:checked`) |
 const marcar = (f, nome, valor) => f.querySelectorAll(`input[name="${nome}"]`).forEach(r => r.checked = r.value === valor);
 const campo = (f, nome) => f.querySelector(`[name="${nome}"]`);
 
+const PRECISAO_MAX_M = 2000;
+function idAparelho(){
+  // código aleatório guardado só neste aparelho: conta "aparelhos diferentes" sem login (não identifica a pessoa)
+  try{
+    let v = localStorage.getItem("alerta-astorga:aparelho");
+    if (!v){ v = (crypto.randomUUID ? crypto.randomUUID() : Array.from(crypto.getRandomValues(new Uint8Array(16)), b => b.toString(16).padStart(2, "0")).join("")); localStorage.setItem("alerta-astorga:aparelho", v); }
+    return v;
+  }catch(e){ return null; }
+}
 function abrirRelato(){
-  const f = $("form-relato");
   $("modal-relato").hidden = false; $("relato-msg").textContent = ""; $("enviar-relato").disabled = false;
-  $("opt-ponto").hidden = !PONTO;
-  marcar(f, "onde", PONTO ? "ponto" : (gpsPos ? "gps" : ""));
-  atualizarOnde();
+  pedirLocalizacao();
 }
 function fecharRelato(){ $("modal-relato").hidden = true; }
-function atualizarOnde(){
-  const f = $("form-relato"), v = marcado(f, "onde"), st = $("onde-status");
-  if (v === "gps"){
-    if (gpsPos){ st.textContent = `Localização obtida (${gpsPos.lat.toFixed(2)}, ${gpsPos.lon.toFixed(2)}).`; return; }
-    if (!navigator.geolocation){ st.textContent = "Este aparelho não fornece localização. Escolha outra opção."; return; }
-    st.textContent = "Obtendo sua localização…";
-    navigator.geolocation.getCurrentPosition(
-      p => { gpsPos = {lat: p.coords.latitude, lon: p.coords.longitude}; if (marcado(f, "onde") === "gps") atualizarOnde(); },
-      () => { st.textContent = "Não foi possível obter a localização. Permita o acesso ou escolha outra opção."; },
-      {enableHighAccuracy:false, timeout:15000, maximumAge:600000});
-  } else if (v === "ponto" && PONTO){
-    st.textContent = `Ponto do mapa: ${PONTO.nome || PONTO.lat.toFixed(2) + ", " + PONTO.lon.toFixed(2)}.`;
-  } else if (v === "astorga"){
-    st.textContent = "Centro de Astorga.";
-  } else st.textContent = "Escolha onde você está.";
+function pedirLocalizacao(){
+  const st = $("onde-status"); $("tentar-gps").hidden = true;
+  if (gpsPos && Date.now() - gpsPos.t < 10 * 60e3){ mostrarLocalizacao(); return; }
+  if (!navigator.geolocation){ st.textContent = "Este aparelho não fornece localização; não é possível relatar por ele."; return; }
+  st.textContent = "Obtendo sua localização…";
+  navigator.geolocation.getCurrentPosition(
+    p => { gpsPos = {lat: p.coords.latitude, lon: p.coords.longitude, precisao: p.coords.accuracy, t: Date.now()}; mostrarLocalizacao(); },
+    () => { st.textContent = "Não foi possível obter a localização. Permita o acesso à localização para este site e tente de novo."; $("tentar-gps").hidden = false; },
+    {enableHighAccuracy:true, timeout:20000, maximumAge:300000});
+}
+function mostrarLocalizacao(){
+  const st = $("onde-status"), km = (gpsPos.precisao / 1000).toLocaleString("pt-BR", {maximumFractionDigits: 1});
+  if (gpsPos.precisao > PRECISAO_MAX_M){
+    st.innerHTML = `Localização imprecisa (erro de cerca de ${km} km). Em computadores ela costuma vir da rede; use o celular com a localização ativada.`;
+    $("tentar-gps").hidden = false; return;
+  }
+  st.textContent = `Localização obtida (precisão de ${gpsPos.precisao < 1000 ? Math.round(gpsPos.precisao) + " m" : km + " km"}).`;
 }
 function atualizarDicas(){
   const f = $("form-relato");
@@ -1090,7 +1140,7 @@ $("abrir-relato").addEventListener("click", abrirRelato);
 $("fechar-relato").addEventListener("click", fecharRelato);
 $("modal-relato").addEventListener("click", e => { if (e.target.id === "modal-relato") fecharRelato(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("modal-relato").hidden) fecharRelato(); });
-document.querySelectorAll('#form-relato input[name=onde]').forEach(r => r.addEventListener("change", atualizarOnde));
+$("tentar-gps").addEventListener("click", () => { gpsPos = null; pedirLocalizacao(); });
 // chips: tocar de novo no item marcado desmarca (cada fenômeno é opcional)
 document.querySelectorAll("#form-relato .chips label").forEach(l => {
   const inp = l.querySelector("input");
@@ -1108,16 +1158,17 @@ $("form-relato").addEventListener("submit", async e => {
   const dados = {ceu: marcado(f, "ceu") || null, vento: num("vento"), chuva: num("chuva"), granizo: num("granizo"), raios: num("raios"),
     efeitos: [...f.querySelectorAll("input[name=efeito]:checked")].map(x => x.value), de_onde: campo(f, "de_onde").value || null};
   const algum = ["ceu","vento","chuva","granizo","raios"].some(k => dados[k] !== null) || dados.efeitos.length > 0;
-  const onde = marcado(f, "onde");
-  let pos = onde === "gps" ? gpsPos : onde === "ponto" && PONTO ? {lat: PONTO.lat, lon: PONTO.lon} : onde === "astorga" ? {lat: ASTORGA[0], lon: ASTORGA[1]} : null;
-  if (!pos){ msg.textContent = "Escolha onde você está."; return; }
+  const pos = gpsPos;
+  if (!pos){ msg.textContent = "É preciso permitir a localização do aparelho para relatar."; return; }
+  if (pos.precisao > PRECISAO_MAX_M){ msg.textContent = "A localização está imprecisa demais para valer como evidência. Tente pelo celular."; return; }
   if (!algum){ msg.textContent = "Marque pelo menos um item (céu, vento, chuva…)."; return; }
   $("enviar-relato").disabled = true; msg.textContent = "Enviando…";
   try{
     const r = await fetch("/api/relato", {method:"POST", headers:{"Content-Type":"application/json"},
       // arredonda no próprio aparelho (~1 km): a coordenada exata nunca sai do celular
       body: JSON.stringify({lat: Math.round(pos.lat * 100) / 100, lon: Math.round(pos.lon * 100) / 100, ...dados,
-        minutos_atras: +campo(f, "minutos_atras").value, origem: onde === "gps" ? "gps" : "mapa", site: campo(f, "site").value})});
+        minutos_atras: +campo(f, "minutos_atras").value, origem: "gps", precisao_m: Math.round(pos.precisao),
+        aparelho: idAparelho(), site: campo(f, "site").value})});
     const j = await r.json().catch(() => ({}));
     if (r.status === 429){ msg.textContent = "Muitos envios seguidos. Aguarde um minuto."; $("enviar-relato").disabled = false; return; }
     if (!r.ok || !j.ok){ msg.textContent = j.erro || "Não foi possível enviar agora."; $("enviar-relato").disabled = false; return; }

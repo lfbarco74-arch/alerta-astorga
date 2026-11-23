@@ -116,6 +116,15 @@ Cada fenômeno tem a própria escala, para não misturar intensidade com tipo de
 
 Mais consequências (esfriou de repente, alagamento, galhos/árvores caídos, estrago, falta de energia) e, opcional, **de onde o temporal chegou** (8 direções), que valida a seta da linha (seção 3.6). Para a calibração, conta como **evento severo** um relato com vento forte ou vendaval, chuva forte ou muito forte, qualquer granizo, ou galhos/árvores caídos e estragos. Relatos da versão anterior são convertidos (vento forte → forte; vendaval → vendaval; chuva forte com intensidade fraca/moderada/forte → moderada/forte/muito forte).
 
+### 5.2 Portal de relatos e concordância (desde 22/11/2026)
+O painel passou a se apresentar como **portal de relatos com potencial de tempestade previsto**, não como alerta. Os níveis aparecem como potencial baixo, moderado, alto e muito alto (a lógica do cálculo não mudou; alertas oficiais seguem com Defesa Civil e INMET).
+
+- **Localização:** só a do aparelho, com precisão informada de até 2 km. Arredondada a ~1 km antes do envio. Locais marcados à mão ficaram de fora (relatos antigos marcados no mapa aparecem como "não verificados" e não entram nas métricas). Limite honesto: o servidor não tem como provar que a coordenada veio do GPS; a exigência eleva a barreira, e a concordância entre aparelhos diferentes é que dá peso ao relato.
+- **Aparelhos diferentes, sem login:** cada aparelho gera um código aleatório local. O código não é publicado; a listagem pública mostra um resumo que muda a cada dia (conta aparelhos no mesmo dia, sem permitir seguir alguém ao longo do tempo). Um aparelho vale um voto por célula (o relato mais recente).
+- **Célula:** raio de 5 km a partir de cada relato, 1 hora antes ou depois. No cartão do local em foco: raio de 5 km nas últimas 3 horas.
+- **Concordância por fenômeno:** resposta típica (mediana) e parcela dos aparelhos a até um grau dela. Exige no mínimo 3 aparelhos; abaixo disso, "poucos para medir".
+- **Próximo passo (quando houver volume):** relatório por município cruzando relatos com os avisos do INMET, com uma métrica de especificidade do aviso (quanto da área e do tempo avisados teve evento relatado), para oferecer como evidência local à prefeitura e à Defesa Civil municipal.
+
 ## 6. Limites conhecidos
 - Sem observações em tempo real (estações, raios, radar quantitativo) no motor. O radar aparece só no painel.
 - A rede aberta de radares do Simepar não tem API pública. O radar de banda S previsto para Jandaia do Sul (~30 km) muda o jogo se os dados forem abertos.
