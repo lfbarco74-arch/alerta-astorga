@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-23T04:37-03:00",
+ "gerado_em": "2026-11-23T05:07-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 2,
@@ -21,13 +21,13 @@
    "perigos_nivel": {
     "raios": "provável",
     "granizo": "possível",
-    "chuva intensa em pouco tempo": "possível"
+    "chuva intensa em pouco tempo": "provável"
    },
    "ingredientes": {
     "wmaxshear": 739,
     "cape": 1585,
     "cisalhamento_ms": 13.7,
-    "precip_max_mm_h": 11.4,
+    "precip_max_mm_h": 35.1,
     "isoterma0_min_m": 4760
    },
    "por_modelo": {
@@ -74,8 +74,8 @@
     "id": "56474"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-23T10:00",
-   "fim": "2026-11-24T03:00",
+   "inicio": "2026-11-23T11:00",
+   "fim": "2026-11-24T04:00",
    "hora_pico_local": "20:00",
    "hora_pico_iso": "2026-11-23T20:00",
    "direcao_celulas": "noroeste",
@@ -104,11 +104,11 @@
     "raios": "provável"
    },
    "ingredientes": {
-    "wmaxshear": 655,
-    "cape": 1150,
-    "cisalhamento_ms": 13.1,
+    "wmaxshear": 608,
+    "cape": 1280,
+    "cisalhamento_ms": 12.5,
     "precip_max_mm_h": 7.3,
-    "isoterma0_min_m": 4790
+    "isoterma0_min_m": 4780
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -128,25 +128,25 @@
      "localidade_pico": "santazelia"
     },
     "gfs_seamless": {
-     "nivel": 1,
-     "wmaxshear": 563,
+     "nivel": 0,
+     "wmaxshear": 470,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 4,
-     "localidade_pico": "tupinamba"
+     "hora_pico": 7,
+     "localidade_pico": "santazelia"
     },
     "icon_seamless": {
      "nivel": 0,
-     "wmaxshear": 336,
+     "wmaxshear": 315,
      "gatilho_local": true,
      "gatilho_regional": true,
-     "hora_pico": 4,
+     "hora_pico": 5,
      "localidade_pico": "santazelia"
     }
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.5686274509803921,
+    "p_alerta": 0.47058823529411764,
     "p_severo": 0.0
    },
    "inmet": {
@@ -154,13 +154,13 @@
     "id": "56474"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-23T04:00",
-   "fim": "2026-11-23T09:00",
-   "hora_pico_local": "04:00",
-   "hora_pico_iso": "2026-11-23T04:00",
+   "inicio": "2026-11-23T05:00",
+   "fim": "2026-11-23T10:00",
+   "hora_pico_local": "06:00",
+   "hora_pico_iso": "2026-11-23T06:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 285,
-   "direcao_linha_graus": 234,
+   "direcao_celulas_graus": 289,
+   "direcao_linha_graus": 233,
    "direcao_chegada": "sudoeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -183,13 +183,13 @@
    "perigos_nivel": {
     "raios": "provável",
     "granizo": "possível",
-    "chuva intensa em pouco tempo": "possível"
+    "chuva intensa em pouco tempo": "provável"
    },
    "ingredientes": {
     "wmaxshear": 739,
     "cape": 1585,
     "cisalhamento_ms": 13.7,
-    "precip_max_mm_h": 11.4,
+    "precip_max_mm_h": 35.1,
     "isoterma0_min_m": 4760
    },
    "por_modelo": {
@@ -236,8 +236,8 @@
     "id": "56474"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-23T10:00",
-   "fim": "2026-11-24T03:00",
+   "inicio": "2026-11-23T11:00",
+   "fim": "2026-11-24T04:00",
    "hora_pico_local": "20:00",
    "hora_pico_iso": "2026-11-23T20:00",
    "direcao_celulas": "noroeste",
@@ -256,7 +256,7 @@
    "nivel_modelos": 1,
    "motivos": [
     "3 de 4 modelos indicam nível 1 ou mais",
-    "65% dos 51 cenários do ECMWF com ambiente de alerta"
+    "59% dos 51 cenários do ECMWF com ambiente de alerta"
    ],
    "perigos": [
     "raios",
@@ -309,7 +309,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.6470588235294118,
+    "p_alerta": 0.5882352941176471,
     "p_severo": 0.0784313725490196
    },
    "inmet": {
@@ -317,8 +317,8 @@
     "id": "56480"
    },
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-24T04:00",
-   "fim": "2026-11-25T03:00",
+   "inicio": "2026-11-24T05:00",
+   "fim": "2026-11-25T04:00",
    "hora_pico_local": "18:00",
    "hora_pico_iso": "2026-11-24T18:00",
    "direcao_celulas": "noroeste",
@@ -463,11 +463,6 @@
   }
  ],
  "serie_horaria": [
-  {
-   "hora": "2026-11-23T04:00",
-   "wmaxshear": 653,
-   "gatilho": true
-  },
   {
    "hora": "2026-11-23T05:00",
    "wmaxshear": 603,
@@ -702,12 +697,17 @@
    "hora": "2026-11-25T03:00",
    "wmaxshear": 513,
    "gatilho": true
+  },
+  {
+   "hora": "2026-11-25T04:00",
+   "wmaxshear": 500,
+   "gatilho": true
   }
  ],
  "direcao_chegada": "oeste",
  "direcao_graus": 277,
  "direcao_celulas": "noroeste",
- "direcao_celulas_graus": 294,
+ "direcao_celulas_graus": 295,
  "avisos_inmet": [
   {
    "id": "56474",
