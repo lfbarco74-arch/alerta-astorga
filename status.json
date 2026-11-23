@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-23T02:07-03:00",
+ "gerado_em": "2026-11-23T02:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 2,
@@ -160,7 +160,7 @@
    "hora_pico_iso": "2026-11-23T02:00",
    "direcao_celulas": "oeste",
    "direcao_celulas_graus": 278,
-   "direcao_linha_graus": 238,
+   "direcao_linha_graus": 239,
    "direcao_chegada": "sudoeste",
    "ar_frio": null,
    "pontos_regionais": [
