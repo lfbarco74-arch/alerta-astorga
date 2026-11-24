@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-24T02:07-03:00",
+ "gerado_em": "2026-11-24T02:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 3,
@@ -24,8 +24,8 @@
    "ingredientes": {
     "wmaxshear": 417,
     "cape": 755,
-    "cisalhamento_ms": 11.7,
-    "precip_max_mm_h": 0.1,
+    "cisalhamento_ms": 11.8,
+    "precip_max_mm_h": 0.9,
     "isoterma0_min_m": 5100
    },
    "por_modelo": {
@@ -47,7 +47,7 @@
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 348,
+     "wmaxshear": 353,
      "gatilho_local": false,
      "gatilho_regional": false,
      "hora_pico": 2,
@@ -106,8 +106,8 @@
    "ingredientes": {
     "wmaxshear": 417,
     "cape": 755,
-    "cisalhamento_ms": 11.7,
-    "precip_max_mm_h": 0.1,
+    "cisalhamento_ms": 11.8,
+    "precip_max_mm_h": 0.9,
     "isoterma0_min_m": 5100
    },
    "por_modelo": {
@@ -129,7 +129,7 @@
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 348,
+     "wmaxshear": 353,
      "gatilho_local": false,
      "gatilho_regional": false,
      "hora_pico": 2,
@@ -210,11 +210,11 @@
     },
     "gfs_seamless": {
      "nivel": 1,
-     "wmaxshear": 601,
+     "wmaxshear": 611,
      "gatilho_local": true,
-     "gatilho_regional": true,
+     "gatilho_regional": false,
      "hora_pico": 18,
-     "localidade_pico": "santazelia"
+     "localidade_pico": "tupinamba"
     },
     "icon_seamless": {
      "nivel": 1,
@@ -268,8 +268,8 @@
    "ingredientes": {
     "wmaxshear": 758,
     "cape": 2480,
-    "cisalhamento_ms": 12.0,
-    "precip_max_mm_h": 38.1,
+    "cisalhamento_ms": 12.2,
+    "precip_max_mm_h": 54.2,
     "isoterma0_min_m": 4860
    },
    "por_modelo": {
@@ -291,7 +291,7 @@
     },
     "gfs_seamless": {
      "nivel": 2,
-     "wmaxshear": 982,
+     "wmaxshear": 1007,
      "gatilho_local": true,
      "gatilho_regional": true,
      "hora_pico": 41,
@@ -452,7 +452,7 @@
  "serie_horaria": [
   {
    "hora": "2026-11-24T02:00",
-   "wmaxshear": 393,
+   "wmaxshear": 395,
    "gatilho": false
   },
   {
@@ -482,27 +482,27 @@
   },
   {
    "hora": "2026-11-24T08:00",
-   "wmaxshear": 423,
+   "wmaxshear": 429,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T09:00",
-   "wmaxshear": 455,
+   "wmaxshear": 458,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T10:00",
-   "wmaxshear": 338,
+   "wmaxshear": 354,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T11:00",
-   "wmaxshear": 371,
+   "wmaxshear": 416,
    "gatilho": true
   },
   {
    "hora": "2026-11-24T12:00",
-   "wmaxshear": 429,
+   "wmaxshear": 440,
    "gatilho": true
   },
   {
@@ -513,7 +513,7 @@
   {
    "hora": "2026-11-24T14:00",
    "wmaxshear": 567,
-   "gatilho": true
+   "gatilho": false
   },
   {
    "hora": "2026-11-24T15:00",
@@ -532,7 +532,7 @@
   },
   {
    "hora": "2026-11-24T18:00",
-   "wmaxshear": 705,
+   "wmaxshear": 711,
    "gatilho": true
   },
   {
@@ -582,12 +582,12 @@
   },
   {
    "hora": "2026-11-25T04:00",
-   "wmaxshear": 364,
+   "wmaxshear": 350,
    "gatilho": false
   },
   {
    "hora": "2026-11-25T05:00",
-   "wmaxshear": 315,
+   "wmaxshear": 314,
    "gatilho": false
   },
   {
@@ -607,22 +607,22 @@
   },
   {
    "hora": "2026-11-25T09:00",
-   "wmaxshear": 302,
+   "wmaxshear": 289,
    "gatilho": true
   },
   {
    "hora": "2026-11-25T10:00",
-   "wmaxshear": 348,
+   "wmaxshear": 306,
    "gatilho": true
   },
   {
    "hora": "2026-11-25T11:00",
-   "wmaxshear": 383,
-   "gatilho": false
+   "wmaxshear": 365,
+   "gatilho": true
   },
   {
    "hora": "2026-11-25T12:00",
-   "wmaxshear": 411,
+   "wmaxshear": 426,
    "gatilho": true
   },
   {
@@ -632,7 +632,7 @@
   },
   {
    "hora": "2026-11-25T14:00",
-   "wmaxshear": 464,
+   "wmaxshear": 443,
    "gatilho": true
   },
   {
@@ -653,26 +653,26 @@
   {
    "hora": "2026-11-25T18:00",
    "wmaxshear": 738,
-   "gatilho": false
+   "gatilho": true
   },
   {
    "hora": "2026-11-25T19:00",
-   "wmaxshear": 720,
-   "gatilho": false
+   "wmaxshear": 684,
+   "gatilho": true
   },
   {
    "hora": "2026-11-25T20:00",
-   "wmaxshear": 554,
+   "wmaxshear": 489,
    "gatilho": true
   },
   {
    "hora": "2026-11-25T21:00",
-   "wmaxshear": 352,
+   "wmaxshear": 322,
    "gatilho": true
   },
   {
    "hora": "2026-11-25T22:00",
-   "wmaxshear": 414,
+   "wmaxshear": 347,
    "gatilho": true
   },
   {
@@ -683,7 +683,7 @@
   {
    "hora": "2026-11-26T00:00",
    "wmaxshear": 236,
-   "gatilho": true
+   "gatilho": false
   },
   {
    "hora": "2026-11-26T01:00",
