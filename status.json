@@ -1,11 +1,11 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-23T22:37-03:00",
+ "gerado_em": "2026-11-23T23:07-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 3,
   "nome_24h": "Severo",
-  "wmaxshear_24h": 643,
+  "wmaxshear_24h": 617,
   "janela_pior": {
    "nivel": 3,
    "nome": "Severo",
@@ -13,19 +13,13 @@
    "motivos": [
     "Aviso oficial do INMET: Grande Perigo (vermelho)"
    ],
-   "perigos": [
-    "raios",
-    "chuva intensa em pouco tempo"
-   ],
-   "perigos_nivel": {
-    "raios": "possível",
-    "chuva intensa em pouco tempo": "possível"
-   },
+   "perigos": [],
+   "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 643,
-    "cape": 1375,
-    "cisalhamento_ms": 12.1,
-    "precip_max_mm_h": 12.0,
+    "wmaxshear": 617,
+    "cape": 1290,
+    "cisalhamento_ms": 12.0,
+    "precip_max_mm_h": 2.2,
     "isoterma0_min_m": 5100
    },
    "por_modelo": {
@@ -40,7 +34,7 @@
     "gem_seamless": {
      "nivel": 0,
      "wmaxshear": 497,
-     "gatilho_local": true,
+     "gatilho_local": false,
      "gatilho_regional": false,
      "hora_pico": 23,
      "localidade_pico": "icara"
@@ -55,10 +49,10 @@
     },
     "icon_seamless": {
      "nivel": 0,
-     "wmaxshear": 660,
+     "wmaxshear": 608,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 22,
+     "hora_pico": 23,
      "localidade_pico": "tupinamba"
     }
    },
@@ -72,17 +66,16 @@
     "id": "56492"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-23T22:00",
-   "fim": "2026-11-24T03:00",
+   "inicio": "2026-11-23T23:00",
+   "fim": "2026-11-24T04:00",
    "hora_pico_local": "23:00",
    "hora_pico_iso": "2026-11-23T23:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 284,
-   "direcao_linha_graus": 274,
+   "direcao_celulas_graus": 286,
+   "direcao_linha_graus": 276,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
-    "anel225",
     "anel270",
     "anel315"
    ]
@@ -96,19 +89,13 @@
    "motivos": [
     "Aviso oficial do INMET: Grande Perigo (vermelho)"
    ],
-   "perigos": [
-    "raios",
-    "chuva intensa em pouco tempo"
-   ],
-   "perigos_nivel": {
-    "raios": "possível",
-    "chuva intensa em pouco tempo": "possível"
-   },
+   "perigos": [],
+   "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 643,
-    "cape": 1375,
-    "cisalhamento_ms": 12.1,
-    "precip_max_mm_h": 12.0,
+    "wmaxshear": 617,
+    "cape": 1290,
+    "cisalhamento_ms": 12.0,
+    "precip_max_mm_h": 2.2,
     "isoterma0_min_m": 5100
    },
    "por_modelo": {
@@ -123,7 +110,7 @@
     "gem_seamless": {
      "nivel": 0,
      "wmaxshear": 497,
-     "gatilho_local": true,
+     "gatilho_local": false,
      "gatilho_regional": false,
      "hora_pico": 23,
      "localidade_pico": "icara"
@@ -138,10 +125,10 @@
     },
     "icon_seamless": {
      "nivel": 0,
-     "wmaxshear": 660,
+     "wmaxshear": 608,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 22,
+     "hora_pico": 23,
      "localidade_pico": "tupinamba"
     }
    },
@@ -155,17 +142,16 @@
     "id": "56492"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-23T22:00",
-   "fim": "2026-11-24T03:00",
+   "inicio": "2026-11-23T23:00",
+   "fim": "2026-11-24T04:00",
    "hora_pico_local": "23:00",
    "hora_pico_iso": "2026-11-23T23:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 284,
-   "direcao_linha_graus": 274,
+   "direcao_celulas_graus": 286,
+   "direcao_linha_graus": 276,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
-    "anel225",
     "anel270",
     "anel315"
    ]
@@ -237,12 +223,12 @@
     "id": "56492"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-24T04:00",
-   "fim": "2026-11-24T21:00",
+   "inicio": "2026-11-24T05:00",
+   "fim": "2026-11-24T22:00",
    "hora_pico_local": "17:00",
    "hora_pico_iso": "2026-11-24T17:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 307,
+   "direcao_celulas_graus": 306,
    "direcao_linha_graus": 289,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -276,8 +262,8 @@
     "wmaxshear": 873,
     "cape": 2215,
     "cisalhamento_ms": 13.2,
-    "precip_max_mm_h": 28.5,
-    "isoterma0_min_m": 4990
+    "precip_max_mm_h": 38.1,
+    "isoterma0_min_m": 4920
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -315,7 +301,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.6078431372549019,
+    "p_alerta": 0.6274509803921569,
     "p_severo": 0.0392156862745098
    },
    "inmet": {
@@ -323,12 +309,12 @@
     "id": "56492"
    },
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-24T22:00",
-   "fim": "2026-11-25T21:00",
+   "inicio": "2026-11-24T23:00",
+   "fim": "2026-11-25T22:00",
    "hora_pico_local": "17:00",
    "hora_pico_iso": "2026-11-25T17:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 296,
+   "direcao_celulas_graus": 295,
    "direcao_linha_graus": 300,
    "direcao_chegada": "noroeste",
    "ar_frio": null,
@@ -344,7 +330,7 @@
    "nome": "Astorga (sede)",
    "perfil": "urbano",
    "nivel_modelos": 2,
-   "wmaxshear": 736,
+   "wmaxshear": 729,
    "perigos": [
     "raios",
     "chuva intensa em pouco tempo"
@@ -383,7 +369,7 @@
    "nome": "Tupinambá",
    "perfil": "rural",
    "nivel_modelos": 2,
-   "wmaxshear": 737,
+   "wmaxshear": 714,
    "perigos": [
     "raios",
     "chuva intensa em pouco tempo"
@@ -459,11 +445,6 @@
   }
  ],
  "serie_horaria": [
-  {
-   "hora": "2026-11-23T22:00",
-   "wmaxshear": 643,
-   "gatilho": true
-  },
   {
    "hora": "2026-11-23T23:00",
    "wmaxshear": 617,
@@ -698,10 +679,15 @@
    "hora": "2026-11-25T21:00",
    "wmaxshear": 373,
    "gatilho": true
+  },
+  {
+   "hora": "2026-11-25T22:00",
+   "wmaxshear": 442,
+   "gatilho": true
   }
  ],
  "direcao_chegada": "oeste",
- "direcao_graus": 274,
+ "direcao_graus": 276,
  "direcao_celulas": "noroeste",
  "direcao_celulas_graus": 301,
  "avisos_inmet": [
