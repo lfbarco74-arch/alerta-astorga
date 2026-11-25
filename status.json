@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-25T00:07-03:00",
+ "gerado_em": "2026-11-25T00:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 2,
@@ -64,7 +64,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.0784313725490196,
+    "p_alerta": 0.29411764705882354,
     "p_severo": 0.0
    },
    "inmet": {
@@ -147,7 +147,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.0784313725490196,
+    "p_alerta": 0.29411764705882354,
     "p_severo": 0.0
    },
    "inmet": {
@@ -176,7 +176,7 @@
    "nivel_modelos": 1,
    "motivos": [
     "3 de 4 modelos indicam nível 1 ou mais",
-    "75% dos 51 cenários do ECMWF com ambiente de alerta"
+    "Aviso oficial do INMET: Perigo (laranja)"
    ],
    "perigos": [
     "raios",
@@ -229,7 +229,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.7450980392156863,
+    "p_alerta": 0.45098039215686275,
     "p_severo": 0.0
    },
    "inmet": {
@@ -310,7 +310,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.5098039215686274,
+    "p_alerta": 0.5686274509803921,
     "p_severo": 0.0196078431372549
    },
    "inmet": {
