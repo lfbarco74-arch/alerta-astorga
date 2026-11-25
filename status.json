@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-25T16:37-03:00",
+ "gerado_em": "2026-11-25T17:07-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 2,
@@ -13,13 +13,19 @@
    "motivos": [
     "Aviso oficial do INMET: Perigo (laranja)"
    ],
-   "perigos": [],
-   "perigos_nivel": {},
+   "perigos": [
+    "raios",
+    "chuva intensa em pouco tempo"
+   ],
+   "perigos_nivel": {
+    "raios": "possível",
+    "chuva intensa em pouco tempo": "possível"
+   },
    "ingredientes": {
     "wmaxshear": 267,
     "cape": 785,
     "cisalhamento_ms": 4.7,
-    "precip_max_mm_h": 0.6,
+    "precip_max_mm_h": 1.3,
     "isoterma0_min_m": 4860
    },
    "por_modelo": {
@@ -50,8 +56,8 @@
     "icon_seamless": {
      "nivel": 0,
      "wmaxshear": 0,
-     "gatilho_local": false,
-     "gatilho_regional": false,
+     "gatilho_local": true,
+     "gatilho_regional": true,
      "hora_pico": null,
      "localidade_pico": "sede"
     }
@@ -66,12 +72,12 @@
     "id": "56501"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-25T16:00",
-   "fim": "2026-11-25T21:00",
+   "inicio": "2026-11-25T17:00",
+   "fim": "2026-11-25T22:00",
    "hora_pico_local": "19:00",
    "hora_pico_iso": "2026-11-25T19:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 307,
+   "direcao_celulas_graus": 308,
    "direcao_linha_graus": 301,
    "direcao_chegada": "noroeste",
    "ar_frio": null,
@@ -90,13 +96,19 @@
    "motivos": [
     "Aviso oficial do INMET: Perigo (laranja)"
    ],
-   "perigos": [],
-   "perigos_nivel": {},
+   "perigos": [
+    "raios",
+    "chuva intensa em pouco tempo"
+   ],
+   "perigos_nivel": {
+    "raios": "possível",
+    "chuva intensa em pouco tempo": "possível"
+   },
    "ingredientes": {
     "wmaxshear": 267,
     "cape": 785,
     "cisalhamento_ms": 4.7,
-    "precip_max_mm_h": 0.6,
+    "precip_max_mm_h": 1.3,
     "isoterma0_min_m": 4860
    },
    "por_modelo": {
@@ -127,8 +139,8 @@
     "icon_seamless": {
      "nivel": 0,
      "wmaxshear": 0,
-     "gatilho_local": false,
-     "gatilho_regional": false,
+     "gatilho_local": true,
+     "gatilho_regional": true,
      "hora_pico": null,
      "localidade_pico": "sede"
     }
@@ -143,12 +155,12 @@
     "id": "56501"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-25T16:00",
-   "fim": "2026-11-25T21:00",
+   "inicio": "2026-11-25T17:00",
+   "fim": "2026-11-25T22:00",
    "hora_pico_local": "19:00",
    "hora_pico_iso": "2026-11-25T19:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 307,
+   "direcao_celulas_graus": 308,
    "direcao_linha_graus": 301,
    "direcao_chegada": "noroeste",
    "ar_frio": null,
@@ -174,9 +186,9 @@
     "chuva intensa em pouco tempo": "possível"
    },
    "ingredientes": {
-    "wmaxshear": 270,
-    "cape": 455,
-    "cisalhamento_ms": 8.5,
+    "wmaxshear": 209,
+    "cape": 310,
+    "cisalhamento_ms": 8.2,
     "precip_max_mm_h": 4.0,
     "isoterma0_min_m": 4750
    },
@@ -191,10 +203,10 @@
     },
     "gem_seamless": {
      "nivel": 0,
-     "wmaxshear": 411,
+     "wmaxshear": 288,
      "gatilho_local": false,
      "gatilho_regional": true,
-     "hora_pico": 22,
+     "hora_pico": 23,
      "localidade_pico": "icara"
     },
     "gfs_seamless": {
@@ -224,12 +236,12 @@
     "id": "56501"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-25T22:00",
-   "fim": "2026-11-26T15:00",
+   "inicio": "2026-11-25T23:00",
+   "fim": "2026-11-26T16:00",
    "hora_pico_local": "03:00",
    "hora_pico_iso": "2026-11-26T03:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 274,
+   "direcao_celulas_graus": 270,
    "direcao_linha_graus": 267,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -299,12 +311,12 @@
     "id": "56502"
    },
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-26T16:00",
-   "fim": "2026-11-27T15:00",
+   "inicio": "2026-11-26T17:00",
+   "fim": "2026-11-27T16:00",
    "hora_pico_local": "10:00",
    "hora_pico_iso": "2026-11-27T10:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 316,
+   "direcao_celulas_graus": 319,
    "direcao_linha_graus": 266,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -428,11 +440,6 @@
   }
  ],
  "serie_horaria": [
-  {
-   "hora": "2026-11-25T16:00",
-   "wmaxshear": 78,
-   "gatilho": true
-  },
   {
    "hora": "2026-11-25T17:00",
    "wmaxshear": 159,
@@ -667,12 +674,17 @@
    "hora": "2026-11-27T15:00",
    "wmaxshear": 188,
    "gatilho": false
+  },
+  {
+   "hora": "2026-11-27T16:00",
+   "wmaxshear": 191,
+   "gatilho": false
   }
  ],
  "direcao_chegada": "noroeste",
  "direcao_graus": 301,
  "direcao_celulas": "oeste",
- "direcao_celulas_graus": 281,
+ "direcao_celulas_graus": 279,
  "avisos_inmet": [
   {
    "id": "56501",
