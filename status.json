@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-24T22:07-03:00",
+ "gerado_em": "2026-11-24T22:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 3,
@@ -24,17 +24,17 @@
    "ingredientes": {
     "wmaxshear": 480,
     "cape": 1010,
-    "cisalhamento_ms": 12.2,
+    "cisalhamento_ms": 11.6,
     "precip_max_mm_h": 6.5,
     "isoterma0_min_m": 5060
    },
    "por_modelo": {
     "ecmwf_ifs025": {
-     "nivel": 0,
-     "wmaxshear": 744,
+     "nivel": 1,
+     "wmaxshear": 1015,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 24,
+     "hora_pico": 22,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -74,11 +74,11 @@
    "rotulo": "Próximas 6 horas",
    "inicio": "2026-11-24T22:00",
    "fim": "2026-11-25T03:00",
-   "hora_pico_local": "23:00",
-   "hora_pico_iso": "2026-11-24T23:00",
+   "hora_pico_local": "22:00",
+   "hora_pico_iso": "2026-11-24T22:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 282,
-   "direcao_linha_graus": 290,
+   "direcao_celulas_graus": 278,
+   "direcao_linha_graus": 292,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -107,17 +107,17 @@
    "ingredientes": {
     "wmaxshear": 480,
     "cape": 1010,
-    "cisalhamento_ms": 12.2,
+    "cisalhamento_ms": 11.6,
     "precip_max_mm_h": 6.5,
     "isoterma0_min_m": 5060
    },
    "por_modelo": {
     "ecmwf_ifs025": {
-     "nivel": 0,
-     "wmaxshear": 744,
+     "nivel": 1,
+     "wmaxshear": 1015,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 24,
+     "hora_pico": 22,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -157,11 +157,11 @@
    "rotulo": "Próximas 6 horas",
    "inicio": "2026-11-24T22:00",
    "fim": "2026-11-25T03:00",
-   "hora_pico_local": "23:00",
-   "hora_pico_iso": "2026-11-24T23:00",
+   "hora_pico_local": "22:00",
+   "hora_pico_iso": "2026-11-24T22:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 282,
-   "direcao_linha_graus": 290,
+   "direcao_celulas_graus": 278,
+   "direcao_linha_graus": 292,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -188,18 +188,18 @@
    },
    "ingredientes": {
     "wmaxshear": 595,
-    "cape": 2065,
-    "cisalhamento_ms": 10.2,
+    "cape": 1595,
+    "cisalhamento_ms": 9.8,
     "precip_max_mm_h": 28.3,
     "isoterma0_min_m": 4770
    },
    "por_modelo": {
     "ecmwf_ifs025": {
-     "nivel": 2,
-     "wmaxshear": 930,
-     "gatilho_local": true,
+     "nivel": 1,
+     "wmaxshear": 686,
+     "gatilho_local": false,
      "gatilho_regional": true,
-     "hora_pico": 39,
+     "hora_pico": 40,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -239,14 +239,15 @@
    "rotulo": "De 6 a 24 horas",
    "inicio": "2026-11-25T04:00",
    "fim": "2026-11-25T21:00",
-   "hora_pico_local": "15:00",
-   "hora_pico_iso": "2026-11-25T15:00",
+   "hora_pico_local": "16:00",
+   "hora_pico_iso": "2026-11-25T16:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 291,
-   "direcao_linha_graus": 309,
+   "direcao_celulas_graus": 285,
+   "direcao_linha_graus": 307,
    "direcao_chegada": "noroeste",
    "ar_frio": null,
    "pontos_regionais": [
+    "anel225",
     "anel270",
     "anel315"
    ]
@@ -269,17 +270,17 @@
    "ingredientes": {
     "wmaxshear": 447,
     "cape": 460,
-    "cisalhamento_ms": 15.0,
+    "cisalhamento_ms": 13.4,
     "precip_max_mm_h": 46.8,
     "isoterma0_min_m": 4730
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 829,
+     "wmaxshear": 914,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 51,
+     "hora_pico": 48,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -319,17 +320,16 @@
    "rotulo": "Amanhã (24-48 h)",
    "inicio": "2026-11-25T22:00",
    "fim": "2026-11-26T21:00",
-   "hora_pico_local": "03:00",
-   "hora_pico_iso": "2026-11-26T03:00",
+   "hora_pico_local": "02:00",
+   "hora_pico_iso": "2026-11-26T02:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 256,
-   "direcao_linha_graus": 272,
+   "direcao_celulas_graus": 254,
+   "direcao_linha_graus": 273,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
     "anel225",
-    "anel270",
-    "anel315"
+    "anel270"
    ]
   }
  ],
@@ -356,6 +356,7 @@
    "wmaxshear": 595,
    "perigos": [
     "raios",
+    "granizo",
     "chuva intensa em pouco tempo"
    ],
    "lat": -23.1756,
@@ -369,6 +370,7 @@
    "wmaxshear": 567,
    "perigos": [
     "raios",
+    "granizo",
     "chuva intensa em pouco tempo"
    ],
    "lat": -23.1711,
@@ -434,7 +436,7 @@
    "rumo": 225.0,
    "lat": -23.6147,
    "lon": -52.0815,
-   "a_montante": false,
+   "a_montante": true,
    "tempestade_simulada": true
   },
   {
@@ -492,27 +494,27 @@
   },
   {
    "hora": "2026-11-25T05:00",
-   "wmaxshear": 179,
+   "wmaxshear": 165,
    "gatilho": true
   },
   {
    "hora": "2026-11-25T06:00",
-   "wmaxshear": 116,
-   "gatilho": false
+   "wmaxshear": 138,
+   "gatilho": true
   },
   {
    "hora": "2026-11-25T07:00",
-   "wmaxshear": 102,
+   "wmaxshear": 153,
    "gatilho": false
   },
   {
    "hora": "2026-11-25T08:00",
-   "wmaxshear": 170,
+   "wmaxshear": 198,
    "gatilho": false
   },
   {
    "hora": "2026-11-25T09:00",
-   "wmaxshear": 241,
+   "wmaxshear": 257,
    "gatilho": true
   },
   {
@@ -557,7 +559,7 @@
   },
   {
    "hora": "2026-11-25T18:00",
-   "wmaxshear": 581,
+   "wmaxshear": 578,
    "gatilho": false
   },
   {
@@ -667,12 +669,12 @@
   },
   {
    "hora": "2026-11-26T16:00",
-   "wmaxshear": 161,
+   "wmaxshear": 250,
    "gatilho": false
   },
   {
    "hora": "2026-11-26T17:00",
-   "wmaxshear": 97,
+   "wmaxshear": 166,
    "gatilho": false
   },
   {
@@ -697,9 +699,9 @@
   }
  ],
  "direcao_chegada": "oeste",
- "direcao_graus": 290,
+ "direcao_graus": 292,
  "direcao_celulas": "oeste",
- "direcao_celulas_graus": 288,
+ "direcao_celulas_graus": 283,
  "avisos_inmet": [
   {
    "id": "56498",
