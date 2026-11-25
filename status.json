@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-25T20:07-03:00",
+ "gerado_em": "2026-11-25T20:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 2,
@@ -25,7 +25,7 @@
     "wmaxshear": 281,
     "cape": 330,
     "cisalhamento_ms": 5.1,
-    "precip_max_mm_h": 3.7,
+    "precip_max_mm_h": 2.0,
     "isoterma0_min_m": 4850
    },
    "por_modelo": {
@@ -49,7 +49,7 @@
      "nivel": 0,
      "wmaxshear": 0,
      "gatilho_local": false,
-     "gatilho_regional": true,
+     "gatilho_regional": false,
      "hora_pico": null,
      "localidade_pico": "sede"
     },
@@ -108,7 +108,7 @@
     "wmaxshear": 281,
     "cape": 330,
     "cisalhamento_ms": 5.1,
-    "precip_max_mm_h": 3.7,
+    "precip_max_mm_h": 2.0,
     "isoterma0_min_m": 4850
    },
    "por_modelo": {
@@ -132,7 +132,7 @@
      "nivel": 0,
      "wmaxshear": 0,
      "gatilho_local": false,
-     "gatilho_regional": true,
+     "gatilho_regional": false,
      "hora_pico": null,
      "localidade_pico": "sede"
     },
@@ -187,7 +187,7 @@
     "wmaxshear": 137,
     "cape": 255,
     "cisalhamento_ms": 4.3,
-    "precip_max_mm_h": 4.0,
+    "precip_max_mm_h": 3.9,
     "isoterma0_min_m": 4750
    },
    "por_modelo": {
@@ -262,7 +262,7 @@
     "wmaxshear": 0,
     "cape": 0,
     "cisalhamento_ms": 0.0,
-    "precip_max_mm_h": 0.1,
+    "precip_max_mm_h": 0.0,
     "isoterma0_min_m": 4710
    },
    "por_modelo": {
@@ -405,7 +405,7 @@
    "lat": -23.773,
    "lon": -51.6656,
    "a_montante": false,
-   "tempestade_simulada": true
+   "tempestade_simulada": false
   },
   {
    "id": "anel225",
@@ -413,7 +413,7 @@
    "lat": -23.6147,
    "lon": -52.0815,
    "a_montante": true,
-   "tempestade_simulada": true
+   "tempestade_simulada": false
   },
   {
    "id": "anel270",
@@ -421,7 +421,7 @@
    "lat": -23.2325,
    "lon": -52.2538,
    "a_montante": true,
-   "tempestade_simulada": true
+   "tempestade_simulada": false
   },
   {
    "id": "anel315",
@@ -456,7 +456,7 @@
   {
    "hora": "2026-11-26T00:00",
    "wmaxshear": 0,
-   "gatilho": true
+   "gatilho": false
   },
   {
    "hora": "2026-11-26T01:00",
