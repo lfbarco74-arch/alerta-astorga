@@ -1,11 +1,11 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-26T08:07-03:00",
+ "gerado_em": "2026-11-26T08:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
   "nome_24h": "Atenção",
-  "wmaxshear_24h": 101,
+  "wmaxshear_24h": 100,
   "janela_pior": {
    "nivel": 1,
    "nome": "Atenção",
@@ -16,7 +16,7 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 101,
+    "wmaxshear": 100,
     "cape": 140,
     "cisalhamento_ms": 3.2,
     "precip_max_mm_h": 0.9,
@@ -41,7 +41,7 @@
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 202,
+     "wmaxshear": 199,
      "gatilho_local": false,
      "gatilho_regional": false,
      "hora_pico": 9,
@@ -93,7 +93,7 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 101,
+    "wmaxshear": 100,
     "cape": 140,
     "cisalhamento_ms": 3.2,
     "precip_max_mm_h": 0.9,
@@ -118,7 +118,7 @@
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 202,
+     "wmaxshear": 199,
      "gatilho_local": false,
      "gatilho_regional": false,
      "hora_pico": 9,
@@ -175,7 +175,7 @@
     "wmaxshear": 0,
     "cape": 0,
     "cisalhamento_ms": 0.0,
-    "precip_max_mm_h": 0.0,
+    "precip_max_mm_h": 0.2,
     "isoterma0_min_m": 4680
    },
    "por_modelo": {
@@ -314,7 +314,7 @@
    "nome": "Astorga (sede)",
    "perfil": "urbano",
    "nivel_modelos": 0,
-   "wmaxshear": 101,
+   "wmaxshear": 100,
    "perigos": [],
    "lat": -23.2325,
    "lon": -51.6656
@@ -324,7 +324,7 @@
    "nome": "Santa Zélia",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 100,
+   "wmaxshear": 98,
    "perigos": [],
    "lat": -23.1756,
    "lon": -51.6783
@@ -334,7 +334,7 @@
    "nome": "Içara",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 99,
+   "wmaxshear": 98,
    "perigos": [],
    "lat": -23.1711,
    "lon": -51.6311
