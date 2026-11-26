@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-26T20:07-03:00",
+ "gerado_em": "2026-11-26T20:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -251,7 +251,7 @@
     "chuva intensa em pouco tempo": "possível"
    },
    "ingredientes": {
-    "wmaxshear": 751,
+    "wmaxshear": 758,
     "cape": 1295,
     "cisalhamento_ms": 14.0,
     "precip_max_mm_h": 8.0,
@@ -276,7 +276,7 @@
     },
     "gfs_seamless": {
      "nivel": 2,
-     "wmaxshear": 829,
+     "wmaxshear": 842,
      "gatilho_local": false,
      "gatilho_regional": true,
      "hora_pico": 60,
@@ -618,52 +618,52 @@
   },
   {
    "hora": "2026-11-28T10:00",
-   "wmaxshear": 587,
+   "wmaxshear": 586,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T11:00",
-   "wmaxshear": 715,
+   "wmaxshear": 712,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T12:00",
-   "wmaxshear": 751,
+   "wmaxshear": 758,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T13:00",
-   "wmaxshear": 700,
+   "wmaxshear": 710,
    "gatilho": true
   },
   {
    "hora": "2026-11-28T14:00",
-   "wmaxshear": 665,
-   "gatilho": true
+   "wmaxshear": 686,
+   "gatilho": false
   },
   {
    "hora": "2026-11-28T15:00",
-   "wmaxshear": 634,
-   "gatilho": true
+   "wmaxshear": 658,
+   "gatilho": false
   },
   {
    "hora": "2026-11-28T16:00",
-   "wmaxshear": 652,
+   "wmaxshear": 659,
    "gatilho": true
   },
   {
    "hora": "2026-11-28T17:00",
-   "wmaxshear": 639,
+   "wmaxshear": 643,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T18:00",
    "wmaxshear": 664,
-   "gatilho": false
+   "gatilho": true
   },
   {
    "hora": "2026-11-28T19:00",
-   "wmaxshear": 541,
+   "wmaxshear": 506,
    "gatilho": false
   }
  ],
