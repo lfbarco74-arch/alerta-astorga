@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-25T22:07-03:00",
+ "gerado_em": "2026-11-25T22:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 2,
@@ -23,7 +23,7 @@
    },
    "ingredientes": {
     "wmaxshear": 205,
-    "cape": 325,
+    "cape": 250,
     "cisalhamento_ms": 5.7,
     "precip_max_mm_h": 3.9,
     "isoterma0_min_m": 4750
@@ -31,10 +31,10 @@
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 540,
+     "wmaxshear": 490,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 22,
+     "hora_pico": 23,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -77,8 +77,8 @@
    "hora_pico_local": "22:00",
    "hora_pico_iso": "2026-11-25T22:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 312,
-   "direcao_linha_graus": 290,
+   "direcao_celulas_graus": 319,
+   "direcao_linha_graus": 292,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -106,7 +106,7 @@
    },
    "ingredientes": {
     "wmaxshear": 205,
-    "cape": 325,
+    "cape": 250,
     "cisalhamento_ms": 5.7,
     "precip_max_mm_h": 3.9,
     "isoterma0_min_m": 4750
@@ -114,10 +114,10 @@
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 540,
+     "wmaxshear": 490,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 22,
+     "hora_pico": 23,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -160,8 +160,8 @@
    "hora_pico_local": "22:00",
    "hora_pico_iso": "2026-11-25T22:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 312,
-   "direcao_linha_graus": 290,
+   "direcao_celulas_graus": 319,
+   "direcao_linha_graus": 292,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -189,7 +189,7 @@
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 417,
+     "wmaxshear": 337,
      "gatilho_local": false,
      "gatilho_regional": false,
      "hora_pico": 28,
@@ -234,15 +234,14 @@
    "fim": "2026-11-26T21:00",
    "hora_pico_local": "07:00",
    "hora_pico_iso": "2026-11-26T07:00",
-   "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 256,
+   "direcao_celulas": "sudoeste",
+   "direcao_celulas_graus": 243,
    "direcao_linha_graus": 271,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
     "anel225",
-    "anel270",
-    "anel315"
+    "anel270"
    ]
   },
   {
@@ -258,7 +257,7 @@
     "wmaxshear": 0,
     "cape": 0,
     "cisalhamento_ms": 0.0,
-    "precip_max_mm_h": 0.0,
+    "precip_max_mm_h": 0.1,
     "isoterma0_min_m": 4720
    },
    "por_modelo": {
@@ -310,8 +309,8 @@
    "hora_pico_local": "15:00",
    "hora_pico_iso": "2026-11-27T15:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 336,
-   "direcao_linha_graus": 264,
+   "direcao_celulas_graus": 335,
+   "direcao_linha_graus": 263,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -486,42 +485,42 @@
   },
   {
    "hora": "2026-11-26T09:00",
-   "wmaxshear": 84,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-26T10:00",
-   "wmaxshear": 76,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-26T11:00",
-   "wmaxshear": 74,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-26T12:00",
-   "wmaxshear": 78,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-26T13:00",
-   "wmaxshear": 87,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-26T14:00",
-   "wmaxshear": 103,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-26T15:00",
-   "wmaxshear": 111,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-26T16:00",
-   "wmaxshear": 94,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
@@ -671,9 +670,9 @@
   }
  ],
  "direcao_chegada": "oeste",
- "direcao_graus": 290,
+ "direcao_graus": 292,
  "direcao_celulas": "oeste",
- "direcao_celulas_graus": 276,
+ "direcao_celulas_graus": 267,
  "avisos_inmet": [
   {
    "id": "56501",
