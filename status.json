@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-26T14:07-03:00",
+ "gerado_em": "2026-11-26T14:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -47,7 +47,7 @@
      "nivel": 0,
      "wmaxshear": 0,
      "gatilho_local": false,
-     "gatilho_regional": false,
+     "gatilho_regional": true,
      "hora_pico": null,
      "localidade_pico": "sede"
     },
@@ -55,7 +55,7 @@
      "nivel": 0,
      "wmaxshear": 0,
      "gatilho_local": false,
-     "gatilho_regional": true,
+     "gatilho_regional": false,
      "hora_pico": null,
      "localidade_pico": "sede"
     }
@@ -75,8 +75,8 @@
    "hora_pico_local": "14:00",
    "hora_pico_iso": "2026-11-26T14:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 256,
-   "direcao_linha_graus": 281,
+   "direcao_celulas_graus": 267,
+   "direcao_linha_graus": 279,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -128,7 +128,7 @@
      "nivel": 0,
      "wmaxshear": 0,
      "gatilho_local": false,
-     "gatilho_regional": false,
+     "gatilho_regional": true,
      "hora_pico": null,
      "localidade_pico": "sede"
     },
@@ -136,7 +136,7 @@
      "nivel": 0,
      "wmaxshear": 0,
      "gatilho_local": false,
-     "gatilho_regional": true,
+     "gatilho_regional": false,
      "hora_pico": null,
      "localidade_pico": "sede"
     }
@@ -156,8 +156,8 @@
    "hora_pico_local": "14:00",
    "hora_pico_iso": "2026-11-26T14:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 256,
-   "direcao_linha_graus": 281,
+   "direcao_celulas_graus": 267,
+   "direcao_linha_graus": 279,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -235,8 +235,8 @@
    "hora_pico_local": "12:00",
    "hora_pico_iso": "2026-11-27T12:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 328,
-   "direcao_linha_graus": 266,
+   "direcao_celulas_graus": 322,
+   "direcao_linha_graus": 267,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -255,10 +255,10 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 654,
+    "wmaxshear": 593,
     "cape": 980,
-    "cisalhamento_ms": 14.3,
-    "precip_max_mm_h": 2.0,
+    "cisalhamento_ms": 13.4,
+    "precip_max_mm_h": 3.3,
     "isoterma0_min_m": 4730
    },
    "por_modelo": {
@@ -280,7 +280,7 @@
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 716,
+     "wmaxshear": 592,
      "gatilho_local": false,
      "gatilho_regional": false,
      "hora_pico": 61,
@@ -288,7 +288,7 @@
     },
     "icon_seamless": {
      "nivel": 0,
-     "wmaxshear": 457,
+     "wmaxshear": 316,
      "gatilho_local": false,
      "gatilho_regional": false,
      "hora_pico": 61,
@@ -310,7 +310,7 @@
    "hora_pico_local": "13:00",
    "hora_pico_iso": "2026-11-28T13:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 291,
+   "direcao_celulas_graus": 292,
    "direcao_linha_graus": 254,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -437,7 +437,7 @@
   {
    "hora": "2026-11-26T15:00",
    "wmaxshear": 0,
-   "gatilho": true
+   "gatilho": false
   },
   {
    "hora": "2026-11-26T16:00",
@@ -447,7 +447,7 @@
   {
    "hora": "2026-11-26T17:00",
    "wmaxshear": 0,
-   "gatilho": false
+   "gatilho": true
   },
   {
    "hora": "2026-11-26T18:00",
@@ -656,24 +656,24 @@
   },
   {
    "hora": "2026-11-28T11:00",
-   "wmaxshear": 550,
+   "wmaxshear": 534,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T12:00",
-   "wmaxshear": 554,
+   "wmaxshear": 527,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T13:00",
-   "wmaxshear": 654,
+   "wmaxshear": 593,
    "gatilho": false
   }
  ],
  "direcao_chegada": "oeste",
- "direcao_graus": 281,
+ "direcao_graus": 279,
  "direcao_celulas": "noroeste",
- "direcao_celulas_graus": 309,
+ "direcao_celulas_graus": 310,
  "avisos_inmet": [
   {
    "id": "56509",
