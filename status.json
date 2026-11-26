@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-26T11:07-03:00",
+ "gerado_em": "2026-11-26T11:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -23,7 +23,7 @@
     "wmaxshear": 98,
     "cape": 140,
     "cisalhamento_ms": 3.4,
-    "precip_max_mm_h": 0.2,
+    "precip_max_mm_h": 1.0,
     "isoterma0_min_m": 4930
    },
    "por_modelo": {
@@ -75,7 +75,7 @@
    "hora_pico_local": "12:00",
    "hora_pico_iso": "2026-11-26T12:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 257,
+   "direcao_celulas_graus": 260,
    "direcao_linha_graus": 277,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -104,7 +104,7 @@
     "wmaxshear": 98,
     "cape": 140,
     "cisalhamento_ms": 3.4,
-    "precip_max_mm_h": 0.2,
+    "precip_max_mm_h": 1.0,
     "isoterma0_min_m": 4930
    },
    "por_modelo": {
@@ -156,7 +156,7 @@
    "hora_pico_local": "12:00",
    "hora_pico_iso": "2026-11-26T12:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 257,
+   "direcao_celulas_graus": 260,
    "direcao_linha_graus": 277,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -173,20 +173,24 @@
    "motivos": [
     "Aviso oficial do INMET: Perigo Potencial (amarelo)"
    ],
-   "perigos": [],
-   "perigos_nivel": {},
+   "perigos": [
+    "raios"
+   ],
+   "perigos_nivel": {
+    "raios": "possível"
+   },
    "ingredientes": {
     "wmaxshear": 0,
     "cape": 0,
     "cisalhamento_ms": 0.0,
-    "precip_max_mm_h": 0.3,
+    "precip_max_mm_h": 5.5,
     "isoterma0_min_m": 4620
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
      "wmaxshear": 0,
-     "gatilho_local": false,
+     "gatilho_local": true,
      "gatilho_regional": false,
      "hora_pico": null,
      "localidade_pico": "sede"
@@ -231,7 +235,7 @@
    "hora_pico_local": null,
    "hora_pico_iso": null,
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 321,
+   "direcao_celulas_graus": 317,
    "direcao_linha_graus": 268,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -251,19 +255,19 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 255,
+    "wmaxshear": 247,
     "cape": 205,
-    "cisalhamento_ms": 8.4,
-    "precip_max_mm_h": 2.0,
+    "cisalhamento_ms": 8.0,
+    "precip_max_mm_h": 3.9,
     "isoterma0_min_m": 4730
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 511,
+     "wmaxshear": 493,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 57,
+     "hora_pico": 58,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -381,7 +385,7 @@
    "lat": -23.2325,
    "lon": -51.0774,
    "a_montante": false,
-   "tempestade_simulada": false
+   "tempestade_simulada": true
   },
   {
    "id": "anel135",
@@ -389,7 +393,7 @@
    "lat": -23.6147,
    "lon": -51.2497,
    "a_montante": false,
-   "tempestade_simulada": false
+   "tempestade_simulada": true
   },
   {
    "id": "anel180",
@@ -528,17 +532,17 @@
   {
    "hora": "2026-11-27T07:00",
    "wmaxshear": 0,
-   "gatilho": false
+   "gatilho": true
   },
   {
    "hora": "2026-11-27T08:00",
    "wmaxshear": 0,
-   "gatilho": false
+   "gatilho": true
   },
   {
    "hora": "2026-11-27T09:00",
    "wmaxshear": 0,
-   "gatilho": false
+   "gatilho": true
   },
   {
    "hora": "2026-11-27T10:00",
@@ -577,17 +581,17 @@
   },
   {
    "hora": "2026-11-27T17:00",
-   "wmaxshear": 133,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-27T18:00",
-   "wmaxshear": 141,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-27T19:00",
-   "wmaxshear": 162,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
@@ -612,12 +616,12 @@
   },
   {
    "hora": "2026-11-28T00:00",
-   "wmaxshear": 228,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T01:00",
-   "wmaxshear": 229,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
@@ -662,14 +666,14 @@
   },
   {
    "hora": "2026-11-28T10:00",
-   "wmaxshear": 245,
+   "wmaxshear": 247,
    "gatilho": false
   }
  ],
  "direcao_chegada": "oeste",
  "direcao_graus": 277,
  "direcao_celulas": "noroeste",
- "direcao_celulas_graus": 295,
+ "direcao_celulas_graus": 294,
  "avisos_inmet": [
   {
    "id": "56509",
