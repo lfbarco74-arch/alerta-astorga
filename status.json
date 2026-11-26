@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-26T00:07-03:00",
+ "gerado_em": "2026-11-26T00:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -62,7 +62,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.0392156862745098,
+    "p_alerta": 0.0,
     "p_severo": 0.0
    },
    "inmet": {
@@ -143,7 +143,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.0392156862745098,
+    "p_alerta": 0.0,
     "p_severo": 0.0
    },
    "inmet": {
@@ -291,7 +291,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.13725490196078433,
+    "p_alerta": 0.0392156862745098,
     "p_severo": 0.0
    },
    "inmet": null,
