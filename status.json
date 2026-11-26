@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-26T18:37-03:00",
+ "gerado_em": "2026-11-26T19:07-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -19,8 +19,8 @@
     "wmaxshear": 0,
     "cape": 0,
     "cisalhamento_ms": 0.0,
-    "precip_max_mm_h": 0.1,
-    "isoterma0_min_m": 4880
+    "precip_max_mm_h": 0.0,
+    "isoterma0_min_m": 4920
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -66,13 +66,13 @@
     "id": "56509"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-26T18:00",
-   "fim": "2026-11-26T23:00",
+   "inicio": "2026-11-26T19:00",
+   "fim": "2026-11-27T00:00",
    "hora_pico_local": null,
    "hora_pico_iso": null,
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 289,
-   "direcao_linha_graus": 273,
+   "direcao_celulas_graus": 292,
+   "direcao_linha_graus": 272,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -95,8 +95,8 @@
     "wmaxshear": 0,
     "cape": 0,
     "cisalhamento_ms": 0.0,
-    "precip_max_mm_h": 0.1,
-    "isoterma0_min_m": 4880
+    "precip_max_mm_h": 0.0,
+    "isoterma0_min_m": 4920
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -142,13 +142,13 @@
     "id": "56509"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-26T18:00",
-   "fim": "2026-11-26T23:00",
+   "inicio": "2026-11-26T19:00",
+   "fim": "2026-11-27T00:00",
    "hora_pico_local": null,
    "hora_pico_iso": null,
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 289,
-   "direcao_linha_graus": 273,
+   "direcao_celulas_graus": 292,
+   "direcao_linha_graus": 272,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -171,7 +171,7 @@
    },
    "ingredientes": {
     "wmaxshear": 229,
-    "cape": 200,
+    "cape": 230,
     "cisalhamento_ms": 6.7,
     "precip_max_mm_h": 1.2,
     "isoterma0_min_m": 4820
@@ -179,10 +179,10 @@
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 494,
+     "wmaxshear": 558,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 41,
+     "hora_pico": 42,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -212,7 +212,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.0,
+    "p_alerta": 0.0196078431372549,
     "p_severo": 0.0
    },
    "inmet": {
@@ -220,13 +220,13 @@
     "id": "56513"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-27T00:00",
-   "fim": "2026-11-27T17:00",
+   "inicio": "2026-11-27T01:00",
+   "fim": "2026-11-27T18:00",
    "hora_pico_local": "16:00",
    "hora_pico_iso": "2026-11-27T16:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 315,
-   "direcao_linha_graus": 268,
+   "direcao_celulas_graus": 316,
+   "direcao_linha_graus": 266,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -270,7 +270,7 @@
      "nivel": 2,
      "wmaxshear": 1103,
      "gatilho_local": true,
-     "gatilho_regional": true,
+     "gatilho_regional": false,
      "hora_pico": 59,
      "localidade_pico": "icara"
     },
@@ -293,7 +293,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.21568627450980393,
+    "p_alerta": 0.27450980392156865,
     "p_severo": 0.0196078431372549
    },
    "inmet": {
@@ -301,12 +301,12 @@
     "id": "56513"
    },
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-27T18:00",
-   "fim": "2026-11-28T17:00",
+   "inicio": "2026-11-27T19:00",
+   "fim": "2026-11-28T18:00",
    "hora_pico_local": "12:00",
    "hora_pico_iso": "2026-11-28T12:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 285,
+   "direcao_celulas_graus": 283,
    "direcao_linha_graus": 252,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -333,7 +333,7 @@
    "nome": "Santa Zélia",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 195,
+   "wmaxshear": 207,
    "perigos": [],
    "lat": -23.1756,
    "lon": -51.6783
@@ -353,7 +353,7 @@
    "nome": "Tupinambá",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 195,
+   "wmaxshear": 207,
    "perigos": [],
    "lat": -23.2839,
    "lon": -51.7683
@@ -406,7 +406,7 @@
    "lat": -23.6147,
    "lon": -52.0815,
    "a_montante": false,
-   "tempestade_simulada": false
+   "tempestade_simulada": true
   },
   {
    "id": "anel270",
@@ -426,11 +426,6 @@
   }
  ],
  "serie_horaria": [
-  {
-   "hora": "2026-11-26T18:00",
-   "wmaxshear": 0,
-   "gatilho": false
-  },
   {
    "hora": "2026-11-26T19:00",
    "wmaxshear": 0,
@@ -665,12 +660,17 @@
    "hora": "2026-11-28T17:00",
    "wmaxshear": 639,
    "gatilho": false
+  },
+  {
+   "hora": "2026-11-28T18:00",
+   "wmaxshear": 664,
+   "gatilho": false
   }
  ],
  "direcao_chegada": "oeste",
- "direcao_graus": 273,
+ "direcao_graus": 272,
  "direcao_celulas": "noroeste",
- "direcao_celulas_graus": 309,
+ "direcao_celulas_graus": 310,
  "avisos_inmet": [
   {
    "id": "56509",
