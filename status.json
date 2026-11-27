@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-27T12:07-03:00",
+ "gerado_em": "2026-11-27T12:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -210,7 +210,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.058823529411764705,
+    "p_alerta": 0.13725490196078433,
     "p_severo": 0.0
    },
    "inmet": {
@@ -238,7 +238,7 @@
    "nivel_modelos": 1,
    "motivos": [
     "2 de 4 modelos indicam nível 1 ou mais",
-    "57% dos 51 cenários do ECMWF com ambiente de alerta"
+    "53% dos 51 cenários do ECMWF com ambiente de alerta"
    ],
    "perigos": [
     "raios",
@@ -293,8 +293,8 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.5686274509803921,
-    "p_severo": 0.0196078431372549
+    "p_alerta": 0.5294117647058824,
+    "p_severo": 0.0
    },
    "inmet": null,
    "rotulo": "Amanhã (24-48 h)",
