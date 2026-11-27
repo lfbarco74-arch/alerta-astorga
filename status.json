@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-27T19:07-03:00",
+ "gerado_em": "2026-11-27T19:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -4803,9 +4803,12 @@
   "pontos": 8,
   "abertura_graus": 60
  },
- "erros": [],
+ "erros": [
+  "modelos: ecmwf_ifs025: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: HTTP Error 429: Too Many Requests; gfs_seamless: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: HTTP Error 429: Too Many Requests; icon_seamless: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: HTTP Error 429: Too Many Requests; gem_seamless: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: HTTP Error 429: Too Many Requests"
+ ],
  "fontes": [
   "Open-Meteo (CC-BY 4.0): ECMWF IFS, GFS, ICON, GEM e ensemble ECMWF",
   "INMET — avisos meteorológicos (RSS/CAP)"
- ]
+ ],
+ "modelos_de": "2026-11-27T19:07-03:00"
 }
