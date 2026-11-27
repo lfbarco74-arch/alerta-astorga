@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-27T06:37-03:00",
+ "gerado_em": "2026-11-27T07:07-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -20,7 +20,7 @@
     "cape": 0,
     "cisalhamento_ms": 0.0,
     "precip_max_mm_h": 2.6,
-    "isoterma0_min_m": 4840
+    "isoterma0_min_m": 4820
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -66,8 +66,8 @@
     "id": "56513"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-27T06:00",
-   "fim": "2026-11-27T11:00",
+   "inicio": "2026-11-27T07:00",
+   "fim": "2026-11-27T12:00",
    "hora_pico_local": null,
    "hora_pico_iso": null,
    "direcao_celulas": "noroeste",
@@ -97,7 +97,7 @@
     "cape": 0,
     "cisalhamento_ms": 0.0,
     "precip_max_mm_h": 2.6,
-    "isoterma0_min_m": 4840
+    "isoterma0_min_m": 4820
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -143,8 +143,8 @@
     "id": "56513"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-27T06:00",
-   "fim": "2026-11-27T11:00",
+   "inicio": "2026-11-27T07:00",
+   "fim": "2026-11-27T12:00",
    "hora_pico_local": null,
    "hora_pico_iso": null,
    "direcao_celulas": "noroeste",
@@ -172,7 +172,7 @@
     "cape": 345,
     "cisalhamento_ms": 19.5,
     "precip_max_mm_h": 4.1,
-    "isoterma0_min_m": 4780
+    "isoterma0_min_m": 4710
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -210,7 +210,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.0784313725490196,
+    "p_alerta": 0.09803921568627451,
     "p_severo": 0.0
    },
    "inmet": {
@@ -218,13 +218,13 @@
     "id": "56513"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-27T12:00",
-   "fim": "2026-11-28T05:00",
+   "inicio": "2026-11-27T13:00",
+   "fim": "2026-11-28T06:00",
    "hora_pico_local": "00:00",
    "hora_pico_iso": "2026-11-28T00:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 299,
-   "direcao_linha_graus": 251,
+   "direcao_celulas_graus": 297,
+   "direcao_linha_graus": 252,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -252,9 +252,9 @@
    "ingredientes": {
     "wmaxshear": 808,
     "cape": 1510,
-    "cisalhamento_ms": 14.5,
+    "cisalhamento_ms": 13.7,
     "precip_max_mm_h": 2.5,
-    "isoterma0_min_m": 4860
+    "isoterma0_min_m": 4820
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -283,11 +283,11 @@
     },
     "icon_seamless": {
      "nivel": 0,
-     "wmaxshear": 531,
+     "wmaxshear": 606,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 42,
-     "localidade_pico": "tupinamba"
+     "hora_pico": 41,
+     "localidade_pico": "santazelia"
     }
    },
    "prob_ensemble": {
@@ -297,13 +297,13 @@
    },
    "inmet": null,
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-28T06:00",
-   "fim": "2026-11-29T05:00",
-   "hora_pico_local": "18:00",
-   "hora_pico_iso": "2026-11-28T18:00",
+   "inicio": "2026-11-28T07:00",
+   "fim": "2026-11-29T06:00",
+   "hora_pico_local": "17:00",
+   "hora_pico_iso": "2026-11-28T17:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 275,
-   "direcao_linha_graus": 260,
+   "direcao_celulas_graus": 276,
+   "direcao_linha_graus": 258,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -422,11 +422,6 @@
   }
  ],
  "serie_horaria": [
-  {
-   "hora": "2026-11-27T06:00",
-   "wmaxshear": 0,
-   "gatilho": false
-  },
   {
    "hora": "2026-11-27T07:00",
    "wmaxshear": 0,
@@ -609,12 +604,12 @@
   },
   {
    "hora": "2026-11-28T19:00",
-   "wmaxshear": 659,
+   "wmaxshear": 676,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T20:00",
-   "wmaxshear": 571,
+   "wmaxshear": 578,
    "gatilho": false
   },
   {
@@ -661,12 +656,17 @@
    "hora": "2026-11-29T05:00",
    "wmaxshear": 0,
    "gatilho": false
+  },
+  {
+   "hora": "2026-11-29T06:00",
+   "wmaxshear": 0,
+   "gatilho": false
   }
  ],
  "direcao_chegada": "oeste",
  "direcao_graus": 268,
  "direcao_celulas": "noroeste",
- "direcao_celulas_graus": 306,
+ "direcao_celulas_graus": 304,
  "avisos_inmet": [
   {
    "id": "56513",
