@@ -1,11 +1,11 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-27T19:37-03:00",
+ "gerado_em": "2026-11-27T20:01-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
   "nome_24h": "Atenção",
-  "wmaxshear_24h": 298,
+  "wmaxshear_24h": 316,
   "janela_pior": {
    "nivel": 1,
    "nome": "Atenção",
@@ -16,19 +16,19 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 298,
-    "cape": 165,
+    "wmaxshear": 316,
+    "cape": 190,
     "cisalhamento_ms": 11.5,
-    "precip_max_mm_h": 0.0,
+    "precip_max_mm_h": 0.2,
     "isoterma0_min_m": 4860
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 597,
+     "wmaxshear": 632,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 24,
+     "hora_pico": 25,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -66,13 +66,13 @@
     "id": "56517"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-27T19:00",
-   "fim": "2026-11-28T00:00",
+   "inicio": "2026-11-27T20:00",
+   "fim": "2026-11-28T01:00",
    "hora_pico_local": "00:00",
    "hora_pico_iso": "2026-11-28T00:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 290,
-   "direcao_linha_graus": 254,
+   "direcao_celulas_graus": 287,
+   "direcao_linha_graus": 253,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -92,19 +92,19 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 298,
-    "cape": 165,
+    "wmaxshear": 316,
+    "cape": 190,
     "cisalhamento_ms": 11.5,
-    "precip_max_mm_h": 0.0,
+    "precip_max_mm_h": 0.2,
     "isoterma0_min_m": 4860
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 597,
+     "wmaxshear": 632,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 24,
+     "hora_pico": 25,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -142,13 +142,13 @@
     "id": "56517"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-27T19:00",
-   "fim": "2026-11-28T00:00",
+   "inicio": "2026-11-27T20:00",
+   "fim": "2026-11-28T01:00",
    "hora_pico_local": "00:00",
    "hora_pico_iso": "2026-11-28T00:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 290,
-   "direcao_linha_graus": 254,
+   "direcao_celulas_graus": 287,
+   "direcao_linha_graus": 253,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -210,17 +210,17 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.5686274509803921,
+    "p_alerta": 0.5882352941176471,
     "p_severo": 0.0
    },
    "inmet": null,
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-28T01:00",
-   "fim": "2026-11-28T18:00",
+   "inicio": "2026-11-28T02:00",
+   "fim": "2026-11-28T19:00",
    "hora_pico_local": "17:00",
    "hora_pico_iso": "2026-11-28T17:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 271,
+   "direcao_celulas_graus": 269,
    "direcao_linha_graus": 257,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -238,28 +238,28 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 792,
-    "cape": 1260,
-    "cisalhamento_ms": 16.5,
-    "precip_max_mm_h": 1.0,
+    "wmaxshear": 766,
+    "cape": 1375,
+    "cisalhamento_ms": 15.8,
+    "precip_max_mm_h": 0.6,
     "isoterma0_min_m": 4890
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 704,
+     "wmaxshear": 652,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 43,
+     "hora_pico": 48,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
      "nivel": 0,
-     "wmaxshear": 936,
+     "wmaxshear": 897,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 43,
-     "localidade_pico": "santazelia"
+     "hora_pico": 64,
+     "localidade_pico": "sede"
     },
     "gfs_seamless": {
      "nivel": 2,
@@ -271,27 +271,27 @@
     },
     "icon_seamless": {
      "nivel": 0,
-     "wmaxshear": 610,
+     "wmaxshear": 566,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 43,
+     "hora_pico": 44,
      "localidade_pico": "tupinamba"
     }
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.43137254901960786,
+    "p_alerta": 0.39215686274509803,
     "p_severo": 0.0
    },
    "inmet": null,
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-28T19:00",
-   "fim": "2026-11-29T18:00",
-   "hora_pico_local": "19:00",
-   "hora_pico_iso": "2026-11-28T19:00",
+   "inicio": "2026-11-28T20:00",
+   "fim": "2026-11-29T19:00",
+   "hora_pico_local": "08:00",
+   "hora_pico_iso": "2026-11-29T08:00",
    "direcao_celulas": "oeste",
    "direcao_celulas_graus": 275,
-   "direcao_linha_graus": 257,
+   "direcao_linha_graus": 264,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -308,9 +308,7 @@
    "perfil": "urbano",
    "nivel_modelos": 0,
    "wmaxshear": 796,
-   "perigos": [
-    "granizo"
-   ],
+   "perigos": [],
    "lat": -23.2325,
    "lon": -51.6656
   },
@@ -418,11 +416,6 @@
   }
  ],
  "serie_horaria": [
-  {
-   "hora": "2026-11-27T19:00",
-   "wmaxshear": 230,
-   "gatilho": false
-  },
   {
    "hora": "2026-11-27T20:00",
    "wmaxshear": 0,
@@ -657,12 +650,17 @@
    "hora": "2026-11-29T18:00",
    "wmaxshear": 716,
    "gatilho": true
+  },
+  {
+   "hora": "2026-11-29T19:00",
+   "wmaxshear": 633,
+   "gatilho": false
   }
  ],
  "direcao_chegada": "oeste",
- "direcao_graus": 254,
+ "direcao_graus": 253,
  "direcao_celulas": "oeste",
- "direcao_celulas_graus": 276,
+ "direcao_celulas_graus": 274,
  "avisos_inmet": [
   {
    "id": "56517",
@@ -4803,12 +4801,9 @@
   "pontos": 8,
   "abertura_graus": 60
  },
- "erros": [
-  "modelos: ecmwf_ifs025: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: HTTP Error 429: Too Many Requests; gfs_seamless: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: HTTP Error 429: Too Many Requests; icon_seamless: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: HTTP Error 429: Too Many Requests; gem_seamless: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: HTTP Error 429: Too Many Requests"
- ],
+ "erros": [],
  "fontes": [
   "Open-Meteo (CC-BY 4.0): ECMWF IFS, GFS, ICON, GEM e ensemble ECMWF",
   "INMET — avisos meteorológicos (RSS/CAP)"
- ],
- "modelos_de": "2026-11-27T19:07-03:00"
+ ]
 }
