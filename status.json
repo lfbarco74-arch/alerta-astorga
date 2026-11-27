@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-27T12:37-03:00",
+ "gerado_em": "2026-11-27T13:07-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -66,13 +66,13 @@
     "id": "56517"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-27T12:00",
-   "fim": "2026-11-27T17:00",
+   "inicio": "2026-11-27T13:00",
+   "fim": "2026-11-27T18:00",
    "hora_pico_local": "16:00",
    "hora_pico_iso": "2026-11-27T16:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 314,
-   "direcao_linha_graus": 264,
+   "direcao_celulas_graus": 312,
+   "direcao_linha_graus": 263,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -143,13 +143,13 @@
     "id": "56517"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-27T12:00",
-   "fim": "2026-11-27T17:00",
+   "inicio": "2026-11-27T13:00",
+   "fim": "2026-11-27T18:00",
    "hora_pico_local": "16:00",
    "hora_pico_iso": "2026-11-27T16:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 314,
-   "direcao_linha_graus": 264,
+   "direcao_celulas_graus": 312,
+   "direcao_linha_graus": 263,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -168,10 +168,10 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 664,
+    "wmaxshear": 665,
     "cape": 555,
-    "cisalhamento_ms": 17.0,
-    "precip_max_mm_h": 2.4,
+    "cisalhamento_ms": 16.4,
+    "precip_max_mm_h": 2.5,
     "isoterma0_min_m": 4710
    },
    "por_modelo": {
@@ -193,10 +193,10 @@
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 700,
+     "wmaxshear": 770,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 35,
+     "hora_pico": 36,
      "localidade_pico": "santazelia"
     },
     "icon_seamless": {
@@ -218,16 +218,17 @@
     "id": "56517"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-27T18:00",
-   "fim": "2026-11-28T11:00",
+   "inicio": "2026-11-27T19:00",
+   "fim": "2026-11-28T12:00",
    "hora_pico_local": "08:00",
    "hora_pico_iso": "2026-11-28T08:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 286,
+   "direcao_celulas_graus": 284,
    "direcao_linha_graus": 248,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
+    "anel225",
     "anel270",
     "anel315"
    ]
@@ -238,7 +239,7 @@
    "nivel_modelos": 1,
    "motivos": [
     "2 de 4 modelos indicam nível 1 ou mais",
-    "53% dos 51 cenários do ECMWF com ambiente de alerta"
+    "51% dos 51 cenários do ECMWF com ambiente de alerta"
    ],
    "perigos": [
     "raios",
@@ -254,7 +255,7 @@
     "wmaxshear": 792,
     "cape": 1775,
     "cisalhamento_ms": 13.8,
-    "precip_max_mm_h": 2.5,
+    "precip_max_mm_h": 1.2,
     "isoterma0_min_m": 4860
    },
    "por_modelo": {
@@ -293,17 +294,17 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.5294117647058824,
+    "p_alerta": 0.5098039215686274,
     "p_severo": 0.0
    },
    "inmet": null,
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-28T12:00",
-   "fim": "2026-11-29T11:00",
+   "inicio": "2026-11-28T13:00",
+   "fim": "2026-11-29T12:00",
    "hora_pico_local": "17:00",
    "hora_pico_iso": "2026-11-28T17:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 275,
+   "direcao_celulas_graus": 276,
    "direcao_linha_graus": 258,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -320,7 +321,7 @@
    "nome": "Astorga (sede)",
    "perfil": "urbano",
    "nivel_modelos": 0,
-   "wmaxshear": 663,
+   "wmaxshear": 665,
    "perigos": [],
    "lat": -23.2325,
    "lon": -51.6656
@@ -340,7 +341,7 @@
    "nome": "Içara",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 582,
+   "wmaxshear": 595,
    "perigos": [],
    "lat": -23.1711,
    "lon": -51.6311
@@ -423,11 +424,6 @@
   }
  ],
  "serie_horaria": [
-  {
-   "hora": "2026-11-27T12:00",
-   "wmaxshear": 0,
-   "gatilho": false
-  },
   {
    "hora": "2026-11-27T13:00",
    "wmaxshear": 153,
@@ -662,12 +658,17 @@
    "hora": "2026-11-29T11:00",
    "wmaxshear": 489,
    "gatilho": false
+  },
+  {
+   "hora": "2026-11-29T12:00",
+   "wmaxshear": 531,
+   "gatilho": true
   }
  ],
  "direcao_chegada": "oeste",
- "direcao_graus": 264,
- "direcao_celulas": "noroeste",
- "direcao_celulas_graus": 293,
+ "direcao_graus": 263,
+ "direcao_celulas": "oeste",
+ "direcao_celulas_graus": 291,
  "avisos_inmet": [
   {
    "id": "56517",
