@@ -1,11 +1,11 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-27T03:37-03:00",
+ "gerado_em": "2026-11-27T04:07-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
   "nome_24h": "Atenção",
-  "wmaxshear_24h": 232,
+  "wmaxshear_24h": 0,
   "janela_pior": {
    "nivel": 1,
    "nome": "Atenção",
@@ -16,86 +16,11 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 232,
-    "cape": 150,
-    "cisalhamento_ms": 9.5,
-    "precip_max_mm_h": 1.1,
-    "isoterma0_min_m": 4780
-   },
-   "por_modelo": {
-    "ecmwf_ifs025": {
-     "nivel": 0,
-     "wmaxshear": 0,
-     "gatilho_local": false,
-     "gatilho_regional": false,
-     "hora_pico": null,
-     "localidade_pico": "sede"
-    },
-    "gem_seamless": {
-     "nivel": 0,
-     "wmaxshear": 703,
-     "gatilho_local": false,
-     "gatilho_regional": false,
-     "hora_pico": 24,
-     "localidade_pico": "sede"
-    },
-    "gfs_seamless": {
-     "nivel": 0,
-     "wmaxshear": 465,
-     "gatilho_local": false,
-     "gatilho_regional": false,
-     "hora_pico": 17,
-     "localidade_pico": "santazelia"
-    },
-    "icon_seamless": {
-     "nivel": 0,
-     "wmaxshear": 0,
-     "gatilho_local": false,
-     "gatilho_regional": false,
-     "hora_pico": null,
-     "localidade_pico": "sede"
-    }
-   },
-   "prob_ensemble": {
-    "membros": 51,
-    "p_alerta": 0.0196078431372549,
-    "p_severo": 0.0
-   },
-   "inmet": {
-    "severidade": "Moderate",
-    "id": "56513"
-   },
-   "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-27T09:00",
-   "fim": "2026-11-28T02:00",
-   "hora_pico_local": "20:00",
-   "hora_pico_iso": "2026-11-27T20:00",
-   "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 308,
-   "direcao_linha_graus": 257,
-   "direcao_chegada": "oeste",
-   "ar_frio": null,
-   "pontos_regionais": [
-    "anel000",
-    "anel270",
-    "anel315"
-   ]
-  }
- },
- "janelas": [
-  {
-   "nivel": 0,
-   "nome": "Normal",
-   "nivel_modelos": 0,
-   "motivos": [],
-   "perigos": [],
-   "perigos_nivel": {},
-   "ingredientes": {
     "wmaxshear": 0,
     "cape": 0,
     "cisalhamento_ms": 0.0,
     "precip_max_mm_h": 0.0,
-    "isoterma0_min_m": 4910
+    "isoterma0_min_m": 4890
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -136,14 +61,94 @@
     "p_alerta": 0.0,
     "p_severo": 0.0
    },
-   "inmet": null,
+   "inmet": {
+    "severidade": "Moderate",
+    "id": "56513"
+   },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-27T03:00",
-   "fim": "2026-11-27T08:00",
+   "inicio": "2026-11-27T04:00",
+   "fim": "2026-11-27T09:00",
    "hora_pico_local": null,
    "hora_pico_iso": null,
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 322,
+   "direcao_celulas_graus": 324,
+   "direcao_linha_graus": 268,
+   "direcao_chegada": "oeste",
+   "ar_frio": null,
+   "pontos_regionais": [
+    "anel000",
+    "anel270",
+    "anel315"
+   ]
+  }
+ },
+ "janelas": [
+  {
+   "nivel": 1,
+   "nome": "Atenção",
+   "nivel_modelos": 0,
+   "motivos": [
+    "Aviso oficial do INMET: Perigo Potencial (amarelo)"
+   ],
+   "perigos": [],
+   "perigos_nivel": {},
+   "ingredientes": {
+    "wmaxshear": 0,
+    "cape": 0,
+    "cisalhamento_ms": 0.0,
+    "precip_max_mm_h": 0.0,
+    "isoterma0_min_m": 4890
+   },
+   "por_modelo": {
+    "ecmwf_ifs025": {
+     "nivel": 0,
+     "wmaxshear": 0,
+     "gatilho_local": false,
+     "gatilho_regional": false,
+     "hora_pico": null,
+     "localidade_pico": "sede"
+    },
+    "gem_seamless": {
+     "nivel": 0,
+     "wmaxshear": 0,
+     "gatilho_local": false,
+     "gatilho_regional": false,
+     "hora_pico": null,
+     "localidade_pico": "sede"
+    },
+    "gfs_seamless": {
+     "nivel": 0,
+     "wmaxshear": 0,
+     "gatilho_local": false,
+     "gatilho_regional": false,
+     "hora_pico": null,
+     "localidade_pico": "sede"
+    },
+    "icon_seamless": {
+     "nivel": 0,
+     "wmaxshear": 0,
+     "gatilho_local": false,
+     "gatilho_regional": false,
+     "hora_pico": null,
+     "localidade_pico": "sede"
+    }
+   },
+   "prob_ensemble": {
+    "membros": 51,
+    "p_alerta": 0.0,
+    "p_severo": 0.0
+   },
+   "inmet": {
+    "severidade": "Moderate",
+    "id": "56513"
+   },
+   "rotulo": "Próximas 6 horas",
+   "inicio": "2026-11-27T04:00",
+   "fim": "2026-11-27T09:00",
+   "hora_pico_local": null,
+   "hora_pico_iso": null,
+   "direcao_celulas": "noroeste",
+   "direcao_celulas_graus": 324,
    "direcao_linha_graus": 268,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -163,19 +168,19 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 232,
-    "cape": 150,
-    "cisalhamento_ms": 9.5,
-    "precip_max_mm_h": 1.1,
+    "wmaxshear": 502,
+    "cape": 325,
+    "cisalhamento_ms": 19.7,
+    "precip_max_mm_h": 1.3,
     "isoterma0_min_m": 4780
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 0,
+     "wmaxshear": 540,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": null,
+     "hora_pico": 27,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -205,7 +210,7 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.0196078431372549,
+    "p_alerta": 0.0392156862745098,
     "p_severo": 0.0
    },
    "inmet": {
@@ -213,13 +218,13 @@
     "id": "56513"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-27T09:00",
-   "fim": "2026-11-28T02:00",
-   "hora_pico_local": "20:00",
-   "hora_pico_iso": "2026-11-27T20:00",
+   "inicio": "2026-11-27T10:00",
+   "fim": "2026-11-28T03:00",
+   "hora_pico_local": "00:00",
+   "hora_pico_iso": "2026-11-28T00:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 308,
-   "direcao_linha_graus": 257,
+   "direcao_celulas_graus": 306,
+   "direcao_linha_graus": 251,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -246,7 +251,7 @@
     "cape": 1275,
     "cisalhamento_ms": 14.7,
     "precip_max_mm_h": 4.1,
-    "isoterma0_min_m": 4830
+    "isoterma0_min_m": 4850
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -284,17 +289,17 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.37254901960784315,
+    "p_alerta": 0.39215686274509803,
     "p_severo": 0.0
    },
    "inmet": null,
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-28T03:00",
-   "fim": "2026-11-29T02:00",
+   "inicio": "2026-11-28T04:00",
+   "fim": "2026-11-29T03:00",
    "hora_pico_local": "18:00",
    "hora_pico_iso": "2026-11-28T18:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 273,
+   "direcao_celulas_graus": 274,
    "direcao_linha_graus": 260,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -311,7 +316,7 @@
    "nome": "Astorga (sede)",
    "perfil": "urbano",
    "nivel_modelos": 0,
-   "wmaxshear": 230,
+   "wmaxshear": 500,
    "perigos": [],
    "lat": -23.2325,
    "lon": -51.6656
@@ -321,7 +326,7 @@
    "nome": "Santa Zélia",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 232,
+   "wmaxshear": 502,
    "perigos": [],
    "lat": -23.1756,
    "lon": -51.6783
@@ -331,7 +336,7 @@
    "nome": "Içara",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 232,
+   "wmaxshear": 466,
    "perigos": [],
    "lat": -23.1711,
    "lon": -51.6311
@@ -341,7 +346,7 @@
    "nome": "Tupinambá",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 225,
+   "wmaxshear": 495,
    "perigos": [],
    "lat": -23.2839,
    "lon": -51.7683
@@ -414,11 +419,6 @@
   }
  ],
  "serie_horaria": [
-  {
-   "hora": "2026-11-27T03:00",
-   "wmaxshear": 0,
-   "gatilho": false
-  },
   {
    "hora": "2026-11-27T04:00",
    "wmaxshear": 0,
@@ -653,12 +653,17 @@
    "hora": "2026-11-29T02:00",
    "wmaxshear": 0,
    "gatilho": false
+  },
+  {
+   "hora": "2026-11-29T03:00",
+   "wmaxshear": 0,
+   "gatilho": false
   }
  ],
  "direcao_chegada": "oeste",
- "direcao_graus": 257,
+ "direcao_graus": 268,
  "direcao_celulas": "noroeste",
- "direcao_celulas_graus": 312,
+ "direcao_celulas_graus": 311,
  "avisos_inmet": [
   {
    "id": "56513",
