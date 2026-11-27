@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-27T08:07-03:00",
+ "gerado_em": "2026-11-27T08:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -168,10 +168,10 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 511,
-    "cape": 345,
-    "cisalhamento_ms": 19.5,
-    "precip_max_mm_h": 4.1,
+    "wmaxshear": 525,
+    "cape": 320,
+    "cisalhamento_ms": 21.0,
+    "precip_max_mm_h": 1.8,
     "isoterma0_min_m": 4710
    },
    "por_modelo": {
@@ -193,10 +193,10 @@
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 465,
+     "wmaxshear": 494,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 17,
+     "hora_pico": 18,
      "localidade_pico": "santazelia"
     },
     "icon_seamless": {
@@ -251,7 +251,7 @@
    },
    "ingredientes": {
     "wmaxshear": 808,
-    "cape": 1510,
+    "cape": 1635,
     "cisalhamento_ms": 13.7,
     "precip_max_mm_h": 2.5,
     "isoterma0_min_m": 4820
@@ -275,11 +275,11 @@
     },
     "gfs_seamless": {
      "nivel": 2,
-     "wmaxshear": 851,
-     "gatilho_local": true,
+     "wmaxshear": 859,
+     "gatilho_local": false,
      "gatilho_regional": true,
-     "hora_pico": 36,
-     "localidade_pico": "sede"
+     "hora_pico": 42,
+     "localidade_pico": "tupinamba"
     },
     "icon_seamless": {
      "nivel": 0,
@@ -299,11 +299,11 @@
    "rotulo": "Amanhã (24-48 h)",
    "inicio": "2026-11-28T08:00",
    "fim": "2026-11-29T07:00",
-   "hora_pico_local": "17:00",
-   "hora_pico_iso": "2026-11-28T17:00",
+   "hora_pico_local": "18:00",
+   "hora_pico_iso": "2026-11-28T18:00",
    "direcao_celulas": "oeste",
    "direcao_celulas_graus": 277,
-   "direcao_linha_graus": 258,
+   "direcao_linha_graus": 259,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -319,7 +319,7 @@
    "nome": "Astorga (sede)",
    "perfil": "urbano",
    "nivel_modelos": 0,
-   "wmaxshear": 508,
+   "wmaxshear": 519,
    "perigos": [],
    "lat": -23.2325,
    "lon": -51.6656
@@ -329,7 +329,7 @@
    "nome": "Santa Zélia",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 502,
+   "wmaxshear": 517,
    "perigos": [],
    "lat": -23.1756,
    "lon": -51.6783
@@ -339,7 +339,7 @@
    "nome": "Içara",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 466,
+   "wmaxshear": 480,
    "perigos": [],
    "lat": -23.1711,
    "lon": -51.6311
@@ -349,7 +349,7 @@
    "nome": "Tupinambá",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 495,
+   "wmaxshear": 497,
    "perigos": [],
    "lat": -23.2839,
    "lon": -51.7683
@@ -469,7 +469,7 @@
   },
   {
    "hora": "2026-11-27T17:00",
-   "wmaxshear": 232,
+   "wmaxshear": 226,
    "gatilho": false
   },
   {
@@ -554,7 +554,7 @@
   },
   {
    "hora": "2026-11-28T10:00",
-   "wmaxshear": 500,
+   "wmaxshear": 496,
    "gatilho": false
   },
   {
@@ -565,21 +565,21 @@
   {
    "hora": "2026-11-28T12:00",
    "wmaxshear": 588,
-   "gatilho": true
+   "gatilho": false
   },
   {
    "hora": "2026-11-28T13:00",
    "wmaxshear": 647,
-   "gatilho": true
+   "gatilho": false
   },
   {
    "hora": "2026-11-28T14:00",
-   "wmaxshear": 678,
-   "gatilho": true
+   "wmaxshear": 651,
+   "gatilho": false
   },
   {
    "hora": "2026-11-28T15:00",
-   "wmaxshear": 688,
+   "wmaxshear": 664,
    "gatilho": false
   },
   {
@@ -589,12 +589,12 @@
   },
   {
    "hora": "2026-11-28T17:00",
-   "wmaxshear": 721,
+   "wmaxshear": 733,
    "gatilho": true
   },
   {
    "hora": "2026-11-28T18:00",
-   "wmaxshear": 802,
+   "wmaxshear": 808,
    "gatilho": false
   },
   {
@@ -609,7 +609,7 @@
   },
   {
    "hora": "2026-11-28T21:00",
-   "wmaxshear": 507,
+   "wmaxshear": 501,
    "gatilho": false
   },
   {
