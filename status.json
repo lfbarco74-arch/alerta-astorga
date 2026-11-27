@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-27T09:37-03:00",
+ "gerado_em": "2026-11-27T10:07-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 1,
@@ -20,7 +20,7 @@
     "cape": 0,
     "cisalhamento_ms": 0.0,
     "precip_max_mm_h": 2.6,
-    "isoterma0_min_m": 4820
+    "isoterma0_min_m": 4780
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -33,10 +33,10 @@
     },
     "gem_seamless": {
      "nivel": 0,
-     "wmaxshear": 442,
+     "wmaxshear": 524,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 14,
+     "hora_pico": 15,
      "localidade_pico": "santazelia"
     },
     "gfs_seamless": {
@@ -66,13 +66,13 @@
     "id": "56517"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-27T09:00",
-   "fim": "2026-11-27T14:00",
-   "hora_pico_local": "14:00",
-   "hora_pico_iso": "2026-11-27T14:00",
+   "inicio": "2026-11-27T10:00",
+   "fim": "2026-11-27T15:00",
+   "hora_pico_local": "15:00",
+   "hora_pico_iso": "2026-11-27T15:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 322,
-   "direcao_linha_graus": 268,
+   "direcao_celulas_graus": 317,
+   "direcao_linha_graus": 266,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -97,7 +97,7 @@
     "cape": 0,
     "cisalhamento_ms": 0.0,
     "precip_max_mm_h": 2.6,
-    "isoterma0_min_m": 4820
+    "isoterma0_min_m": 4780
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -110,10 +110,10 @@
     },
     "gem_seamless": {
      "nivel": 0,
-     "wmaxshear": 442,
+     "wmaxshear": 524,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 14,
+     "hora_pico": 15,
      "localidade_pico": "santazelia"
     },
     "gfs_seamless": {
@@ -143,13 +143,13 @@
     "id": "56517"
    },
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-27T09:00",
-   "fim": "2026-11-27T14:00",
-   "hora_pico_local": "14:00",
-   "hora_pico_iso": "2026-11-27T14:00",
+   "inicio": "2026-11-27T10:00",
+   "fim": "2026-11-27T15:00",
+   "hora_pico_local": "15:00",
+   "hora_pico_iso": "2026-11-27T15:00",
    "direcao_celulas": "noroeste",
-   "direcao_celulas_graus": 322,
-   "direcao_linha_graus": 268,
+   "direcao_celulas_graus": 317,
+   "direcao_linha_graus": 266,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -168,19 +168,19 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 532,
-    "cape": 360,
-    "cisalhamento_ms": 20.3,
-    "precip_max_mm_h": 1.8,
+    "wmaxshear": 576,
+    "cape": 480,
+    "cisalhamento_ms": 18.2,
+    "precip_max_mm_h": 0.8,
     "isoterma0_min_m": 4710
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 569,
+     "wmaxshear": 598,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 32,
+     "hora_pico": 33,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
@@ -193,10 +193,10 @@
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 494,
+     "wmaxshear": 555,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 18,
+     "hora_pico": 17,
      "localidade_pico": "santazelia"
     },
     "icon_seamless": {
@@ -218,12 +218,12 @@
     "id": "56517"
    },
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-27T15:00",
-   "fim": "2026-11-28T08:00",
+   "inicio": "2026-11-27T16:00",
+   "fim": "2026-11-28T09:00",
    "hora_pico_local": "00:00",
    "hora_pico_iso": "2026-11-28T00:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 292,
+   "direcao_celulas_graus": 290,
    "direcao_linha_graus": 252,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -242,22 +242,20 @@
    ],
    "perigos": [
     "raios",
-    "rajadas fortes / vendaval",
     "granizo",
     "chuva intensa em pouco tempo"
    ],
    "perigos_nivel": {
     "raios": "possível",
-    "rajadas fortes / vendaval": "possível",
     "granizo": "possível",
     "chuva intensa em pouco tempo": "possível"
    },
    "ingredientes": {
-    "wmaxshear": 808,
-    "cape": 1635,
+    "wmaxshear": 792,
+    "cape": 1690,
     "cisalhamento_ms": 13.7,
     "precip_max_mm_h": 2.5,
-    "isoterma0_min_m": 4850
+    "isoterma0_min_m": 4860
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -277,11 +275,11 @@
      "localidade_pico": "santazelia"
     },
     "gfs_seamless": {
-     "nivel": 2,
-     "wmaxshear": 859,
+     "nivel": 1,
+     "wmaxshear": 785,
      "gatilho_local": false,
      "gatilho_regional": true,
-     "hora_pico": 42,
+     "hora_pico": 41,
      "localidade_pico": "tupinamba"
     },
     "icon_seamless": {
@@ -300,13 +298,13 @@
    },
    "inmet": null,
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-28T09:00",
-   "fim": "2026-11-29T08:00",
-   "hora_pico_local": "18:00",
-   "hora_pico_iso": "2026-11-28T18:00",
+   "inicio": "2026-11-28T10:00",
+   "fim": "2026-11-29T09:00",
+   "hora_pico_local": "17:00",
+   "hora_pico_iso": "2026-11-28T17:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 277,
-   "direcao_linha_graus": 259,
+   "direcao_celulas_graus": 276,
+   "direcao_linha_graus": 258,
    "direcao_chegada": "oeste",
    "ar_frio": null,
    "pontos_regionais": [
@@ -322,7 +320,7 @@
    "nome": "Astorga (sede)",
    "perfil": "urbano",
    "nivel_modelos": 0,
-   "wmaxshear": 525,
+   "wmaxshear": 574,
    "perigos": [],
    "lat": -23.2325,
    "lon": -51.6656
@@ -332,7 +330,7 @@
    "nome": "Santa Zélia",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 517,
+   "wmaxshear": 547,
    "perigos": [],
    "lat": -23.1756,
    "lon": -51.6783
@@ -342,7 +340,7 @@
    "nome": "Içara",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 480,
+   "wmaxshear": 511,
    "perigos": [],
    "lat": -23.1711,
    "lon": -51.6311
@@ -352,7 +350,7 @@
    "nome": "Tupinambá",
    "perfil": "rural",
    "nivel_modelos": 0,
-   "wmaxshear": 497,
+   "wmaxshear": 537,
    "perigos": [],
    "lat": -23.2839,
    "lon": -51.7683
@@ -426,11 +424,6 @@
  ],
  "serie_horaria": [
   {
-   "hora": "2026-11-27T09:00",
-   "wmaxshear": 0,
-   "gatilho": false
-  },
-  {
    "hora": "2026-11-27T10:00",
    "wmaxshear": 0,
    "gatilho": false
@@ -462,17 +455,17 @@
   },
   {
    "hora": "2026-11-27T16:00",
-   "wmaxshear": 0,
+   "wmaxshear": 241,
    "gatilho": false
   },
   {
    "hora": "2026-11-27T17:00",
-   "wmaxshear": 226,
+   "wmaxshear": 254,
    "gatilho": false
   },
   {
    "hora": "2026-11-27T18:00",
-   "wmaxshear": 230,
+   "wmaxshear": 0,
    "gatilho": false
   },
   {
@@ -552,7 +545,7 @@
   },
   {
    "hora": "2026-11-28T10:00",
-   "wmaxshear": 496,
+   "wmaxshear": 459,
    "gatilho": false
   },
   {
@@ -568,16 +561,16 @@
   {
    "hora": "2026-11-28T13:00",
    "wmaxshear": 647,
-   "gatilho": false
+   "gatilho": true
   },
   {
    "hora": "2026-11-28T14:00",
-   "wmaxshear": 651,
-   "gatilho": false
+   "wmaxshear": 641,
+   "gatilho": true
   },
   {
    "hora": "2026-11-28T15:00",
-   "wmaxshear": 664,
+   "wmaxshear": 684,
    "gatilho": false
   },
   {
@@ -592,27 +585,27 @@
   },
   {
    "hora": "2026-11-28T18:00",
-   "wmaxshear": 808,
+   "wmaxshear": 770,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T19:00",
-   "wmaxshear": 676,
+   "wmaxshear": 703,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T20:00",
-   "wmaxshear": 578,
+   "wmaxshear": 637,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T21:00",
-   "wmaxshear": 501,
+   "wmaxshear": 573,
    "gatilho": false
   },
   {
    "hora": "2026-11-28T22:00",
-   "wmaxshear": 242,
+   "wmaxshear": 463,
    "gatilho": false
   },
   {
@@ -664,12 +657,17 @@
    "hora": "2026-11-29T08:00",
    "wmaxshear": 0,
    "gatilho": false
+  },
+  {
+   "hora": "2026-11-29T09:00",
+   "wmaxshear": 214,
+   "gatilho": false
   }
  ],
  "direcao_chegada": "oeste",
- "direcao_graus": 268,
+ "direcao_graus": 266,
  "direcao_celulas": "noroeste",
- "direcao_celulas_graus": 300,
+ "direcao_celulas_graus": 297,
  "avisos_inmet": [
   {
    "id": "56517",
@@ -693,6 +691,344 @@
   }
  ],
  "avisos_estado": [
+  {
+   "id": "56524",
+   "titulo": "Aviso de Chuvas Intensas. Severidade Grau: Perigo Potencial",
+   "evento": "Chuvas Intensas",
+   "severidade": "Moderate",
+   "inicio": "2026-11-28T00:00:00-03:00",
+   "fim": "2026-11-28T23:59:00-03:00",
+   "descricao": "INMET publica aviso iniciando em: 28/11/2026 00:00. Chuva entre 20 e 30 mm/h ou até 50 mm/dia, ventos intensos (40-60 km/h). Baixo risco de corte de energia elétrica, queda de galhos de árvores, alagamentos e de descargas elétricas.",
+   "link": "https://avisos.inmet.gov.br/56524",
+   "poligonos": [
+    [
+     [
+      -13.689,
+      -60.47
+     ],
+     [
+      -13.309,
+      -59.787
+     ],
+     [
+      -13.167,
+      -58.713
+     ],
+     [
+      -13.357,
+      -57.151
+     ],
+     [
+      -14.163,
+      -55.637
+     ],
+     [
+      -15.531,
+      -54.807
+     ],
+     [
+      -17.218,
+      -53.929
+     ],
+     [
+      -18.194,
+      -53.05
+     ],
+     [
+      -19.119,
+      -51.976
+     ],
+     [
+      -19.672,
+      -50.316
+     ],
+     [
+      -20.14,
+      -48.795
+     ],
+     [
+      -20.472,
+      -47.855
+     ],
+     [
+      -20.838,
+      -47.22
+     ],
+     [
+      -21.339,
+      -46.39
+     ],
+     [
+      -21.509,
+      -46.048
+     ],
+     [
+      -21.951,
+      -45.279
+     ],
+     [
+      -22.279,
+      -44.657
+     ],
+     [
+      -22.584,
+      -44.144
+     ],
+     [
+      -22.719,
+      -44.071
+     ],
+     [
+      -22.899,
+      -44.059
+     ],
+     [
+      -23.09,
+      -44.108
+     ],
+     [
+      -23.639,
+      -44.572
+     ],
+     [
+      -24.03,
+      -45.34
+     ],
+     [
+      -24.286,
+      -46.122
+     ],
+     [
+      -24.575,
+      -46.793
+     ],
+     [
+      -24.941,
+      -47.44
+     ],
+     [
+      -25.449,
+      -48.074
+     ],
+     [
+      -25.768,
+      -48.257
+     ],
+     [
+      -26.284,
+      -48.404
+     ],
+     [
+      -26.797,
+      -48.416
+     ],
+     [
+      -27.167,
+      -48.331
+     ],
+     [
+      -27.47,
+      -48.257
+     ],
+     [
+      -27.838,
+      -48.319
+     ],
+     [
+      -28.333,
+      -48.526
+     ],
+     [
+      -28.666,
+      -48.733
+     ],
+     [
+      -28.805,
+      -48.99
+     ],
+     [
+      -29.04,
+      -49.295
+     ],
+     [
+      -29.317,
+      -49.539
+     ],
+     [
+      -28.944,
+      -50.161
+     ],
+     [
+      -28.43,
+      -50.454
+     ],
+     [
+      -27.989,
+      -50.625
+     ],
+     [
+      -27.297,
+      -50.845
+     ],
+     [
+      -26.786,
+      -50.857
+     ],
+     [
+      -26.316,
+      -50.857
+     ],
+     [
+      -25.856,
+      -50.711
+     ],
+     [
+      -25.856,
+      -50.711
+     ],
+     [
+      -25.107,
+      -50.711
+     ],
+     [
+      -24.642,
+      -50.735
+     ],
+     [
+      -23.929,
+      -50.807
+     ],
+     [
+      -23.235,
+      -51.113
+     ],
+     [
+      -22.448,
+      -51.515
+     ],
+     [
+      -22.007,
+      -52.199
+     ],
+     [
+      -21.475,
+      -52.919
+     ],
+     [
+      -21.156,
+      -53.956
+     ],
+     [
+      -20.597,
+      -54.945
+     ],
+     [
+      -20.243,
+      -55.799
+     ],
+     [
+      -19.6,
+      -56.556
+     ],
+     [
+      -18.943,
+      -57.215
+     ],
+     [
+      -18.319,
+      -57.484
+     ],
+     [
+      -17.75,
+      -57.703
+     ],
+     [
+      -17.587,
+      -57.752
+     ],
+     [
+      -17.456,
+      -57.894
+     ],
+     [
+      -17.526,
+      -58.01
+     ],
+     [
+      -17.194,
+      -58.401
+     ],
+     [
+      -16.821,
+      -58.474
+     ],
+     [
+      -16.622,
+      -58.443
+     ],
+     [
+      -16.528,
+      -58.333
+     ],
+     [
+      -16.276,
+      -58.297
+     ],
+     [
+      -16.271,
+      -58.346
+     ],
+     [
+      -16.358,
+      -58.455
+     ],
+     [
+      -16.347,
+      -58.559
+     ],
+     [
+      -16.282,
+      -60.164
+     ],
+     [
+      -15.502,
+      -60.237
+     ],
+     [
+      -15.131,
+      -60.555
+     ],
+     [
+      -15.113,
+      -60.244
+     ],
+     [
+      -14.659,
+      -60.256
+     ],
+     [
+      -14.635,
+      -60.305
+     ],
+     [
+      -14.216,
+      -60.482
+     ],
+     [
+      -14.015,
+      -60.39
+     ],
+     [
+      -13.825,
+      -60.482
+     ],
+     [
+      -13.689,
+      -60.47
+     ]
+    ]
+   ]
+  },
   {
    "id": "56519",
    "titulo": "Aviso de Chuvas Intensas. Severidade Grau: Perigo Potencial",
@@ -2367,344 +2703,6 @@
      [
       -29.688,
       -57.041
-     ]
-    ]
-   ]
-  },
-  {
-   "id": "56516",
-   "titulo": "Aviso de Chuvas Intensas. Severidade Grau: Perigo Potencial",
-   "evento": "Chuvas Intensas",
-   "severidade": "Moderate",
-   "inicio": "2026-11-28T00:00:00-03:00",
-   "fim": "2026-11-28T23:59:00-03:00",
-   "descricao": "INMET publica aviso iniciando em: 28/11/2026 00:00. Chuva entre 20 e 30 mm/h ou até 50 mm/dia, ventos intensos (40-60 km/h). Baixo risco de corte de energia elétrica, queda de galhos de árvores, alagamentos e de descargas elétricas.",
-   "link": "https://avisos.inmet.gov.br/56516",
-   "poligonos": [
-    [
-     [
-      -13.689,
-      -60.47
-     ],
-     [
-      -13.309,
-      -59.787
-     ],
-     [
-      -13.167,
-      -58.713
-     ],
-     [
-      -13.357,
-      -57.151
-     ],
-     [
-      -14.163,
-      -55.637
-     ],
-     [
-      -15.531,
-      -54.807
-     ],
-     [
-      -17.218,
-      -53.929
-     ],
-     [
-      -18.194,
-      -53.05
-     ],
-     [
-      -19.119,
-      -51.976
-     ],
-     [
-      -19.672,
-      -50.316
-     ],
-     [
-      -20.14,
-      -48.795
-     ],
-     [
-      -20.472,
-      -47.855
-     ],
-     [
-      -20.838,
-      -47.22
-     ],
-     [
-      -21.339,
-      -46.39
-     ],
-     [
-      -21.509,
-      -46.048
-     ],
-     [
-      -21.951,
-      -45.279
-     ],
-     [
-      -22.279,
-      -44.657
-     ],
-     [
-      -22.584,
-      -44.144
-     ],
-     [
-      -22.719,
-      -44.071
-     ],
-     [
-      -22.899,
-      -44.059
-     ],
-     [
-      -23.09,
-      -44.108
-     ],
-     [
-      -23.639,
-      -44.572
-     ],
-     [
-      -24.03,
-      -45.34
-     ],
-     [
-      -24.286,
-      -46.122
-     ],
-     [
-      -24.575,
-      -46.793
-     ],
-     [
-      -24.941,
-      -47.44
-     ],
-     [
-      -25.449,
-      -48.074
-     ],
-     [
-      -25.768,
-      -48.257
-     ],
-     [
-      -26.284,
-      -48.404
-     ],
-     [
-      -26.797,
-      -48.416
-     ],
-     [
-      -27.167,
-      -48.331
-     ],
-     [
-      -27.47,
-      -48.257
-     ],
-     [
-      -27.838,
-      -48.319
-     ],
-     [
-      -28.333,
-      -48.526
-     ],
-     [
-      -28.666,
-      -48.733
-     ],
-     [
-      -28.805,
-      -48.99
-     ],
-     [
-      -29.04,
-      -49.295
-     ],
-     [
-      -29.317,
-      -49.539
-     ],
-     [
-      -28.944,
-      -50.161
-     ],
-     [
-      -28.43,
-      -50.454
-     ],
-     [
-      -27.989,
-      -50.625
-     ],
-     [
-      -27.297,
-      -50.845
-     ],
-     [
-      -26.786,
-      -50.857
-     ],
-     [
-      -26.316,
-      -50.857
-     ],
-     [
-      -25.856,
-      -50.711
-     ],
-     [
-      -25.856,
-      -50.711
-     ],
-     [
-      -25.107,
-      -50.711
-     ],
-     [
-      -24.642,
-      -50.735
-     ],
-     [
-      -23.929,
-      -50.807
-     ],
-     [
-      -23.235,
-      -51.113
-     ],
-     [
-      -22.448,
-      -51.515
-     ],
-     [
-      -22.007,
-      -52.199
-     ],
-     [
-      -21.475,
-      -52.919
-     ],
-     [
-      -21.156,
-      -53.956
-     ],
-     [
-      -20.597,
-      -54.945
-     ],
-     [
-      -20.243,
-      -55.799
-     ],
-     [
-      -19.6,
-      -56.556
-     ],
-     [
-      -18.943,
-      -57.215
-     ],
-     [
-      -18.319,
-      -57.484
-     ],
-     [
-      -17.75,
-      -57.703
-     ],
-     [
-      -17.587,
-      -57.752
-     ],
-     [
-      -17.456,
-      -57.894
-     ],
-     [
-      -17.526,
-      -58.01
-     ],
-     [
-      -17.194,
-      -58.401
-     ],
-     [
-      -16.821,
-      -58.474
-     ],
-     [
-      -16.622,
-      -58.443
-     ],
-     [
-      -16.528,
-      -58.333
-     ],
-     [
-      -16.276,
-      -58.297
-     ],
-     [
-      -16.271,
-      -58.346
-     ],
-     [
-      -16.358,
-      -58.455
-     ],
-     [
-      -16.347,
-      -58.559
-     ],
-     [
-      -16.282,
-      -60.164
-     ],
-     [
-      -15.502,
-      -60.237
-     ],
-     [
-      -15.131,
-      -60.555
-     ],
-     [
-      -15.113,
-      -60.244
-     ],
-     [
-      -14.659,
-      -60.256
-     ],
-     [
-      -14.635,
-      -60.305
-     ],
-     [
-      -14.216,
-      -60.482
-     ],
-     [
-      -14.015,
-      -60.39
-     ],
-     [
-      -13.825,
-      -60.482
-     ],
-     [
-      -13.689,
-      -60.47
      ]
     ]
    ]
