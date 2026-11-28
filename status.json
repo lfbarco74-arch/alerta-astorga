@@ -1,11 +1,11 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-28T07:37-03:00",
+ "gerado_em": "2026-11-28T08:07-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 0,
   "nome_24h": "Normal",
-  "wmaxshear_24h": 540,
+  "wmaxshear_24h": 620,
   "janela_pior": {
    "nivel": 0,
    "nome": "Normal",
@@ -14,36 +14,36 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 540,
-    "cape": 605,
-    "cisalhamento_ms": 15.7,
-    "precip_max_mm_h": 0.2,
+    "wmaxshear": 620,
+    "cape": 885,
+    "cisalhamento_ms": 14.7,
+    "precip_max_mm_h": 0.5,
     "isoterma0_min_m": 4740
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 580,
+     "wmaxshear": 598,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 12,
+     "hora_pico": 13,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
      "nivel": 0,
-     "wmaxshear": 801,
+     "wmaxshear": 865,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 12,
+     "hora_pico": 13,
      "localidade_pico": "icara"
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 500,
+     "wmaxshear": 642,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 12,
-     "localidade_pico": "tupinamba"
+     "hora_pico": 13,
+     "localidade_pico": "sede"
     },
     "icon_seamless": {
      "nivel": 0,
@@ -56,17 +56,17 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.0,
+    "p_alerta": 0.0196078431372549,
     "p_severo": 0.0
    },
    "inmet": null,
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-28T07:00",
-   "fim": "2026-11-28T12:00",
-   "hora_pico_local": "12:00",
-   "hora_pico_iso": "2026-11-28T12:00",
+   "inicio": "2026-11-28T08:00",
+   "fim": "2026-11-28T13:00",
+   "hora_pico_local": "13:00",
+   "hora_pico_iso": "2026-11-28T13:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 272,
+   "direcao_celulas_graus": 273,
    "direcao_linha_graus": 253,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -86,36 +86,36 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 540,
-    "cape": 605,
-    "cisalhamento_ms": 15.7,
-    "precip_max_mm_h": 0.2,
+    "wmaxshear": 620,
+    "cape": 885,
+    "cisalhamento_ms": 14.7,
+    "precip_max_mm_h": 0.5,
     "isoterma0_min_m": 4740
    },
    "por_modelo": {
     "ecmwf_ifs025": {
      "nivel": 0,
-     "wmaxshear": 580,
+     "wmaxshear": 598,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 12,
+     "hora_pico": 13,
      "localidade_pico": "sede"
     },
     "gem_seamless": {
      "nivel": 0,
-     "wmaxshear": 801,
+     "wmaxshear": 865,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 12,
+     "hora_pico": 13,
      "localidade_pico": "icara"
     },
     "gfs_seamless": {
      "nivel": 0,
-     "wmaxshear": 500,
+     "wmaxshear": 642,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 12,
-     "localidade_pico": "tupinamba"
+     "hora_pico": 13,
+     "localidade_pico": "sede"
     },
     "icon_seamless": {
      "nivel": 0,
@@ -128,17 +128,17 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.0,
+    "p_alerta": 0.0196078431372549,
     "p_severo": 0.0
    },
    "inmet": null,
    "rotulo": "Próximas 6 horas",
-   "inicio": "2026-11-28T07:00",
-   "fim": "2026-11-28T12:00",
-   "hora_pico_local": "12:00",
-   "hora_pico_iso": "2026-11-28T12:00",
+   "inicio": "2026-11-28T08:00",
+   "fim": "2026-11-28T13:00",
+   "hora_pico_local": "13:00",
+   "hora_pico_iso": "2026-11-28T13:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 272,
+   "direcao_celulas_graus": 273,
    "direcao_linha_graus": 253,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -156,9 +156,9 @@
    "perigos": [],
    "perigos_nivel": {},
    "ingredientes": {
-    "wmaxshear": 835,
+    "wmaxshear": 832,
     "cape": 1450,
-    "cisalhamento_ms": 15.4,
+    "cisalhamento_ms": 14.9,
     "precip_max_mm_h": 1.4,
     "isoterma0_min_m": 4950
    },
@@ -173,11 +173,11 @@
     },
     "gem_seamless": {
      "nivel": 0,
-     "wmaxshear": 865,
+     "wmaxshear": 859,
      "gatilho_local": false,
      "gatilho_regional": false,
-     "hora_pico": 13,
-     "localidade_pico": "icara"
+     "hora_pico": 14,
+     "localidade_pico": "sede"
     },
     "gfs_seamless": {
      "nivel": 0,
@@ -203,12 +203,12 @@
    },
    "inmet": null,
    "rotulo": "De 6 a 24 horas",
-   "inicio": "2026-11-28T13:00",
-   "fim": "2026-11-29T06:00",
+   "inicio": "2026-11-28T14:00",
+   "fim": "2026-11-29T07:00",
    "hora_pico_local": "17:00",
    "hora_pico_iso": "2026-11-28T17:00",
    "direcao_celulas": "oeste",
-   "direcao_celulas_graus": 280,
+   "direcao_celulas_graus": 281,
    "direcao_linha_graus": 258,
    "direcao_chegada": "oeste",
    "ar_frio": null,
@@ -230,7 +230,7 @@
     "cape": 2195,
     "cisalhamento_ms": 11.1,
     "precip_max_mm_h": 1.5,
-    "isoterma0_min_m": 4950
+    "isoterma0_min_m": 4940
    },
    "por_modelo": {
     "ecmwf_ifs025": {
@@ -273,8 +273,8 @@
    },
    "inmet": null,
    "rotulo": "Amanhã (24-48 h)",
-   "inicio": "2026-11-29T07:00",
-   "fim": "2026-11-30T06:00",
+   "inicio": "2026-11-29T08:00",
+   "fim": "2026-11-30T07:00",
    "hora_pico_local": "15:00",
    "hora_pico_iso": "2026-11-29T15:00",
    "direcao_celulas": "oeste",
@@ -397,11 +397,6 @@
   }
  ],
  "serie_horaria": [
-  {
-   "hora": "2026-11-28T07:00",
-   "wmaxshear": 0,
-   "gatilho": false
-  },
   {
    "hora": "2026-11-28T08:00",
    "wmaxshear": 0,
@@ -636,12 +631,17 @@
    "hora": "2026-11-30T06:00",
    "wmaxshear": 184,
    "gatilho": false
+  },
+  {
+   "hora": "2026-11-30T07:00",
+   "wmaxshear": 247,
+   "gatilho": false
   }
  ],
  "direcao_chegada": "oeste",
  "direcao_graus": 253,
  "direcao_celulas": "oeste",
- "direcao_celulas_graus": 278,
+ "direcao_celulas_graus": 279,
  "avisos_inmet": [],
  "avisos_estado": [],
  "limiares": {
