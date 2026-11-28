@@ -288,3 +288,4 @@ gerado_em,nivel_0_6h,nivel_6_24h,nivel_24_48h,wmaxshear_24h,p_alerta_ens,aviso_i
 2026-11-27T23:37-03:00,1,0,0,276,0.02,Moderate|Moderate,
 2026-11-28T00:07-03:00,0,0,0,276,0.02,,INMET: falha ao acessar https://apiprevmet3.inmet.gov.br/avisos/rss...: <urlopen error timed out>
 2026-11-28T00:37-03:00,0,0,0,276,0.00,,INMET: falha ao acessar https://apiprevmet3.inmet.gov.br/avisos/rss...: <urlopen error timed out>
+2026-11-28T01:07-03:00,0,0,0,276,0.00,,INMET: falha ao acessar https://apiprevmet3.inmet.gov.br/avisos/rss...: <urlopen error timed out>
