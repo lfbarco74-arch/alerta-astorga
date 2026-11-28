@@ -1,6 +1,6 @@
 {
  "versao": "0.1",
- "gerado_em": "2026-11-28T12:07-03:00",
+ "gerado_em": "2026-11-28T12:37-03:00",
  "pagina_url": "https://alerta-tempo-astorga.netlify.app/",
  "resumo": {
   "nivel_24h": 0,
@@ -56,8 +56,8 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.6470588235294118,
-    "p_severo": 0.0
+    "p_alerta": 0.803921568627451,
+    "p_severo": 0.0392156862745098
    },
    "inmet": null,
    "rotulo": "Próximas 6 horas",
@@ -128,8 +128,8 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.6470588235294118,
-    "p_severo": 0.0
+    "p_alerta": 0.803921568627451,
+    "p_severo": 0.0392156862745098
    },
    "inmet": null,
    "rotulo": "Próximas 6 horas",
@@ -198,8 +198,8 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.5686274509803921,
-    "p_severo": 0.0
+    "p_alerta": 0.5490196078431373,
+    "p_severo": 0.0196078431372549
    },
    "inmet": null,
    "rotulo": "De 6 a 24 horas",
@@ -278,8 +278,8 @@
    },
    "prob_ensemble": {
     "membros": 51,
-    "p_alerta": 0.27450980392156865,
-    "p_severo": 0.0196078431372549
+    "p_alerta": 0.43137254901960786,
+    "p_severo": 0.0
    },
    "inmet": null,
    "rotulo": "Amanhã (24-48 h)",
