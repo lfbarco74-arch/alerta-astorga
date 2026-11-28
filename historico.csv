@@ -315,3 +315,4 @@ gerado_em,nivel_0_6h,nivel_6_24h,nivel_24_48h,wmaxshear_24h,p_alerta_ens,aviso_i
 2026-11-28T13:07-03:00,0,0,1,809,0.80,,
 2026-11-28T13:37-03:00,0,0,0,867,0.80,,modelo icon_seamless: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: HTTP Error 429: Too Many Requests; modelo gem_seamless: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325%2C-23.1756%2C-23.1711%2C-23.2839%...: HTTP Error 429: Too Many Requests; perfil vertical: falha ao acessar https://api.open-meteo.com/v1/forecast?latitude=-23.2325&longitude=-51.6656&hourly=tempera...: HTTP Error 429: Too Many Requests
 2026-11-28T14:07-03:00,0,0,1,806,0.78,,
+2026-11-28T14:37-03:00,0,0,1,959,0.78,,
